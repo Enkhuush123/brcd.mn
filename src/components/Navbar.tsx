@@ -110,6 +110,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
         { name: current.newsGlobal, href: "/news/events" },
       ]
     },
+    { name: current.experts, href: "/#experts" },
+    { name: current.partners, href: "/#partners" },
     { name: current.contact, href: "/contact" },
   ];
 
