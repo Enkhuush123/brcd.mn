@@ -65,8 +65,6 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       activePrefix: "/about",
       subLinks: [
         { name: current.aboutUs, href: "/about" },
-        { name: current.experts, href: "/#experts" },
-        { name: current.partners, href: "/#partners" },
       ]
     },
     { 
@@ -77,8 +75,6 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
         { name: current.prog1, href: "/programs#eurasian-connectivity" },
         { name: current.prog2, href: "/programs#geo-economics" },
         { name: current.prog3, href: "/programs#green-development" },
-        { name: current.experts, href: "/programs#experts" },
-        { name: current.partners, href: "/programs#partners" },
       ]
     },
     { 
@@ -110,8 +106,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
         { name: current.newsGlobal, href: "/news/events" },
       ]
     },
-    { name: current.experts, href: "/#experts" },
-    { name: current.partners, href: "/#partners" },
+    { name: current.experts, href: "/experts" },
+    { name: current.partners, href: "/partners" },
     { name: current.contact, href: "/contact" },
   ];
 
