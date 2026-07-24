@@ -34,7 +34,7 @@ export default function DocumentReaderClient({ document }: { document: any }) {
           <span>{document.type === "POLICY" ? "Бодлогын зөвлөмж" : document.type === "REPORT" ? "Судалгааны тайлан" : document.type}</span>
         </div>
         
-        <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#002b5c] mb-8 leading-tight">
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-[#002b5c] mb-8 leading-tight">
           {title}
         </h1>
         

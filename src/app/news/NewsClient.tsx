@@ -50,7 +50,7 @@ export default function NewsClient({ articles }: { articles: any[] }) {
   return (
     <div>
       <AnimatedSection className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#002b5c] mb-6">
+        <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
           {current.title}
         </h1>
         <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#002b5c] mx-auto rounded-full"></div>

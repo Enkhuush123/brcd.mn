@@ -85,7 +85,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
         <div className="absolute top-0 right-0 w-96 h-96 bg-slate-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-50 translate-x-1/3 -translate-y-1/2"></div>
         
         <AnimatedSection className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#002b5c] mb-8">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#002b5c] mb-8">
             {current.title}
           </h1>
           

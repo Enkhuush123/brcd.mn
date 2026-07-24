@@ -144,7 +144,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
         </div>
 
         <AnimatedSection className="z-20 text-center max-w-5xl px-6 mt-20 md:mt-0">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
             {t.heroTitle1} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] to-[#fbbf24]">
               {t.heroTitleHighlight}
@@ -165,7 +165,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
       <section className="py-24 md:py-32 px-6 md:px-16 bg-white relative">
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#002b5c] mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-6">
               {t.progTitle}
             </h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#f59e0b] mx-auto rounded-full"></div>
@@ -213,7 +213,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-bold mb-6 tracking-widest uppercase">
               <span className="text-xl"></span> {t.hubBadge}
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 leading-tight text-white">
               Mongolia Policy Hub
             </h2>
             <p className="text-white/80 mb-10 leading-relaxed text-lg font-light">
@@ -257,7 +257,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#002b5c] mb-6">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-6">
                 {t.insightTitle}
               </h2>
               <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
