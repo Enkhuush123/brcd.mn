@@ -11,6 +11,7 @@ import {
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { motion } from "framer-motion";
 
 export default function HomeClient({ articles, experts }: { articles: any[], experts: any[] }) {
   const { language } = useLanguage();
@@ -326,7 +327,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
       </section>
 
       {/* BLOCK 5: Our Experts */}
-      <section className="py-24 md:py-32 px-6 md:px-16 bg-white border-t border-slate-100">
+      <section id="experts" className="py-24 md:py-32 px-6 md:px-16 bg-white border-t border-slate-100">
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#002b5c] mb-6">
@@ -343,7 +344,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
               return (
               <AnimatedSection key={expert.id} delay={i * 0.1} className="group cursor-pointer">
                 <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
-                  <div className="w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors">
+                  <Link href={`/publications?author=${expert.id}`} className="block w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors relative">
                     {expert.photoUrl ? (
                       <img src={expert.photoUrl} alt={name} className="w-full h-full object-cover" />
                     ) : (
@@ -351,7 +352,8 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
                         {name.charAt(0)}
                       </div>
                     )}
-                  </div>
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </Link>
                   <h3 className="font-bold text-xl text-[#002b5c] mb-2">{name}</h3>
                   <p className="text-[#115e59] font-medium text-sm mb-4">{title}</p>
                   <p className="text-slate-500 text-sm line-clamp-3 leading-relaxed">
@@ -368,18 +370,27 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
       </section>
 
       {/* BLOCK 6: Partners */}
-      <section className="py-20 px-6 bg-slate-50 border-t border-slate-100 overflow-hidden">
+      <section id="partners" className="py-20 px-6 bg-slate-50 border-t border-slate-100 overflow-hidden">
         <AnimatedSection className="max-w-7xl mx-auto text-center">
           <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-10">
             {t.partners}
           </h4>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-            {/* Placeholders for partner logos */}
-            <div className="text-2xl font-serif font-bold text-slate-500">Global Fund</div>
-            <div className="text-2xl font-serif font-bold text-slate-500">Asia Institute</div>
-            <div className="text-2xl font-serif font-bold text-slate-500">Policy Center</div>
-            <div className="text-2xl font-serif font-bold text-slate-500">Eco Foundation</div>
-            <div className="text-2xl font-serif font-bold text-slate-500">Tech Initiative</div>
+          <div className="overflow-hidden w-full relative before:absolute before:left-0 before:top-0 before:w-16 md:before:w-32 before:h-full before:bg-gradient-to-r before:from-slate-50 before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-16 md:after:w-32 after:h-full after:bg-gradient-to-l after:from-slate-50 after:to-transparent after:z-10">
+            <motion.div 
+              animate={{ x: [0, -1000] }} 
+              transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+              className="flex items-center gap-16 md:gap-24 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 whitespace-nowrap min-w-max"
+            >
+              {[1, 2, 3].map(i => (
+                <div key={i} className="flex gap-16 md:gap-24 items-center">
+                  <div className="flex items-center gap-2"><Globe className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Asia Institute</span></div>
+                  <div className="flex items-center gap-2"><Briefcase className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Global Fund</span></div>
+                  <div className="flex items-center gap-2"><Zap className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Tech Initiative</span></div>
+                  <div className="flex items-center gap-2"><BookOpen className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Policy Center</span></div>
+                  <div className="flex items-center gap-2"><Globe className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Eco Foundation</span></div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </AnimatedSection>
       </section>

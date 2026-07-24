@@ -30,7 +30,9 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       econ: "Эдийн засгийн статистик, дата", vision: "Алсын хараа 2050 ба Стратегийн төслүүд", invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
       logoTitle: "Нэг бүс, нэг зам Хамтын хөгжил судалгааны төв",
       newsLocal: "Төвийн мэдээ", newsGlobal: "Хурал хэлэлцүүлэг",
-      pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл"
+      pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл",
+      aboutUs: "Бидний тухай", experts: "Бидний экспертүүд", partners: "Түншүүд",
+      prog1: "Евразийн холболт ба Бүс ба Зам", prog2: "Бүс нутгийн гео-эдийн засаг ба ХО", prog3: "Ногоон хөгжил ба Технологийн засаглал"
     },
     EN: {
       about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 
@@ -38,7 +40,9 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       econ: "Economic Statistics & Data", vision: "Vision 2050 & Strategic Projects", invest: "Investment Environment & Legal Regulation",
       logoTitle: "Belt & Road Co-Development Research Center",
       newsLocal: "Center News", newsGlobal: "Meetings & Discussions",
-      pub1: "Policy Brief", pub2: "Research Report", pub3: "Analytical Article"
+      pub1: "Policy Brief", pub2: "Research Report", pub3: "Analytical Article",
+      aboutUs: "About BCRD", experts: "Our Experts", partners: "Partners",
+      prog1: "Eurasian Connectivity & BRI", prog2: "Regional Geo-Economics & FDI", prog3: "Green Development & Tech Governance"
     },
     ZH: {
       about: "关于我们", programs: "研究项目", policyHub: "蒙古政策中心", 
@@ -46,15 +50,35 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       econ: "经济统计与数据", vision: "2050愿景与战略项目", invest: "投资环境与法律法规",
       logoTitle: "一带一路共同发展研究中心",
       newsLocal: "中心新闻", newsGlobal: "会议与讨论",
-      pub1: "政策简报", pub2: "研究报告", pub3: "分析文章"
+      pub1: "政策简报", pub2: "研究报告", pub3: "分析文章",
+      aboutUs: "关于我们", experts: "我们的专家", partners: "合作伙伴",
+      prog1: "欧亚互联互通与一带一路", prog2: "区域地缘经济与外商直接投资", prog3: "绿色发展与科技治理"
     }
   };
 
   const current = dict[language];
 
   const navLinks = [
-    { name: current.about, href: "/about" },
-    { name: current.programs, href: "/programs" },
+    { 
+      name: current.about, 
+      href: "#",
+      activePrefix: "/about",
+      subLinks: [
+        { name: current.aboutUs, href: "/about" },
+        { name: current.experts, href: "/#experts" },
+        { name: current.partners, href: "/#partners" },
+      ]
+    },
+    { 
+      name: current.programs, 
+      href: "#",
+      activePrefix: "/programs",
+      subLinks: [
+        { name: current.prog1, href: "/programs#eurasian-connectivity" },
+        { name: current.prog2, href: "/programs#geo-economics" },
+        { name: current.prog3, href: "/programs#green-development" },
+      ]
+    },
     { 
       name: current.policyHub, 
       href: "#",
