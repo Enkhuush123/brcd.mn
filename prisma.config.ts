@@ -10,5 +10,7 @@ export default defineConfig({
   },
   datasource: {
     url: process.env["DATABASE_URL"],
+    // @ts-ignore
+    directUrl: "postgresql://postgres.gqmsidwbxaazamuubyom:80651328Eg%21@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres",
   },
 });
