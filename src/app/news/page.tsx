@@ -3,12 +3,15 @@ import NewsClient from "./NewsClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default async function NewsPage() {
-  // Fetch only news and events
+export default async function NewsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  const categorySlug = resolvedParams.category;
+
+  // Fetch only news and events, or the specific category if provided
   const articles = await prisma.article.findMany({
     where: {
       category: {
-        slug: { in: ["news", "events"] }
+        slug: categorySlug ? categorySlug : { in: ["news", "events", "center-news", "meetings"] }
       }
     },
     orderBy: { publishedAt: "desc" },

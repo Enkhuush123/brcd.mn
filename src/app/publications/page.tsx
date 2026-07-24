@@ -5,9 +5,17 @@ import Footer from "@/components/Footer";
 
 export const dynamic = "force-dynamic";
 
-export default async function PublicationsPage() {
+export default async function PublicationsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  const categorySlug = resolvedParams.category;
+
   // Fetch articles for Analysis & Articles, including Policy Briefs and Reports
   const articles = await prisma.article.findMany({
+    where: categorySlug ? { category: { slug: categorySlug } } : {
+      category: {
+        slug: { in: ["policy-brief", "research-report", "analytic-article", "analysis-and-article"] }
+      }
+    },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }
   });

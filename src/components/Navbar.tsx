@@ -29,7 +29,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       publications: "Нийтлэл", news: "Мэдээ", contact: "Холбоо барих",
       econ: "Эдийн засгийн статистик, дата", vision: "Алсын хараа 2050 ба Стратегийн төслүүд", invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
       logoTitle: "Нэг бүс, нэг зам Хамтын хөгжил судалгааны төв",
-      newsLocal: "Дотоод мэдээ", newsGlobal: "Гадаад мэдээ",
+      newsLocal: "Төвийн мэдээ", newsGlobal: "Хурал хэлэлцүүлэг",
       pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл"
     },
     EN: {
@@ -37,7 +37,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       publications: "Articles", news: "News", contact: "Contact",
       econ: "Economic Statistics & Data", vision: "Vision 2050 & Strategic Projects", invest: "Investment Environment & Legal Regulation",
       logoTitle: "Belt & Road Co-Development Research Center",
-      newsLocal: "Local News", newsGlobal: "Global News",
+      newsLocal: "Center News", newsGlobal: "Meetings & Discussions",
       pub1: "Policy Brief", pub2: "Research Report", pub3: "Analytical Article"
     },
     ZH: {
@@ -45,7 +45,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       publications: "文章", news: "新闻", contact: "联系我们",
       econ: "经济统计与数据", vision: "2050愿景与战略项目", invest: "投资环境与法律法规",
       logoTitle: "一带一路共同发展研究中心",
-      newsLocal: "国内新闻", newsGlobal: "国际新闻",
+      newsLocal: "中心新闻", newsGlobal: "会议与讨论",
       pub1: "政策简报", pub2: "研究报告", pub3: "分析文章"
     }
   };
@@ -80,8 +80,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       href: "#",
       activePrefix: "/news",
       subLinks: [
-        { name: current.newsLocal, href: "/news?category=local" },
-        { name: current.newsGlobal, href: "/news?category=global" },
+        { name: current.newsLocal, href: "/news?category=center-news" },
+        { name: current.newsGlobal, href: "/news?category=meetings" },
       ]
     },
     { name: current.contact, href: "/contact" },
