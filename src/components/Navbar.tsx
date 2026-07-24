@@ -57,7 +57,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
     { name: current.programs, href: "/programs" },
     { 
       name: current.policyHub, 
-      href: "/policy-hub",
+      href: "#",
+      activePrefix: "/policy-hub",
       subLinks: [
         { name: current.econ, href: "/policy-hub/economic-statistics" },
         { name: current.vision, href: "/policy-hub/vision-2050-and-strategic-projects" },
@@ -66,7 +67,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
     },
     { 
       name: current.publications, 
-      href: "/publications",
+      href: "#",
+      activePrefix: "/publications",
       subLinks: [
         { name: current.pub1, href: "/publications?category=policy-brief" },
         { name: current.pub2, href: "/publications?category=research-report" },
@@ -75,7 +77,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
     },
     { 
       name: current.news, 
-      href: "/news",
+      href: "#",
+      activePrefix: "/news",
       subLinks: [
         { name: current.newsLocal, href: "/news?category=local" },
         { name: current.newsGlobal, href: "/news?category=global" },
@@ -121,23 +124,39 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
           <div className="hidden xl:flex gap-8 items-center">
             <div className="flex gap-6 text-sm font-semibold tracking-wide">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+                const isActive = (link.href !== "#" && (pathname === link.href || pathname.startsWith(link.href + '/'))) || (link.activePrefix && pathname.startsWith(link.activePrefix));
                 return (
                   <div key={link.name} className="relative group">
-                    <Link
-                      href={link.href}
-                      className={`flex items-center gap-1 transition-all duration-300 py-2 ${
-                        isScrolled
-                          ? isActive ? "text-[#115e59]" : "text-slate-600 hover:text-[#115e59]"
-                          : isActive ? "text-[#f59e0b] drop-shadow-md" : "text-white hover:text-white drop-shadow-md"
-                      }`}
-                    >
-                      {link.name}
-                      {link.subLinks && <ChevronDown className="w-4 h-4" />}
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                        isScrolled ? "bg-[#115e59]" : "bg-white"
-                      } ${isActive ? 'w-full' : ''}`}></span>
-                    </Link>
+                    {link.href === "#" ? (
+                      <button
+                        className={`flex items-center gap-1 transition-all duration-300 py-2 ${
+                          isScrolled
+                            ? isActive ? "text-[#115e59]" : "text-slate-600 hover:text-[#115e59]"
+                            : isActive ? "text-[#f59e0b] drop-shadow-md" : "text-white hover:text-white drop-shadow-md"
+                        }`}
+                      >
+                        {link.name}
+                        {link.subLinks && <ChevronDown className="w-4 h-4" />}
+                        <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                          isScrolled ? "bg-[#115e59]" : "bg-white"
+                        } ${isActive ? 'w-full' : ''}`}></span>
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className={`flex items-center gap-1 transition-all duration-300 py-2 ${
+                          isScrolled
+                            ? isActive ? "text-[#115e59]" : "text-slate-600 hover:text-[#115e59]"
+                            : isActive ? "text-[#f59e0b] drop-shadow-md" : "text-white hover:text-white drop-shadow-md"
+                        }`}
+                      >
+                        {link.name}
+                        {link.subLinks && <ChevronDown className="w-4 h-4" />}
+                        <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                          isScrolled ? "bg-[#115e59]" : "bg-white"
+                        } ${isActive ? 'w-full' : ''}`}></span>
+                      </Link>
+                    )}
 
                     {/* Dropdown Menu */}
                     {link.subLinks && (
@@ -222,13 +241,19 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => !link.subLinks && setMobileMenuOpen(false)}
-                      className="text-xl font-serif font-bold text-[#002b5c] block py-2 border-b border-slate-50 hover:text-[#115e59] transition-colors"
-                    >
-                      {link.name}
-                    </Link>
+                    {link.href === "#" ? (
+                      <div className="text-xl font-serif font-bold text-[#002b5c] block py-2 border-b border-slate-50 hover:text-[#115e59] transition-colors">
+                        {link.name}
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={() => !link.subLinks && setMobileMenuOpen(false)}
+                        className="text-xl font-serif font-bold text-[#002b5c] block py-2 border-b border-slate-50 hover:text-[#115e59] transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                     {link.subLinks && (
                       <div className="pl-4 mt-2 flex flex-col space-y-3 border-l-2 border-slate-100 ml-2">
                         {link.subLinks.map(sub => (
