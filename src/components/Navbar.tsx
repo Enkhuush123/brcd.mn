@@ -149,21 +149,21 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
             >
               <button 
                 onClick={() => setLanguage("MN")}
-                className={`font-bold text-xs transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
               >
                 MN
               </button>
               <div className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}></div>
               <button 
                 onClick={() => setLanguage("EN")}
-                className={`font-bold text-xs transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
               >
                 EN
               </button>
               <div className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}></div>
               <button 
                 onClick={() => setLanguage("ZH")}
-                className={`font-bold text-xs transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
               >
                 中文
               </button>

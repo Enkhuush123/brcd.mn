@@ -11,6 +11,7 @@ export default async function PublicationsPage() {
 
   // Fetch articles for Analysis & Articles
   const articles = await prisma.article.findMany({
+    where: { category: { slug: { in: ["analysis", "translation"] } } },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }
   });

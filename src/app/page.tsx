@@ -6,6 +6,7 @@ import HomeClient from "./HomeClient";
 export default async function Home() {
   // Fetch latest 4 articles
   const articles = await prisma.article.findMany({
+    where: { isFeatured: true },
     orderBy: { publishedAt: "desc" },
     take: 4,
     include: { author: true, category: true },

@@ -24,19 +24,12 @@ export async function POST(req: Request) {
     }
 
     const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    const base64Data = Buffer.from(arrayBuffer).toString('base64');
+    const fileUri = `data:${file.type};base64,${base64Data}`;
 
-    const uploadPromise = new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        { folder: "bcrd_uploads" },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        }
-      ).end(buffer);
+    const result = await cloudinary.uploader.upload(fileUri, {
+      folder: "bcrd_uploads",
     });
-
-    const result: any = await uploadPromise;
 
     return NextResponse.json({ url: result.secure_url });
   } catch (error: any) {

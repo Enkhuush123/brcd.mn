@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
+import ArticleActions from "@/components/admin/ArticleActions";
 
 export default async function AdminArticlesPage() {
   const articles = await prisma.article.findMany({
@@ -51,14 +52,7 @@ export default async function AdminArticlesPage() {
                     <td className="px-6 py-4 text-sm text-slate-600">{article.author.nameMn}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{new Date(article.createdAt).toLocaleDateString("mn-MN")}</td>
                     <td className="px-6 py-4 text-right">
-                      <div className="flex justify-end gap-2">
-                        <Link href={`/admin/articles/${article.id}/edit`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                          <Edit className="w-4 h-4" />
-                        </Link>
-                        <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                      <ArticleActions id={article.id} />
                     </td>
                   </tr>
                 ))
