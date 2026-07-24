@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import slugify from "slugify";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -23,7 +23,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     // Usually it's better to NOT change the slug on edit, but we'll leave it as is unless specifically requested.
     
     const article = await prisma.article.update({
-      where: { id: params.id },
+      where: { id: (await params).id },
       data: {
         titleMn,
         titleEn,
@@ -45,7 +45,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -53,7 +53,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
 
     await prisma.article.delete({
-      where: { id: params.id }
+      where: { id: (await params).id }
     });
 
     return NextResponse.json({ success: true });

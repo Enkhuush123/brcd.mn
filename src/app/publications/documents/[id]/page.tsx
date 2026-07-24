@@ -4,9 +4,11 @@ import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
 import DocumentReaderClient from "./DocumentReaderClient";
 
-export default async function DocumentPage({ params }: { params: { id: string } }) {
+export default async function DocumentPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  
   const document = await prisma.document.findUnique({
-    where: { id: params.id }
+    where: { id: resolvedParams.id }
   });
 
   if (!document) {
