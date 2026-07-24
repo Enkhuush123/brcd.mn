@@ -47,7 +47,9 @@ model Article {
   contentMn   String   @db.Text
   contentEn   String   @db.Text
   contentZh   String   @db.Text
-  pdfUrl      String?  // Optional PDF attachment
+  pdfUrl      String?  // Optional PDF attachment (MN)
+  pdfUrlEn    String?  // Optional PDF attachment (EN)
+  pdfUrlZh    String?  // Optional PDF attachment (ZH)
   imageUrl    String?  // Optional Cover image
   isFeatured  Boolean  @default(false)
   

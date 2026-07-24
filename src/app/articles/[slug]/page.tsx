@@ -75,11 +75,35 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {article.pdfUrl && (
             <div className="mt-16 pt-12 border-t border-slate-100">
               <div className="mb-8 text-center">
-                <h3 className="text-2xl font-serif font-bold text-[#002b5c] mb-3">PDF Хавсралт</h3>
+                <h3 className="text-2xl font-serif font-bold text-[#002b5c] mb-3">PDF Хавсралт (Монгол)</h3>
                 <p className="text-sm text-slate-500 font-medium">Энэхүү баримт бичгийг татаж авах боломжгүй бөгөөд зөвхөн онлайнаар унших зориулалттай.</p>
               </div>
               <div className="bg-slate-50 p-2 md:p-6 rounded-2xl border border-slate-200">
                 <SecurePdfViewerWrapper url={article.pdfUrl} />
+              </div>
+            </div>
+          )}
+
+          {article.pdfUrlEn && (
+            <div className="mt-16 pt-12 border-t border-slate-100">
+              <div className="mb-8 text-center">
+                <h3 className="text-2xl font-serif font-bold text-[#002b5c] mb-3">PDF Attachment (English)</h3>
+                <p className="text-sm text-slate-500 font-medium">This document cannot be downloaded and is for online reading only.</p>
+              </div>
+              <div className="bg-slate-50 p-2 md:p-6 rounded-2xl border border-slate-200">
+                <SecurePdfViewerWrapper url={article.pdfUrlEn} />
+              </div>
+            </div>
+          )}
+
+          {article.pdfUrlZh && (
+            <div className="mt-16 pt-12 border-t border-slate-100">
+              <div className="mb-8 text-center">
+                <h3 className="text-2xl font-serif font-bold text-[#002b5c] mb-3">PDF 附件 (中文)</h3>
+                <p className="text-sm text-slate-500 font-medium">本文档无法下载，仅供在线阅读。</p>
+              </div>
+              <div className="bg-slate-50 p-2 md:p-6 rounded-2xl border border-slate-200">
+                <SecurePdfViewerWrapper url={article.pdfUrlZh} />
               </div>
             </div>
           )}

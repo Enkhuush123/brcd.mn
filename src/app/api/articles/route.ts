@@ -38,6 +38,9 @@ export async function POST(req: Request) {
         authorId: body.authorId,
         isFeatured: body.isFeatured,
         pdfUrl: body.pdfUrl || null,
+        pdfUrlEn: body.pdfUrlEn || null,
+        pdfUrlZh: body.pdfUrlZh || null,
+        imageUrl: body.imageUrl || null,
       },
     });
 
