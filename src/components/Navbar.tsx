@@ -26,21 +26,27 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
   const dict = {
     MN: {
       about: "Бидний тухай", programs: "Судалгааны хөтөлбөр", policyHub: "Монголын бодлогын тойм", 
-      publications: "Хэвлэл нийтлэл", news: "Мэдээ", contact: "Холбоо барих",
+      publications: "Нийтлэл", news: "Мэдээ", contact: "Холбоо барих",
       econ: "Эдийн засгийн статистик, дата", vision: "Алсын хараа 2050 ба Стратегийн төслүүд", invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
-      logoTitle: "Нэг бүс, нэг зам Хамтын хөгжил судалгааны төв"
+      logoTitle: "Нэг бүс, нэг зам Хамтын хөгжил судалгааны төв",
+      newsLocal: "Дотоод мэдээ", newsGlobal: "Гадаад мэдээ",
+      pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл"
     },
     EN: {
       about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 
-      publications: "Publications", news: "News & Events", contact: "Contact",
+      publications: "Articles", news: "News", contact: "Contact",
       econ: "Economic Statistics & Data", vision: "Vision 2050 & Strategic Projects", invest: "Investment Environment & Legal Regulation",
-      logoTitle: "Belt & Road Co-Development Research Center"
+      logoTitle: "Belt & Road Co-Development Research Center",
+      newsLocal: "Local News", newsGlobal: "Global News",
+      pub1: "Policy Brief", pub2: "Research Report", pub3: "Analytical Article"
     },
     ZH: {
       about: "关于我们", programs: "研究项目", policyHub: "蒙古政策中心", 
-      publications: "出版物", news: "新闻与活动", contact: "联系我们",
+      publications: "文章", news: "新闻", contact: "联系我们",
       econ: "经济统计与数据", vision: "2050愿景与战略项目", invest: "投资环境与法律法规",
-      logoTitle: "一带一路共同发展研究中心"
+      logoTitle: "一带一路共同发展研究中心",
+      newsLocal: "国内新闻", newsGlobal: "国际新闻",
+      pub1: "政策简报", pub2: "研究报告", pub3: "分析文章"
     }
   };
 
@@ -58,8 +64,23 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
         { name: current.invest, href: "/policy-hub/investment-environment" },
       ]
     },
-    { name: current.publications, href: "/publications" },
-    { name: current.news, href: "/news" },
+    { 
+      name: current.publications, 
+      href: "/publications",
+      subLinks: [
+        { name: current.pub1, href: "/publications?category=policy-brief" },
+        { name: current.pub2, href: "/publications?category=research-report" },
+        { name: current.pub3, href: "/publications?category=analytic-article" },
+      ]
+    },
+    { 
+      name: current.news, 
+      href: "/news",
+      subLinks: [
+        { name: current.newsLocal, href: "/news?category=local" },
+        { name: current.newsGlobal, href: "/news?category=global" },
+      ]
+    },
     { name: current.contact, href: "/contact" },
   ];
 
