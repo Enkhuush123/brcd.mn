@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HomeClient from "./HomeClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   // Fetch latest 4 articles
   const articles = await prisma.article.findMany({

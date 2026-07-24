@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import ArticleForm from "@/components/admin/ArticleForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function CreateArticlePage() {
   const categories = await prisma.category.findMany();
   const authors = await prisma.author.findMany();

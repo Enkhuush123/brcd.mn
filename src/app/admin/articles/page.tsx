@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import ArticleActions from "@/components/admin/ArticleActions";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminArticlesPage() {
   const articles = await prisma.article.findMany({
     orderBy: { createdAt: "desc" },
