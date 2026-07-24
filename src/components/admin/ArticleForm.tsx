@@ -91,9 +91,10 @@ export default function ArticleForm({ initialData, categories, authors }: Articl
     setUploadingImage(true);
     const data = new FormData();
     data.append("file", file);
+    data.append("folder", "images"); // Added folder parameter
 
     try {
-      const res = await fetch("/api/cloudinary", {
+      const res = await fetch("/api/upload", {
         method: "POST",
         body: data,
       });
