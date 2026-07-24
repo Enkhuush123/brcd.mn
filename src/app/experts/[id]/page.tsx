@@ -63,9 +63,6 @@ export default async function ExpertPage({ params }: { params: Promise<{ id: str
             <p className="text-[#115e59] font-bold text-lg mb-6">
               {expert.titleMn}
             </p>
-            <div className="prose prose-slate max-w-none text-slate-600 leading-relaxed">
-              <p>{expert.bioMn}</p>
-            </div>
           </div>
         </div>
 
@@ -95,7 +92,7 @@ export default async function ExpertPage({ params }: { params: Promise<{ id: str
                   {article.titleMn}
                 </h3>
                 <p className="text-slate-500 text-sm line-clamp-3 mb-6 flex-1">
-                  {article.excerptMn}
+                  {article.contentMn.replace(/<[^>]*>?/gm, '').substring(0, 120)}...
                 </p>
                 <div className="mt-auto pt-4 border-t border-slate-100 text-[#115e59] font-bold text-sm flex items-center justify-between">
                   Унших <span className="group-hover:translate-x-1 transition-transform">→</span>
