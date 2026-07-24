@@ -11,7 +11,9 @@ export async function GET() {
       { slug: 'programs', nameMn: 'Судалгааны хөтөлбөр', nameEn: 'Research Programs', nameZh: '研究项目' },
       { slug: 'economic-statistics', nameMn: 'Эдийн засгийн статистик', nameEn: 'Economic Statistics', nameZh: '经济统计' },
       { slug: 'vision-2050', nameMn: 'Алсын хараа 2050', nameEn: 'Vision 2050', nameZh: '2050愿景' },
-      { slug: 'investment-environment', nameMn: 'Хөрөнгө оруулалтын орчин', nameEn: 'Investment Environment', nameZh: '投资环境' }
+      { slug: 'investment-environment', nameMn: 'Хөрөнгө оруулалтын орчин', nameEn: 'Investment Environment', nameZh: '投资环境' },
+      { slug: 'policy-brief', nameMn: 'Бодлогын зөвлөмж', nameEn: 'Policy Brief', nameZh: '政策简报' },
+      { slug: 'research-report', nameMn: 'Судалгааны тайлан', nameEn: 'Research Report', nameZh: '研究报告' }
     ];
 
     for (const cat of categories) {

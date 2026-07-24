@@ -6,12 +6,13 @@ import { Download, BookOpen, FileText, ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function PublicationsClient({ documents, articles }: { documents: any[], articles: any[] }) {
+export default function PublicationsClient({ articles }: { articles: any[] }) {
   const [activeTab, setActiveTab] = useState<"POLICY" | "REPORT" | "ARTICLE">("POLICY");
   const { language } = useLanguage();
 
-  const policyBriefs = documents.filter(d => d.type === "POLICY");
-  const reports = documents.filter(d => d.type === "REPORT");
+  const policyBriefs = articles.filter(a => a.category?.slug === "policy-brief");
+  const reports = articles.filter(a => a.category?.slug === "research-report");
+  const generalArticles = articles.filter(a => ["analysis", "translation"].includes(a.category?.slug || ""));
   
   const dict = {
     MN: {
@@ -158,17 +159,17 @@ function DocumentCard({ doc, index, language, dict }: { doc: any, index: number,
               {title}
             </h4>
             <p className="text-sm text-slate-400 font-medium">
-              {new Date(doc.createdAt).toLocaleDateString()}
+              {new Date(doc.publishedAt || doc.createdAt).toLocaleDateString()}
             </p>
           </div>
         </div>
         <div className="mt-auto pt-4 border-t border-slate-50 flex justify-end">
-          {doc.fileUrl ? (
-            <a href={doc.fileUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-bold text-[#f59e0b] hover:text-[#d97706] transition-colors">
+          {doc.pdfUrl ? (
+            <a href={doc.pdfUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-bold text-[#f59e0b] hover:text-[#d97706] transition-colors">
               {dict.readPdf} <Download className="w-4 h-4" />
             </a>
           ) : (
-            <Link href={`/publications/documents/${doc.id}`} className="flex items-center gap-2 text-sm font-bold text-[#115e59] hover:text-[#0f4d4a] transition-colors">
+            <Link href={`/articles/${doc.slug}`} className="flex items-center gap-2 text-sm font-bold text-[#115e59] hover:text-[#0f4d4a] transition-colors">
               {dict.readOnline} <ArrowRight className="w-4 h-4" />
             </Link>
           )}

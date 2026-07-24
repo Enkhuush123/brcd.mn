@@ -4,23 +4,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default async function PublicationsPage() {
-  // Fetch documents for Policy Briefs and Research Reports
-  const documents = await prisma.document.findMany({
-    orderBy: { createdAt: "desc" }
-  });
-
-  // Fetch articles for Analysis & Articles
+  // Fetch articles for Analysis & Articles, including Policy Briefs and Reports
   const articles = await prisma.article.findMany({
-    where: { category: { slug: { in: ["analysis", "translation"] } } },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }
   });
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
-      <div className="bg-[#001730]"><Navbar alwaysSolid={true} /></div>
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-32">
-        <PublicationsClient documents={documents} articles={articles} />
+    <div className="min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white flex flex-col">
+      <Navbar alwaysSolid={true} />
+      
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-32 md:py-40">
+        <PublicationsClient articles={articles} />
       </main>
       <Footer />
     </div>

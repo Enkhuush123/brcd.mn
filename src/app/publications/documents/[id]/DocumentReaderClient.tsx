@@ -43,7 +43,7 @@ export default function DocumentReaderClient({ document }: { document: any }) {
         </div>
 
         {/* Content */}
-        <div className="prose prose-slate prose-lg max-w-none prose-headings:font-serif prose-headings:text-[#002b5c] prose-a:text-[#115e59]">
+        <div className="prose prose-slate prose-lg max-w-none w-full break-words overflow-x-auto prose-headings:font-serif prose-headings:text-[#002b5c] prose-a:text-[#115e59]">
           <ReactQuill 
             value={content || ""} 
             readOnly={true} 
