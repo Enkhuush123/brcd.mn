@@ -1,0 +1,238 @@
+"use client";
+
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+import { useRouter } from "next/navigation";
+import { Upload, X, FileText } from "lucide-react";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+
+type ArticleFormProps = {
+  initialData?: any;
+  categories: any[];
+  authors: any[];
+};
+
+export default function ArticleForm({ initialData, categories, authors }: ArticleFormProps) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    titleMn: initialData?.titleMn || "",
+    titleEn: initialData?.titleEn || "",
+    titleZh: initialData?.titleZh || "",
+    contentMn: initialData?.contentMn || "",
+    contentEn: initialData?.contentEn || "",
+    contentZh: initialData?.contentZh || "",
+    categoryId: initialData?.categoryId || (categories.length > 0 ? categories[0].id : ""),
+    authorId: initialData?.authorId || (authors.length > 0 ? authors[0].id : ""),
+    isFeatured: initialData?.isFeatured || false,
+    pdfUrl: initialData?.pdfUrl || "",
+    imageUrl: initialData?.imageUrl || "",
+  });
+  const [uploadingPdf, setUploadingPdf] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    if (file.type !== "application/pdf") {
+      alert("Зөвхөн PDF файл оруулна уу.");
+      return;
+    }
+
+    setUploadingPdf(true);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("folder", "pdfs");
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: data,
+      });
+      const result = await res.json();
+      if (res.ok) {
+        setFormData({ ...formData, pdfUrl: result.url });
+      } else {
+        alert("Хуулахад алдаа гарлаа: " + result.error);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Сервертэй холбогдоход алдаа гарлаа.");
+    } finally {
+      setUploadingPdf(false);
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Зөвхөн зураг оруулна уу.");
+      return;
+    }
+
+    setUploadingImage(true);
+    const data = new FormData();
+    data.append("file", file);
+
+    try {
+      const res = await fetch("/api/cloudinary", {
+        method: "POST",
+        body: data,
+      });
+      const result = await res.json();
+      if (res.ok) {
+        setFormData({ ...formData, imageUrl: result.url });
+      } else {
+        alert("Хуулахад алдаа гарлаа: " + result.error);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Сервертэй холбогдоход алдаа гарлаа.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const url = initialData ? `/api/articles/${initialData.id}` : "/api/articles";
+    const method = initialData ? "PUT" : "POST";
+
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        router.push("/admin/articles");
+        router.refresh();
+      } else {
+        const err = await res.json();
+        alert("Алдаа гарлаа: " + err.error);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-100">
+      
+      {/* Tab navigation for languages could be added here, but for now we stack them */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Ангилал</label>
+          <select 
+            value={formData.categoryId} 
+            onChange={(e) => setFormData({...formData, categoryId: e.target.value})}
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#115e59]"
+            required
+          >
+            <option value="" disabled>Сонгоно уу</option>
+            {categories.map(c => <option key={c.id} value={c.id}>{c.nameMn}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Судлаач / Зохиогч</label>
+          <select 
+            value={formData.authorId} 
+            onChange={(e) => setFormData({...formData, authorId: e.target.value})}
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#115e59]"
+            required
+          >
+            <option value="" disabled>Сонгоно уу</option>
+            {authors.map(a => <option key={a.id} value={a.id}>{a.nameMn}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">Монгол хэлээр</h3>
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Гарчиг (MN)</label>
+          <input type="text" required value={formData.titleMn} onChange={e => setFormData({...formData, titleMn: e.target.value})} className="w-full px-4 py-2 border rounded-lg" />
+        </div>
+        <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2">Агуулга (MN)</label>
+          <div className="h-64 mb-12">
+            <ReactQuill theme="snow" value={formData.contentMn} onChange={val => setFormData({...formData, contentMn: val})} className="h-full" />
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-6 pt-4 border-t">
+        <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">PDF Файл хавсаргах</h3>
+        
+        {formData.pdfUrl ? (
+          <div className="flex items-center gap-4 p-4 border border-[#115e59] bg-teal-50 rounded-lg">
+            <FileText className="w-6 h-6 text-[#115e59]" />
+            <a href={formData.pdfUrl} target="_blank" rel="noreferrer" className="text-sm font-medium text-[#115e59] hover:underline flex-1 truncate">
+              {formData.pdfUrl.split('/').pop()}
+            </a>
+            <button type="button" onClick={() => setFormData({...formData, pdfUrl: ""})} className="p-1 hover:bg-teal-100 rounded text-red-500">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center w-full">
+            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <Upload className="w-8 h-8 mb-3 text-slate-400" />
+                <p className="mb-2 text-sm text-slate-500"><span className="font-semibold">Дарж сонгох</span> эсвэл PDF файлаа чирж оруулна уу</p>
+                <p className="text-xs text-slate-500">Зөвхөн .pdf формат</p>
+              </div>
+              <input type="file" accept="application/pdf" className="hidden" onChange={handlePdfUpload} disabled={uploadingPdf} />
+            </label>
+          </div>
+        )}
+        {uploadingPdf && <p className="text-sm text-teal-600 font-medium">Хуулж байна...</p>}
+      </div>
+
+      <div className="space-y-6 pt-4 border-t">
+        <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">Зураг оруулах (Нүүр зураг)</h3>
+        
+        {formData.imageUrl ? (
+          <div className="relative inline-block border rounded-lg p-2 bg-slate-50">
+            <img src={formData.imageUrl} alt="Cover" className="h-32 object-contain rounded" />
+            <button type="button" onClick={() => setFormData({...formData, imageUrl: ""})} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 shadow-md">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center w-full">
+            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <Upload className="w-8 h-8 mb-3 text-slate-400" />
+                <p className="mb-2 text-sm text-slate-500"><span className="font-semibold">Дарж сонгох</span> эсвэл зургаа чирж оруулна уу</p>
+                <p className="text-xs text-slate-500">PNG, JPG эсвэл WEBP</p>
+              </div>
+              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+            </label>
+          </div>
+        )}
+        {uploadingImage && <p className="text-sm text-teal-600 font-medium">Зураг хуулж байна...</p>}
+      </div>
+
+      <div className="flex items-center gap-3 pt-6 border-t">
+        <input type="checkbox" id="featured" checked={formData.isFeatured} onChange={e => setFormData({...formData, isFeatured: e.target.checked})} className="w-5 h-5" />
+        <label htmlFor="featured" className="text-sm font-bold text-slate-700">Онцлох нийтлэл мөн эсэх (Нүүр хуудсанд гарах)</label>
+      </div>
+
+      <div className="pt-6 flex justify-end gap-4">
+        <button type="button" onClick={() => router.back()} className="px-6 py-2 border rounded-lg text-slate-600 hover:bg-slate-50 font-bold">Цуцлах</button>
+        <button type="submit" disabled={loading} className="px-6 py-2 bg-[#115e59] text-white rounded-lg hover:bg-[#0f4d4a] font-bold">
+          {loading ? "Хадгалж байна..." : "Хадгалах"}
+        </button>
+      </div>
+    </form>
+  );
+}

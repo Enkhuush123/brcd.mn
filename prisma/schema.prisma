@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  slug      String    @unique
+  nameMn    String
+  nameEn    String
+  nameZh    String
+  articles  Article[]
+  createdAt DateTime  @default(now())
+}
+
+model Author {
+  id        String    @id @default(uuid())
+  nameMn    String
+  nameEn    String
+  nameZh    String
+  titleMn   String?
+  titleEn   String?
+  titleZh   String?
+  photoUrl  String?
+  articles  Article[]
+  createdAt DateTime  @default(now())
+}
+
+model Article {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  titleMn     String
+  titleEn     String
+  titleZh     String
+  contentMn   String   @db.Text
+  contentEn   String   @db.Text
+  contentZh   String   @db.Text
+  pdfUrl      String?  // Optional PDF attachment
+  imageUrl    String?  // Optional Cover image
+  isFeatured  Boolean  @default(false)
+  
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  
+  authorId    String
+  author      Author   @relation(fields: [authorId], references: [id])
+  
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  titleMn   String
+  titleEn   String
+  titleZh   String
+  contentMn String?  @db.Text
+  contentEn String?  @db.Text
+  contentZh String?  @db.Text
+  fileUrl   String?  // Optional now, since we can have text instead
+  type      String   // e.g., "POLICY_BRIEF", "RESEARCH_REPORT"
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
