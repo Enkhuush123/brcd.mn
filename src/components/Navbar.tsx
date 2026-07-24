@@ -77,6 +77,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
         { name: current.prog1, href: "/programs#eurasian-connectivity" },
         { name: current.prog2, href: "/programs#geo-economics" },
         { name: current.prog3, href: "/programs#green-development" },
+        { name: current.experts, href: "/programs#experts" },
+        { name: current.partners, href: "/programs#partners" },
       ]
     },
     { 
