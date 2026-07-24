@@ -32,7 +32,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       newsLocal: "Төвийн мэдээ", newsGlobal: "Хурал хэлэлцүүлэг",
       pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл",
       aboutUs: "Бидний тухай", experts: "Бидний экспертүүд", partners: "Түншүүд",
-      prog1: "Евразийн холболт ба Бүс ба Зам", prog2: "Бүс нутгийн гео-эдийн засаг ба ХО", prog3: "Ногоон хөгжил ба Технологийн засаглал"
+      prog1: "Евразийн холболт ба Бүс ба Зам", prog2: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт", prog3: "Ногоон хөгжил ба Технологийн засаглал"
     },
     EN: {
       about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 
