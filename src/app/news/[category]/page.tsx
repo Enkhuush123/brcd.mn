@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import NewsClient from "../NewsClient";
+import CategoryFeedClient from "@/components/CategoryFeedClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -17,12 +17,19 @@ export default async function NewsCategoryPage({ params }: { params: Promise<{ c
     include: { author: true, category: true }
   });
 
+  const titleMap: Record<string, { MN: string, EN: string, ZH: string }> = {
+    "news": { MN: "Төвийн мэдээ", EN: "Center News", ZH: "中心新闻" },
+    "events": { MN: "Хурал хэлэлцүүлэг", EN: "Meetings & Discussions", ZH: "会议与讨论" }
+  };
+  
+  const titleDict = titleMap[categorySlug] || { MN: "Мэдээ", EN: "News", ZH: "新闻" };
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
-      <div className="bg-[#001730]"><Navbar alwaysSolid={true} /></div>
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-32">
-        <NewsClient articles={articles} />
-      </main>
+      <div className="bg-[#001730]">
+        <Navbar alwaysSolid={true} />
+      </div>
+      <CategoryFeedClient articles={articles} titleDict={titleDict} />
       <Footer />
     </div>
   );

@@ -344,7 +344,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
               return (
               <AnimatedSection key={expert.id} delay={i * 0.1} className="group cursor-pointer">
                 <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
-                  <Link href={`/publications?author=${expert.id}`} className="block w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors relative">
+                  <Link href={`/experts/${expert.id}`} className="block w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors relative">
                     {expert.photoUrl ? (
                       <img src={expert.photoUrl} alt={name} className="w-full h-full object-cover" />
                     ) : (
