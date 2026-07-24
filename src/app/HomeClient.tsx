@@ -213,7 +213,7 @@ export default function HomeClient({ articles, experts }: { articles: any[], exp
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-bold mb-6 tracking-widest uppercase">
               <span className="text-xl"></span> {t.hubBadge}
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight text-white">
               Mongolia Policy Hub
             </h2>
             <p className="text-white/80 mb-10 leading-relaxed text-lg font-light">
