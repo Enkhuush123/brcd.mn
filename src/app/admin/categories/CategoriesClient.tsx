@@ -2,14 +2,24 @@
 
 import { useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import ConfirmDialog from "@/components/admin/ConfirmDialog";
 
 export default function CategoriesClient({ initialCategories }: { initialCategories: any[] }) {
   const [categories, setCategories] = useState(initialCategories);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ id: "", nameMn: "", nameEn: "", nameZh: "", slug: "" });
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
+  // Dialog State
+  const [dialogConfig, setDialogConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    isAlert: boolean;
+    idToDelete?: string;
+  }>({ isOpen: false, title: "", message: "", isAlert: false });
+
+  const closeDialog = () => setDialogConfig(prev => ({ ...prev, isOpen: false }));
 
   const handleOpenModal = (category?: any) => {
     if (category) {
@@ -34,37 +44,66 @@ export default function CategoriesClient({ initialCategories }: { initialCategor
         body: JSON.stringify(formData)
       });
       
+      const data = await res.json();
       if (res.ok) {
         setIsModalOpen(false);
-        router.refresh(); // In a real app we might want to fetch and update state directly, but this is simple
-        window.location.reload(); 
+        if (method === "POST") {
+          setCategories([data, ...categories]);
+        } else {
+          setCategories(categories.map(c => c.id === formData.id ? data : c));
+        }
       } else {
-        const data = await res.json();
-        alert(data.error);
+        setDialogConfig({ isOpen: true, title: "Алдаа", message: data.error || "Алдаа гарлаа", isAlert: true });
       }
     } catch (err) {
-      alert("Алдаа гарлаа");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Алдаа гарлаа", isAlert: true });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Устгахдаа итгэлтэй байна уу?")) return;
+  const requestDelete = (id: string) => {
+    setDialogConfig({
+      isOpen: true,
+      title: "Анхааруулга",
+      message: "Энэ ангиллыг устгахдаа итгэлтэй байна уу?",
+      isAlert: false,
+      idToDelete: id
+    });
+  };
+
+  const confirmDelete = async () => {
+    const id = dialogConfig.idToDelete;
+    if (!id) return;
+    
+    setLoading(true);
     try {
       const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
       if (res.ok) {
-        window.location.reload();
+        setCategories(categories.filter(c => c.id !== id));
+        closeDialog();
       } else {
-        alert("Устгаж чадсангүй (Магадгүй нийтлэл холбогдсон байж болно).");
+        setDialogConfig({ isOpen: true, title: "Алдаа", message: "Устгаж чадсангүй (Магадгүй нийтлэл холбогдсон байж болно).", isAlert: true });
       }
     } catch (err) {
-      alert("Алдаа гарлаа");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Алдаа гарлаа", isAlert: true });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
+      <ConfirmDialog 
+        isOpen={dialogConfig.isOpen}
+        title={dialogConfig.title}
+        message={dialogConfig.message}
+        isAlert={dialogConfig.isAlert}
+        isLoading={loading}
+        onConfirm={dialogConfig.isAlert ? closeDialog : confirmDelete}
+        onCancel={closeDialog}
+      />
+
       <div className="flex justify-end mb-6">
         <button onClick={() => handleOpenModal()} className="flex items-center gap-2 bg-[#115e59] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#0f4d4a] transition-colors">
           <Plus className="w-5 h-5" />
@@ -88,7 +127,7 @@ export default function CategoriesClient({ initialCategories }: { initialCategor
                 <td className="px-6 py-4 text-sm text-slate-500">{c.slug}</td>
                 <td className="px-6 py-4 text-right">
                   <button onClick={() => handleOpenModal(c)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"><Edit className="w-4 h-4" /></button>
-                  <button onClick={() => handleDelete(c.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => requestDelete(c.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
                 </td>
               </tr>
             ))}
@@ -101,7 +140,7 @@ export default function CategoriesClient({ initialCategories }: { initialCategor
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="px-6 py-4 border-b flex justify-between items-center bg-slate-50">
               <h3 className="font-bold text-lg text-[#002b5c]">{formData.id ? "Ангилал засах" : "Шинэ ангилал"}</h3>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">&times;</button>
@@ -124,8 +163,12 @@ export default function CategoriesClient({ initialCategories }: { initialCategor
                 <input required type="text" value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} className="w-full border rounded-lg px-3 py-2 font-mono text-sm" placeholder="my-category-slug" />
               </div>
               <div className="pt-4 flex justify-end gap-3">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Цуцлах</button>
-                <button type="submit" disabled={loading} className="px-4 py-2 bg-[#115e59] text-white rounded-lg hover:bg-[#0f4d4a]">{loading ? "..." : "Хадгалах"}</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 font-bold">Цуцлах</button>
+                <button type="submit" disabled={loading} className="px-4 py-2 bg-[#115e59] text-white rounded-lg hover:bg-[#0f4d4a] font-bold min-w-[100px] flex justify-center items-center">
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : "Хадгалах"}
+                </button>
               </div>
             </form>
           </div>

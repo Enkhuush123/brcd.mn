@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import ConfirmDialog from "@/components/admin/ConfirmDialog";
 
 export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[] }) {
   const [authors, setAuthors] = useState(initialAuthors);
@@ -10,7 +10,17 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
   const [formData, setFormData] = useState({ id: "", nameMn: "", nameEn: "", nameZh: "", titleMn: "", titleEn: "", titleZh: "", photoUrl: "" });
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const router = useRouter();
+
+  // Dialog State
+  const [dialogConfig, setDialogConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    isAlert: boolean;
+    idToDelete?: string;
+  }>({ isOpen: false, title: "", message: "", isAlert: false });
+
+  const closeDialog = () => setDialogConfig(prev => ({ ...prev, isOpen: false }));
 
   const handleOpenModal = (author?: any) => {
     if (author) {
@@ -44,15 +54,19 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
         body: JSON.stringify(formData)
       });
       
+      const data = await res.json();
       if (res.ok) {
         setIsModalOpen(false);
-        window.location.reload(); 
+        if (method === "POST") {
+          setAuthors([data, ...authors]);
+        } else {
+          setAuthors(authors.map(a => a.id === formData.id ? data : a));
+        }
       } else {
-        const data = await res.json();
-        alert(data.error);
+        setDialogConfig({ isOpen: true, title: "Алдаа", message: data.error || "Алдаа гарлаа", isAlert: true });
       }
     } catch (err) {
-      alert("Алдаа гарлаа");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Алдаа гарлаа", isAlert: true });
     } finally {
       setLoading(false);
     }
@@ -62,7 +76,7 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
-      alert("Зөвхөн зураг оруулна уу.");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Зөвхөн зураг оруулна уу.", isAlert: true });
       return;
     }
 
@@ -79,32 +93,58 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
       if (res.ok) {
         setFormData({ ...formData, photoUrl: result.url });
       } else {
-        alert("Хуулахад алдаа гарлаа: " + result.error);
+        setDialogConfig({ isOpen: true, title: "Алдаа", message: "Хуулахад алдаа гарлаа: " + result.error, isAlert: true });
       }
     } catch (error) {
       console.error(error);
-      alert("Сервертэй холбогдоход алдаа гарлаа.");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Сервертэй холбогдоход алдаа гарлаа.", isAlert: true });
     } finally {
       setUploadingImage(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Устгахдаа итгэлтэй байна уу?")) return;
+  const requestDelete = (id: string) => {
+    setDialogConfig({
+      isOpen: true,
+      title: "Анхааруулга",
+      message: "Энэ судлаачийг устгахдаа итгэлтэй байна уу?",
+      isAlert: false,
+      idToDelete: id
+    });
+  };
+
+  const confirmDelete = async () => {
+    const id = dialogConfig.idToDelete;
+    if (!id) return;
+    
+    setLoading(true);
     try {
       const res = await fetch(`/api/authors/${id}`, { method: "DELETE" });
       if (res.ok) {
-        window.location.reload();
+        setAuthors(authors.filter(a => a.id !== id));
+        closeDialog();
       } else {
-        alert("Устгаж чадсангүй (Магадгүй нийтлэл холбогдсон байж болно).");
+        setDialogConfig({ isOpen: true, title: "Алдаа", message: "Устгаж чадсангүй (Магадгүй нийтлэл холбогдсон байж болно).", isAlert: true });
       }
     } catch (err) {
-      alert("Алдаа гарлаа");
+      setDialogConfig({ isOpen: true, title: "Алдаа", message: "Алдаа гарлаа", isAlert: true });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
+      <ConfirmDialog 
+        isOpen={dialogConfig.isOpen}
+        title={dialogConfig.title}
+        message={dialogConfig.message}
+        isAlert={dialogConfig.isAlert}
+        isLoading={loading}
+        onConfirm={dialogConfig.isAlert ? closeDialog : confirmDelete}
+        onCancel={closeDialog}
+      />
+
       <div className="flex justify-end mb-6">
         <button onClick={() => handleOpenModal()} className="flex items-center gap-2 bg-[#115e59] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#0f4d4a] transition-colors">
           <Plus className="w-5 h-5" />
@@ -128,7 +168,7 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
                 <td className="px-6 py-4 text-sm text-slate-500">{a.titleMn}</td>
                 <td className="px-6 py-4 text-right">
                   <button onClick={() => handleOpenModal(a)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"><Edit className="w-4 h-4" /></button>
-                  <button onClick={() => handleDelete(a.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => requestDelete(a.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
                 </td>
               </tr>
             ))}
@@ -141,7 +181,7 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden max-h-[90vh] flex flex-col">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
             <div className="px-6 py-4 border-b flex justify-between items-center bg-slate-50 flex-shrink-0">
               <h3 className="font-bold text-lg text-[#002b5c]">{formData.id ? "Судлаач засах" : "Шинэ судлаач"}</h3>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">&times;</button>
@@ -185,7 +225,11 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
             </div>
             <div className="px-6 py-4 border-t flex justify-end gap-3 bg-slate-50 flex-shrink-0">
               <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 font-bold">Цуцлах</button>
-              <button form="author-form" type="submit" disabled={loading} className="px-4 py-2 bg-[#115e59] text-white rounded-lg hover:bg-[#0f4d4a] font-bold">{loading ? "..." : "Хадгалах"}</button>
+              <button form="author-form" type="submit" disabled={loading} className="px-4 py-2 bg-[#115e59] text-white rounded-lg hover:bg-[#0f4d4a] font-bold min-w-[100px] flex justify-center items-center">
+                {loading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                ) : "Хадгалах"}
+              </button>
             </div>
           </div>
         </div>
