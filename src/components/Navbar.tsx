@@ -94,9 +94,9 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       href: "#",
       activePrefix: "/publications",
       subLinks: [
-        { name: current.pub1, href: "/publications?category=policy-brief" },
-        { name: current.pub2, href: "/publications?category=research-report" },
-        { name: current.pub3, href: "/publications?category=analytic-article" },
+        { name: current.pub1, href: "/publications/policy-brief" },
+        { name: current.pub2, href: "/publications/research-report" },
+        { name: current.pub3, href: "/publications/analysis" },
       ]
     },
     { 
@@ -104,8 +104,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
       href: "#",
       activePrefix: "/news",
       subLinks: [
-        { name: current.newsLocal, href: "/news?category=center-news" },
-        { name: current.newsGlobal, href: "/news?category=meetings" },
+        { name: current.newsLocal, href: "/news/news" },
+        { name: current.newsGlobal, href: "/news/events" },
       ]
     },
     { name: current.contact, href: "/contact" },

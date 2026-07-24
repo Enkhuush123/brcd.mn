@@ -1,16 +1,17 @@
 import prisma from "@/lib/prisma";
-import NewsClient from "./NewsClient";
+import NewsClient from "../NewsClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const dynamic = "force-dynamic";
 
-export default async function NewsPage() {
+export default async function NewsCategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const resolvedParams = await params;
+  const categorySlug = resolvedParams.category;
+
   const articles = await prisma.article.findMany({
     where: {
-      category: {
-        slug: { in: ["news", "events"] }
-      }
+      category: { slug: categorySlug }
     },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }
