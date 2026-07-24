@@ -15,7 +15,10 @@ export async function POST(req: Request) {
     const { titleMn, contentMn } = await req.json();
 
     if (!titleMn && !contentMn) {
-      return NextResponse.json({ error: "No content provided" }, { status: 400 });
+      return NextResponse.json(
+        { error: "No content provided" },
+        { status: 400 },
+      );
     }
 
     const prompt = `You are an expert translator for a policy research institute in Mongolia. 
@@ -37,17 +40,17 @@ export async function POST(req: Request) {
     Content: ${contentMn}`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-        config: {
-            responseMimeType: "application/json",
-            temperature: 0.1,
-        }
+      model: "gemini-flash-latest",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        temperature: 0.1,
+      },
     });
 
     const text = response.text();
     if (!text) {
-        throw new Error("Empty response from AI");
+      throw new Error("Empty response from AI");
     }
 
     const parsed = JSON.parse(text);
@@ -55,6 +58,9 @@ export async function POST(req: Request) {
     return NextResponse.json(parsed);
   } catch (error: any) {
     console.error("Translation API error:", error);
-    return NextResponse.json({ error: error.message || "Failed to translate" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Failed to translate" },
+      { status: 500 },
+    );
   }
 }
