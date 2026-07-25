@@ -248,12 +248,12 @@ export default function Navbar({
                     {/* Dropdown Menu */}
                     {link.subLinks && (
                       <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
-                        <div className="bg-white rounded-xl shadow-lg border border-slate-100 w-64 overflow-hidden py-2 flex flex-col">
+                        <div className="bg-white rounded-xl shadow-lg border border-slate-100 w-72 md:w-80 overflow-hidden py-2 flex flex-col">
                           {link.subLinks.map((sub) => (
                             <Link
                               key={sub.name}
                               href={sub.href}
-                              className="px-5 py-3 text-sm font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59]"
+                              className="px-5 py-3 text-sm font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59] whitespace-normal leading-snug"
                             >
                               {sub.name}
                             </Link>
