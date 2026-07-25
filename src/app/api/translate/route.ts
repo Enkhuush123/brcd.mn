@@ -21,10 +21,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Escape content to avoid breaking the prompt
-    const safeTitle = (titleMn || "").replace(/`/g, "'");
-    const safeContent = (contentMn || "").replace(/`/g, "'");
-
     const prompt = `You are an expert translator for a policy research institute in Mongolia. 
   Translate the following Mongolian title and rich HTML content into English and Chinese. 
     
