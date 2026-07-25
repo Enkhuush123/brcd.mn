@@ -40,7 +40,7 @@ Title to translate: ${safeTitle}
 Content to translate: ${safeContent}`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-flash-latest",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -90,4 +90,3 @@ Content to translate: ${safeContent}`;
     );
   }
 }
-
