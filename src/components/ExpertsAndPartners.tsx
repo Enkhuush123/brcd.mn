@@ -60,28 +60,24 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
       </section>
 
       {/* BLOCK 6: Partners */}
-      <section id="partners" className="py-20 px-6 bg-slate-50 border-t border-slate-100 overflow-hidden">
-        <AnimatedSection className="max-w-7xl mx-auto text-center">
-          <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-10">
-            {t.partners}
-          </h4>
-          <div className="overflow-hidden w-full relative before:absolute before:left-0 before:top-0 before:w-16 md:before:w-32 before:h-full before:bg-gradient-to-r before:from-slate-50 before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-16 md:after:w-32 after:h-full after:bg-gradient-to-l after:from-slate-50 after:to-transparent after:z-10">
-            <motion.div 
-              animate={{ x: [0, -1000] }} 
-              transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
-              className="flex items-center gap-16 md:gap-24 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 whitespace-nowrap min-w-max"
-            >
-              {[1, 2, 3].map(i => (
-                <div key={i} className="flex gap-16 md:gap-24 items-center">
-                  <div className="flex items-center gap-2"><Globe className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Asia Institute</span></div>
-                  <div className="flex items-center gap-2"><Briefcase className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Global Fund</span></div>
-                  <div className="flex items-center gap-2"><Zap className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Tech Initiative</span></div>
-                  <div className="flex items-center gap-2"><BookOpen className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Policy Center</span></div>
-                  <div className="flex items-center gap-2"><Globe className="w-8 h-8" /><span className="text-xl font-serif font-bold text-[#002b5c]">Eco Foundation</span></div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+      <section id="partners" className="py-24 px-6 bg-slate-50 border-t border-slate-100 overflow-hidden">
+        <AnimatedSection className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
+            {language === "MN" ? "Түншлэл хамтын ажиллагаа" : language === "EN" ? "Partnership & Cooperation" : "伙伴关系与合作"}
+          </h2>
+          <p className="text-slate-600 leading-relaxed font-medium mb-10 max-w-2xl mx-auto">
+            {language === "MN" 
+              ? '"Нэг бүс нэг зам" Хамтын хөгжил судалгааны төв нь Монгол Улсын урт хугацааны хөгжлийн бодлого болон "Бүс ба Зам" санаачилгын хүрээнд хил дамнасан судалгаа, төсөл хөтөлбөр хэрэгжүүлэх зорилгоор дотоод, гадаадын түнш байгууллагуудтай нягт хамтран ажилладаг.' 
+              : language === "EN" 
+              ? 'The Center works closely with domestic and foreign partner organizations to implement cross-border research and projects.'
+              : '本中心与国内外合作机构密切配合，积极开展跨国研究及项目合作。'}
+          </p>
+          <Link 
+            href="/partners" 
+            className="inline-flex items-center gap-2 bg-[#002b5c] text-white px-8 py-3 rounded-full font-bold hover:bg-[#115e59] transition-colors duration-300 shadow-md hover:shadow-lg"
+          >
+            {language === "MN" ? "Бүх түншүүдийг харах" : language === "EN" ? "View All Partners" : "查看所有合作伙伴"}
+          </Link>
         </AnimatedSection>
       </section>
     </>

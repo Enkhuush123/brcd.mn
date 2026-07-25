@@ -27,7 +27,8 @@ export default function PartnersClient() {
             "Фүдань их сургуулийн \"Бүс ба Зам ба Глобал засаглалын хүрээлэн\"",
             "\"Бүс ба Зам\" Тяньжиний стратегийн судалгааны хүрээлэн",
             "Гуандуны Олон улсын стратегийн судалгааны хүрээлэн",
-            "Алс Дорнодын Глобал Технологийн Аж Үйлдвэрийн Академи (Хонг Конг)"
+            "Алс Дорнодын Глобал Технологийн Аж Үйлдвэрийн Академи (Хонг Конг)",
+            "Эдийн засгийн олон улсын өртөө ТББ"
           ]
         },
         {
@@ -63,7 +64,8 @@ export default function PartnersClient() {
             "Fudan University \"Belt and Road and Global Governance Institute\"",
             "Tianjin Strategic Research Institute for \"Belt and Road\"",
             "Guangdong Institute for International Strategic Studies",
-            "Far East Global Technology Industry Academy (Hong Kong)"
+            "Far East Global Technology Industry Academy (Hong Kong)",
+            "International Economic Station NGO"
           ]
         },
         {
@@ -99,7 +101,8 @@ export default function PartnersClient() {
             "复旦大学“一带一路”及全球治理研究院",
             "天津“一带一路”战略研究院",
             "广东国际战略研究院",
-            "远东全球科技产业学院（香港）"
+            "远东全球科技产业学院（香港）",
+            "国际经济驿站非政府组织"
           ]
         },
         {
