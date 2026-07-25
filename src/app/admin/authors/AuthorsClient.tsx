@@ -7,7 +7,7 @@ import ConfirmDialog from "@/components/admin/ConfirmDialog";
 export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[] }) {
   const [authors, setAuthors] = useState(initialAuthors);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ id: "", nameMn: "", nameEn: "", nameZh: "", titleMn: "", titleEn: "", titleZh: "", photoUrl: "" });
+  const [formData, setFormData] = useState({ id: "", nameMn: "", nameEn: "", nameZh: "", titleMn: "", titleEn: "", titleZh: "", bioMn: "", bioEn: "", bioZh: "", photoUrl: "" });
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
 
