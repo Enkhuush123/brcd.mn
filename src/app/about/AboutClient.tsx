@@ -232,23 +232,27 @@ export default function AboutClient({ experts }: { experts: any[] }) {
       </section>
 
       {/* 3. PARTNERSHIPS SECTION */}
-      <section className="py-24 px-6 bg-white overflow-hidden">
-        <AnimatedSection className="max-w-7xl mx-auto text-center">
+      <section className="py-24 px-6 bg-white overflow-hidden border-b border-slate-100">
+        <AnimatedSection className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-50 rounded-full mb-6">
             <Handshake className="w-8 h-8 text-[#115e59]" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-12">
-            {current.partnersTitle}
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
+            {lang === "MN" ? "Түншлэл хамтын ажиллагаа" : lang === "EN" ? "Partnership & Cooperation" : "伙伴关系与合作"}
           </h2>
-          
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-            {/* Placeholders for partner logos */}
-            <div className="text-2xl font-serif font-bold text-slate-400 hover:text-[#002b5c] transition-colors cursor-pointer">Global Fund</div>
-            <div className="text-2xl font-serif font-bold text-slate-400 hover:text-[#002b5c] transition-colors cursor-pointer">Asia Institute</div>
-            <div className="text-2xl font-serif font-bold text-slate-400 hover:text-[#002b5c] transition-colors cursor-pointer">Policy Center</div>
-            <div className="text-2xl font-serif font-bold text-slate-400 hover:text-[#002b5c] transition-colors cursor-pointer">Eco Foundation</div>
-            <div className="text-2xl font-serif font-bold text-slate-400 hover:text-[#002b5c] transition-colors cursor-pointer">Tech Initiative</div>
-          </div>
+          <p className="text-slate-600 leading-relaxed font-medium mb-10 max-w-2xl mx-auto">
+            {lang === "MN" 
+              ? '"Нэг бүс нэг зам" Хамтын хөгжил судалгааны төв нь Монгол Улсын урт хугацааны хөгжлийн бодлого болон "Бүс ба Зам" санаачилгын хүрээнд хил дамнасан судалгаа, төсөл хөтөлбөр хэрэгжүүлэх зорилгоор дотоод, гадаадын түнш байгууллагуудтай нягт хамтран ажилладаг.' 
+              : lang === "EN" 
+              ? 'The Center works closely with domestic and foreign partner organizations to implement cross-border research and projects.'
+              : '本中心与国内外合作机构密切配合，积极开展跨国研究及项目合作。'}
+          </p>
+          <a 
+            href="/partners" 
+            className="inline-flex items-center gap-2 bg-[#002b5c] text-white px-8 py-3 rounded-full font-bold hover:bg-[#115e59] transition-colors duration-300 shadow-md hover:shadow-lg"
+          >
+            {lang === "MN" ? "Бүх түншүүдийг харах" : lang === "EN" ? "View All Partners" : "查看所有合作伙伴"}
+          </a>
         </AnimatedSection>
       </section>
 
