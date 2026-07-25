@@ -10,7 +10,7 @@ export default function Footer() {
 
   const dict = {
     MN: {
-      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил судалгааны төв</>,
+      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
       desc: "Евразийн холболт, гео-эдийн засаг болон Монгол-Хятадын харилцааны гүнзгийрүүлсэн судалгааг гүйцэтгэх хараат бус тинк-танк.",
       linksTitle: "Холбоосууд",
       about: "Бидний тухай", programs: "Судалгааны хөтөлбөр", policyHub: "Монголын бодлогын тойм", 
@@ -23,7 +23,7 @@ export default function Footer() {
       terms: "Үйлчилгээний нөхцөл", privacy: "Нууцлалын бодлого"
     },
     EN: {
-      logoTitle: <>Belt & Road<br/>Co-Development Research Center</>,
+      logoTitle: <>Belt & Road<br/>Co-Development<br/>Research Center</>,
       desc: "An independent think-tank dedicated to in-depth research on Eurasian connectivity, geo-economics, and Mongolia-China relations.",
       linksTitle: "Quick Links",
       about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 

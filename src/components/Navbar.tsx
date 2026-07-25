@@ -38,13 +38,7 @@ export default function Navbar({
       econ: "Эдийн засгийн статистик, дата",
       vision: "Алсын хараа 2050 ба Стратегийн төслүүд",
       invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
-      logoTitle: (
-        <>
-          Нэг бүс, нэг зам
-          <br />
-          Хамтын хөгжил <br /> судалгааны төв
-        </>
-      ),
+      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
       newsLocal: "Төвийн мэдээ",
       newsGlobal: "Хурал хэлэлцүүлэг",
       pub1: "Бодлогын зөвлөмж",
@@ -67,13 +61,7 @@ export default function Navbar({
       econ: "Economic Statistics & Data",
       vision: "Vision 2050 & Strategic Projects",
       invest: "Investment Environment & Legal Regulation",
-      logoTitle: (
-        <>
-          Belt & Road
-          <br />
-          Co-Development Research Center
-        </>
-      ),
+      logoTitle: <>Belt & Road<br/>Co-Development<br/>Research Center</>,
       newsLocal: "Center News",
       newsGlobal: "Meetings & Discussions",
       pub1: "Policy Brief",
