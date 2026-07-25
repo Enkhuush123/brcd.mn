@@ -7,7 +7,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
+export default function Navbar({
+  alwaysSolid = false,
+}: {
+  alwaysSolid?: boolean;
+}) {
   const [isScrolled, setIsScrolled] = useState(alwaysSolid);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -15,7 +19,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
 
   useEffect(() => {
     if (alwaysSolid) return;
-    
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -25,86 +29,138 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
 
   const dict = {
     MN: {
-      about: "Бидний тухай", programs: "Судалгааны хөтөлбөр", policyHub: "Монголын бодлогын тойм", 
-      publications: "Нийтлэл", news: "Мэдээ", contact: "Холбоо барих",
-      econ: "Эдийн засгийн статистик, дата", vision: "Алсын хараа 2050 ба Стратегийн төслүүд", invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
-      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил судалгааны төв</>,
-      newsLocal: "Төвийн мэдээ", newsGlobal: "Хурал хэлэлцүүлэг",
-      pub1: "Бодлогын зөвлөмж", pub2: "Судалгааны тайлан", pub3: "Аналитик нийтлэл",
-      aboutUs: "Бидний тухай", experts: "Бидний экспертүүд", partners: "Түншүүд",
-      prog1: "Евразийн холболт ба Бүс ба Зам", prog2: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт", prog3: "Ногоон хөгжил ба Технологийн засаглал"
+      about: "Бидний тухай",
+      programs: "Судалгааны хөтөлбөр",
+      policyHub: "Монголын бодлогын тойм",
+      publications: "Нийтлэл",
+      news: "Мэдээ",
+      contact: "Холбоо барих",
+      econ: "Эдийн засгийн статистик, дата",
+      vision: "Алсын хараа 2050 ба Стратегийн төслүүд",
+      invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
+      logoTitle: (
+        <>
+          Нэг бүс, нэг зам
+          <br />
+          Хамтын хөгжил <br /> судалгааны төв
+        </>
+      ),
+      newsLocal: "Төвийн мэдээ",
+      newsGlobal: "Хурал хэлэлцүүлэг",
+      pub1: "Бодлогын зөвлөмж",
+      pub2: "Судалгааны тайлан",
+      pub3: "Аналитик нийтлэл",
+      aboutUs: "Бидний тухай",
+      experts: "Бидний экспертүүд",
+      partners: "Түншүүд",
+      prog1: "Евразийн холболт ба Бүс ба Зам",
+      prog2: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт",
+      prog3: "Ногоон хөгжил ба Технологийн засаглал",
     },
     EN: {
-      about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 
-      publications: "Articles", news: "News", contact: "Contact",
-      econ: "Economic Statistics & Data", vision: "Vision 2050 & Strategic Projects", invest: "Investment Environment & Legal Regulation",
-      logoTitle: <>Belt & Road<br/>Co-Development Research Center</>,
-      newsLocal: "Center News", newsGlobal: "Meetings & Discussions",
-      pub1: "Policy Brief", pub2: "Research Report", pub3: "Analytical Article",
-      aboutUs: "About BCRD", experts: "Our Experts", partners: "Partners",
-      prog1: "Eurasian Connectivity & BRI", prog2: "Regional Geo-Economics & FDI", prog3: "Green Development & Tech Governance"
+      about: "About Us",
+      programs: "Research Programs",
+      policyHub: "Mongolia Policy Hub",
+      publications: "Articles",
+      news: "News",
+      contact: "Contact",
+      econ: "Economic Statistics & Data",
+      vision: "Vision 2050 & Strategic Projects",
+      invest: "Investment Environment & Legal Regulation",
+      logoTitle: (
+        <>
+          Belt & Road
+          <br />
+          Co-Development Research Center
+        </>
+      ),
+      newsLocal: "Center News",
+      newsGlobal: "Meetings & Discussions",
+      pub1: "Policy Brief",
+      pub2: "Research Report",
+      pub3: "Analytical Article",
+      aboutUs: "About BCRD",
+      experts: "Our Experts",
+      partners: "Partners",
+      prog1: "Eurasian Connectivity & BRI",
+      prog2: "Regional Geo-Economics & FDI",
+      prog3: "Green Development & Tech Governance",
     },
     ZH: {
-      about: "关于我们", programs: "研究项目", policyHub: "蒙古政策中心", 
-      publications: "文章", news: "新闻", contact: "联系我们",
-      econ: "经济统计与数据", vision: "2050愿景与战略项目", invest: "投资环境与法律法规",
+      about: "关于我们",
+      programs: "研究项目",
+      policyHub: "蒙古政策中心",
+      publications: "文章",
+      news: "新闻",
+      contact: "联系我们",
+      econ: "经济统计与数据",
+      vision: "2050愿景与战略项目",
+      invest: "投资环境与法律法规",
       logoTitle: "一带一路共同发展研究中心",
-      newsLocal: "中心新闻", newsGlobal: "会议与讨论",
-      pub1: "政策简报", pub2: "研究报告", pub3: "分析文章",
-      aboutUs: "关于我们", experts: "我们的专家", partners: "合作伙伴",
-      prog1: "欧亚互联互通与一带一路", prog2: "区域地缘经济与外商直接投资", prog3: "绿色发展与科技治理"
-    }
+      newsLocal: "中心新闻",
+      newsGlobal: "会议与讨论",
+      pub1: "政策简报",
+      pub2: "研究报告",
+      pub3: "分析文章",
+      aboutUs: "关于我们",
+      experts: "我们的专家",
+      partners: "合作伙伴",
+      prog1: "欧亚互联互通与一带一路",
+      prog2: "区域地缘经济与外商直接投资",
+      prog3: "绿色发展与科技治理",
+    },
   };
 
   const current = dict[language];
 
   const navLinks = [
-    { 
-      name: current.about, 
+    {
+      name: current.about,
       href: "#",
       activePrefix: "/about",
-      subLinks: [
-        { name: current.aboutUs, href: "/about" },
-      ]
+      subLinks: [{ name: current.aboutUs, href: "/about" }],
     },
-    { 
-      name: current.programs, 
+    {
+      name: current.programs,
       href: "#",
       activePrefix: "/programs",
       subLinks: [
         { name: current.prog1, href: "/programs#eurasian-connectivity" },
         { name: current.prog2, href: "/programs#geo-economics" },
         { name: current.prog3, href: "/programs#green-development" },
-      ]
+      ],
     },
-    { 
-      name: current.policyHub, 
+    {
+      name: current.policyHub,
       href: "#",
       activePrefix: "/policy-hub",
       subLinks: [
         { name: current.econ, href: "/policy-hub/economic-statistics" },
-        { name: current.vision, href: "/policy-hub/vision-2050-and-strategic-projects" },
+        {
+          name: current.vision,
+          href: "/policy-hub/vision-2050-and-strategic-projects",
+        },
         { name: current.invest, href: "/policy-hub/investment-environment" },
-      ]
+      ],
     },
-    { 
-      name: current.publications, 
+    {
+      name: current.publications,
       href: "#",
       activePrefix: "/publications",
       subLinks: [
         { name: current.pub1, href: "/publications/policy-brief" },
         { name: current.pub2, href: "/publications/research-report" },
         { name: current.pub3, href: "/publications/analysis" },
-      ]
+      ],
     },
-    { 
-      name: current.news, 
+    {
+      name: current.news,
       href: "#",
       activePrefix: "/news",
       subLinks: [
         { name: current.newsLocal, href: "/news/news" },
         { name: current.newsGlobal, href: "/news/events" },
-      ]
+      ],
     },
     { name: current.experts, href: "/experts" },
     { name: current.partners, href: "/partners" },
@@ -131,7 +187,9 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
               <img
                 src="/logo.jpg"
                 alt="BCRD Logo"
-                onError={(e) => { (e.target as HTMLImageElement).src = '/logo.png'; }}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/logo.png";
+                }}
                 className="w-full h-full object-contain p-1 rounded-full"
               />
             </div>
@@ -148,37 +206,53 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
           <div className="hidden xl:flex flex-1 justify-end items-center overflow-x-auto no-scrollbar">
             <div className="flex gap-3 xl:gap-4 2xl:gap-6 text-[13px] 2xl:text-sm font-semibold tracking-wide whitespace-nowrap px-2">
               {navLinks.map((link) => {
-                const isActive = (link.href !== "#" && (pathname === link.href || pathname.startsWith(link.href + '/'))) || (link.activePrefix && pathname.startsWith(link.activePrefix));
+                const isActive =
+                  (link.href !== "#" &&
+                    (pathname === link.href ||
+                      pathname.startsWith(link.href + "/"))) ||
+                  (link.activePrefix && pathname.startsWith(link.activePrefix));
                 return (
                   <div key={link.name} className="relative group">
                     {link.href === "#" ? (
                       <button
                         className={`flex items-center gap-1 transition-all duration-300 py-2 ${
                           isScrolled
-                            ? isActive ? "text-[#115e59]" : "text-slate-600 hover:text-[#115e59]"
-                            : isActive ? "text-[#f59e0b] drop-shadow-md" : "text-white hover:text-white drop-shadow-md"
+                            ? isActive
+                              ? "text-[#115e59]"
+                              : "text-slate-600 hover:text-[#115e59]"
+                            : isActive
+                              ? "text-[#f59e0b] drop-shadow-md"
+                              : "text-white hover:text-white drop-shadow-md"
                         }`}
                       >
                         {link.name}
                         {link.subLinks && <ChevronDown className="w-4 h-4" />}
-                        <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                          isScrolled ? "bg-[#115e59]" : "bg-white"
-                        } ${isActive ? 'w-full' : ''}`}></span>
+                        <span
+                          className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                            isScrolled ? "bg-[#115e59]" : "bg-white"
+                          } ${isActive ? "w-full" : ""}`}
+                        ></span>
                       </button>
                     ) : (
                       <Link
                         href={link.href}
                         className={`flex items-center gap-1 transition-all duration-300 py-2 ${
                           isScrolled
-                            ? isActive ? "text-[#115e59]" : "text-slate-600 hover:text-[#115e59]"
-                            : isActive ? "text-[#f59e0b] drop-shadow-md" : "text-white hover:text-white drop-shadow-md"
+                            ? isActive
+                              ? "text-[#115e59]"
+                              : "text-slate-600 hover:text-[#115e59]"
+                            : isActive
+                              ? "text-[#f59e0b] drop-shadow-md"
+                              : "text-white hover:text-white drop-shadow-md"
                         }`}
                       >
                         {link.name}
                         {link.subLinks && <ChevronDown className="w-4 h-4" />}
-                        <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                          isScrolled ? "bg-[#115e59]" : "bg-white"
-                        } ${isActive ? 'w-full' : ''}`}></span>
+                        <span
+                          className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                            isScrolled ? "bg-[#115e59]" : "bg-white"
+                          } ${isActive ? "w-full" : ""}`}
+                        ></span>
                       </Link>
                     )}
 
@@ -202,7 +276,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                 );
               })}
             </div>
-            
+
             {/* Desktop Language Switcher */}
             <div
               className={`flex gap-3 items-center px-4 py-1.5 rounded-full transition-all duration-300 ${
@@ -211,23 +285,27 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                   : "bg-white/10 border border-white/20 backdrop-blur-sm"
               }`}
             >
-              <button 
+              <button
                 onClick={() => setLanguage("MN")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 MN
               </button>
-              <div className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}></div>
-              <button 
+              <div
+                className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}
+              ></div>
+              <button
                 onClick={() => setLanguage("EN")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 EN
               </button>
-              <div className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}></div>
-              <button 
+              <div
+                className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}
+              ></div>
+              <button
                 onClick={() => setLanguage("ZH")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : (isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white")}`}
+                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 中文
               </button>
@@ -240,9 +318,13 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
-              <X className={`w-6 h-6 transition-colors ${isScrolled ? "text-[#002b5c]" : "text-white"}`} />
+              <X
+                className={`w-6 h-6 transition-colors ${isScrolled ? "text-[#002b5c]" : "text-white"}`}
+              />
             ) : (
-              <Menu className={`w-6 h-6 transition-colors ${isScrolled ? "text-[#002b5c]" : "text-white"}`} />
+              <Menu
+                className={`w-6 h-6 transition-colors ${isScrolled ? "text-[#002b5c]" : "text-white"}`}
+              />
             )}
           </button>
         </div>
@@ -272,7 +354,9 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                     ) : (
                       <Link
                         href={link.href}
-                        onClick={() => !link.subLinks && setMobileMenuOpen(false)}
+                        onClick={() =>
+                          !link.subLinks && setMobileMenuOpen(false)
+                        }
                         className="text-xl font-serif font-bold text-[#002b5c] block py-2 border-b border-slate-50 hover:text-[#115e59] transition-colors"
                       >
                         {link.name}
@@ -280,7 +364,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                     )}
                     {link.subLinks && (
                       <div className="pl-4 mt-2 flex flex-col space-y-3 border-l-2 border-slate-100 ml-2">
-                        {link.subLinks.map(sub => (
+                        {link.subLinks.map((sub) => (
                           <Link
                             key={sub.name}
                             href={sub.href}
@@ -294,29 +378,29 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
                     )}
                   </motion.div>
                 ))}
-                
+
                 {/* Mobile Language Switcher */}
-                <motion.div 
-                  initial={{ opacity: 0 }} 
-                  animate={{ opacity: 1 }} 
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                   className="flex gap-6 pt-8 items-center"
                 >
-                  <button 
+                  <button
                     onClick={() => setLanguage("MN")}
                     className={`font-bold text-lg ${language === "MN" ? "text-[#002b5c]" : "text-slate-500"}`}
                   >
                     MN
                   </button>
                   <div className="w-px h-6 bg-slate-200"></div>
-                  <button 
+                  <button
                     onClick={() => setLanguage("EN")}
                     className={`font-bold text-lg ${language === "EN" ? "text-[#002b5c]" : "text-slate-500"}`}
                   >
                     EN
                   </button>
                   <div className="w-px h-6 bg-slate-200"></div>
-                  <button 
+                  <button
                     onClick={() => setLanguage("ZH")}
                     className={`font-bold text-lg ${language === "ZH" ? "text-[#002b5c]" : "text-slate-500"}`}
                   >
