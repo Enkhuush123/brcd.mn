@@ -171,8 +171,8 @@ export default function Navbar({
         }`}
       >
         <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-slate-100 group-hover:shadow-md transition-shadow shrink-0">
+          <Link href="/" className="flex items-center gap-2 2xl:gap-3 group shrink-0">
+            <div className="w-10 h-10 md:w-12 md:h-12 2xl:w-14 2xl:h-14 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-slate-100 group-hover:shadow-md transition-shadow shrink-0">
               <img
                 src="/logo.jpg"
                 alt="BCRD Logo"
@@ -183,7 +183,7 @@ export default function Navbar({
               />
             </div>
             <span
-              className={`font-serif font-bold text-sm tracking-wide hidden lg:block leading-snug transition-colors duration-500 max-w-[250px] xl:max-w-[300px] ${
+              className={`font-serif font-bold text-[10px] 2xl:text-sm tracking-wide hidden lg:block leading-snug transition-colors duration-500 max-w-[140px] xl:max-w-[160px] 2xl:max-w-[300px] ${
                 isScrolled ? "text-[#002b5c]" : "text-white drop-shadow-md"
               }`}
             >
@@ -192,8 +192,8 @@ export default function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-center items-center px-4">
-            <div className="flex justify-center items-center gap-3 xl:gap-5 2xl:gap-8 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
+          <div className="hidden xl:flex flex-1 justify-center items-center px-2">
+            <div className="flex justify-center items-center gap-2 2xl:gap-6 text-[10px] xl:text-[11px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive =
                   (link.href !== "#" &&
@@ -215,7 +215,7 @@ export default function Navbar({
                         }`}
                       >
                         {link.name}
-                        {link.subLinks && <ChevronDown className="w-4 h-4" />}
+                        {link.subLinks && <ChevronDown className="w-3 h-3 2xl:w-4 2xl:h-4" />}
                         <span
                           className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
                             isScrolled ? "bg-[#115e59]" : "bg-white"
@@ -236,7 +236,7 @@ export default function Navbar({
                         }`}
                       >
                         {link.name}
-                        {link.subLinks && <ChevronDown className="w-4 h-4" />}
+                        {link.subLinks && <ChevronDown className="w-3 h-3 2xl:w-4 2xl:h-4" />}
                         <span
                           className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
                             isScrolled ? "bg-[#115e59]" : "bg-white"
@@ -248,12 +248,12 @@ export default function Navbar({
                     {/* Dropdown Menu */}
                     {link.subLinks && (
                       <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
-                        <div className="bg-white rounded-xl shadow-lg border border-slate-100 w-72 md:w-80 overflow-hidden py-2 flex flex-col">
+                        <div className="bg-white rounded-xl shadow-lg border border-slate-100 w-64 md:w-72 2xl:w-80 overflow-hidden py-2 flex flex-col">
                           {link.subLinks.map((sub) => (
                             <Link
                               key={sub.name}
                               href={sub.href}
-                              className="px-5 py-3 text-sm font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59] whitespace-normal leading-snug"
+                              className="px-4 py-2 2xl:px-5 2xl:py-3 text-xs 2xl:text-sm font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59] whitespace-normal leading-snug"
                             >
                               {sub.name}
                             </Link>
@@ -269,7 +269,7 @@ export default function Navbar({
 
           {/* Desktop Language Switcher */}
           <div
-            className={`hidden xl:flex gap-3 items-center px-4 py-1.5 rounded-full transition-all duration-300 ${
+            className={`hidden xl:flex gap-2 2xl:gap-3 items-center px-2 2xl:px-4 py-1 2xl:py-1.5 rounded-full transition-all duration-300 ${
               isScrolled
                 ? "bg-slate-100 border border-slate-200"
                 : "bg-white/10 border border-white/20 backdrop-blur-sm"
