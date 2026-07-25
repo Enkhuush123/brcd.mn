@@ -265,15 +265,16 @@ export default function Navbar({
                 );
               })}
             </div>
+          </div>
 
-            {/* Desktop Language Switcher */}
-            <div
-              className={`flex gap-3 items-center px-4 py-1.5 rounded-full transition-all duration-300 ${
-                isScrolled
-                  ? "bg-slate-100 border border-slate-200"
-                  : "bg-white/10 border border-white/20 backdrop-blur-sm"
-              }`}
-            >
+          {/* Desktop Language Switcher */}
+          <div
+            className={`hidden xl:flex gap-3 items-center px-4 py-1.5 rounded-full transition-all duration-300 ${
+              isScrolled
+                ? "bg-slate-100 border border-slate-200"
+                : "bg-white/10 border border-white/20 backdrop-blur-sm"
+            }`}
+          >
               <button
                 onClick={() => setLanguage("MN")}
                 className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
@@ -299,7 +300,6 @@ export default function Navbar({
                 中文
               </button>
             </div>
-          </div>
 
           {/* Mobile Menu Toggle */}
           <button
