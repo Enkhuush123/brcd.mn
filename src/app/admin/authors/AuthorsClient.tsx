@@ -32,10 +32,13 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
         titleMn: author.titleMn || "",
         titleEn: author.titleEn || "",
         titleZh: author.titleZh || "",
+        bioMn: author.bioMn || "",
+        bioEn: author.bioEn || "",
+        bioZh: author.bioZh || "",
         photoUrl: author.photoUrl || "",
       });
     } else {
-      setFormData({ id: "", nameMn: "", nameEn: "", nameZh: "", titleMn: "", titleEn: "", titleZh: "", photoUrl: "" });
+      setFormData({ id: "", nameMn: "", nameEn: "", nameZh: "", titleMn: "", titleEn: "", titleZh: "", bioMn: "", bioEn: "", bioZh: "", photoUrl: "" });
     }
     setIsModalOpen(true);
   };
@@ -83,7 +86,7 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
     setUploadingImage(true);
     const data = new FormData();
     data.append("file", file);
-    data.append("folder", "authors"); // Added folder parameter
+    data.append("folder", "authors");
 
     try {
       const res = await fetch("/api/upload", {
@@ -197,13 +200,25 @@ export default function AuthorsClient({ initialAuthors }: { initialAuthors: any[
                   <label className="block text-sm font-bold text-slate-700 mb-1">Албан тушаал (MN)</label>
                   <input type="text" value={formData.titleMn} onChange={e => setFormData({...formData, titleMn: e.target.value})} className="w-full border rounded-lg px-3 py-2" />
                 </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Тайлбар / Намтар (MN)</label>
+                  <textarea rows={3} value={formData.bioMn} onChange={e => setFormData({...formData, bioMn: e.target.value})} className="w-full border rounded-lg px-3 py-2"></textarea>
+                </div>
                 <div className="pt-2 border-t mt-4">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Нэр (EN)</label>
                   <input type="text" value={formData.nameEn} onChange={e => setFormData({...formData, nameEn: e.target.value})} className="w-full border rounded-lg px-3 py-2" />
                 </div>
                 <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Тайлбар / Намтар (EN)</label>
+                  <textarea rows={3} value={formData.bioEn} onChange={e => setFormData({...formData, bioEn: e.target.value})} className="w-full border rounded-lg px-3 py-2"></textarea>
+                </div>
+                <div className="pt-2 border-t mt-4">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Нэр (ZH)</label>
                   <input type="text" value={formData.nameZh} onChange={e => setFormData({...formData, nameZh: e.target.value})} className="w-full border rounded-lg px-3 py-2" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Тайлбар / Намтар (ZH)</label>
+                  <textarea rows={3} value={formData.bioZh} onChange={e => setFormData({...formData, bioZh: e.target.value})} className="w-full border rounded-lg px-3 py-2"></textarea>
                 </div>
                 
                 <div className="pt-2 border-t mt-4">

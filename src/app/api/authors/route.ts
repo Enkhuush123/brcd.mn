@@ -17,6 +17,10 @@ export async function POST(req: Request) {
         titleMn: body.titleMn,
         titleEn: body.titleEn,
         titleZh: body.titleZh,
+        bioMn: body.bioMn,
+        bioEn: body.bioEn,
+        bioZh: body.bioZh,
+        photoUrl: body.photoUrl,
       }
     });
 

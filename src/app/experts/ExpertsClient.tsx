@@ -32,8 +32,8 @@ export default function ExpertsClient({ experts }: { experts: any[] }) {
             const bio = language === "EN" && expert.bioEn ? expert.bioEn : language === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn;
             return (
             <AnimatedSection key={expert.id} delay={i * 0.1} className="group cursor-pointer">
-              <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
-                <Link href={`/experts/${expert.id}`} className="block w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors relative">
+              <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                <Link href={`/experts/${expert.id}`} className="block w-24 h-24 mx-auto rounded-full bg-slate-200 mb-6 overflow-hidden border-4 border-white shadow-sm group-hover:border-[#115e59] transition-colors relative shrink-0">
                   {expert.photoUrl ? (
                     <img src={expert.photoUrl} alt={name} className="w-full h-full object-cover" />
                   ) : (
@@ -45,6 +45,11 @@ export default function ExpertsClient({ experts }: { experts: any[] }) {
                 </Link>
                 <h3 className="font-bold text-xl text-[#002b5c] mb-2">{name}</h3>
                 <p className="text-[#115e59] font-medium text-sm mb-4">{title}</p>
+                {bio && (
+                  <p className="text-slate-500 text-sm leading-relaxed mt-auto text-left">
+                    {bio}
+                  </p>
+                )}
               </div>
             </AnimatedSection>
             );

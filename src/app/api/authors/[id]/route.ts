@@ -18,6 +18,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
         titleMn: body.titleMn,
         titleEn: body.titleEn,
         titleZh: body.titleZh,
+        bioMn: body.bioMn,
+        bioEn: body.bioEn,
+        bioZh: body.bioZh,
+        photoUrl: body.photoUrl,
       }
     });
 

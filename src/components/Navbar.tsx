@@ -145,8 +145,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex gap-8 items-center">
-            <div className="flex gap-6 text-sm font-semibold tracking-wide">
+          <div className="hidden xl:flex flex-1 justify-center px-12 items-center">
+            <div className="flex justify-between w-full max-w-4xl text-sm font-semibold tracking-wide">
               {navLinks.map((link) => {
                 const isActive = (link.href !== "#" && (pathname === link.href || pathname.startsWith(link.href + '/'))) || (link.activePrefix && pathname.startsWith(link.activePrefix));
                 return (

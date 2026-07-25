@@ -31,7 +31,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
         { title: "Стратегийн түншлэл", desc: "Хоёр талын болон олон талт, харилцан ашигтай хамтын ажиллагааг эрхэмлэнэ.", icon: Handshake },
         { title: "Инноваци ба Тогтвортой хөгжил", desc: "Ногоон эдийн засаг, технологийн дэвшлийг дэмжсэн ирээдүй рүү чиглэсэн бодлогыг эрэлхийлнэ.", icon: Lightbulb },
       ],
-      expertsTitle: "Удирдлага ба Судлаачид",
+      expertsTitle: "Удирдлага",
       expertsDesc: "Төвийн хараат бус судалгаа, анализыг удирдан чиглүүлэгч тэргүүлэх экспертүүд.",
       partnersTitle: "Стратегийн түншүүд",
     },
@@ -111,10 +111,10 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             </button>
           </div>
 
-          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light mb-6 text-justify sm:text-center">
+          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light mb-6 text-left">
             {current.intro1}
           </p>
-          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light text-justify sm:text-center">
+          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light text-left">
             {current.intro2}
           </p>
         </AnimatedSection>
@@ -198,14 +198,14 @@ export default function AboutClient({ experts }: { experts: any[] }) {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {experts.length > 0 ? experts.map((expert, i) => {
-              // Map correct language field based on active tab
               const expertName = lang === "EN" && expert.nameEn ? expert.nameEn : (lang === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn);
               const expertTitle = lang === "EN" && expert.titleEn ? expert.titleEn : (lang === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn);
+              const expertBio = lang === "EN" && expert.bioEn ? expert.bioEn : (lang === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn);
               
               return (
                 <AnimatedSection key={expert.id} delay={i * 0.1} className="group">
-                  <div className="bg-white rounded-2xl p-6 text-center border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full">
-                    <div className="w-32 h-32 mx-auto rounded-full bg-slate-100 mb-6 overflow-hidden border-4 border-white shadow-md group-hover:border-[#115e59] transition-colors">
+                  <div className="bg-white rounded-2xl p-6 text-center border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
+                    <div className="w-32 h-32 mx-auto rounded-full bg-slate-100 mb-6 overflow-hidden border-4 border-white shadow-md group-hover:border-[#115e59] transition-colors shrink-0">
                       {expert.photoUrl ? (
                         <img src={expert.photoUrl} alt={expertName} className="w-full h-full object-cover" />
                       ) : (
@@ -215,7 +215,12 @@ export default function AboutClient({ experts }: { experts: any[] }) {
                       )}
                     </div>
                     <h3 className="font-bold text-xl text-[#002b5c] mb-2">{expertName}</h3>
-                    <p className="text-[#115e59] font-medium text-sm">{expertTitle}</p>
+                    <p className="text-[#115e59] font-medium text-sm mb-4">{expertTitle}</p>
+                    {expertBio && (
+                      <p className="text-slate-500 text-sm leading-relaxed mt-auto text-left">
+                        {expertBio}
+                      </p>
+                    )}
                   </div>
                 </AnimatedSection>
               );

@@ -33,6 +33,9 @@ model Author {
   titleMn   String?
   titleEn   String?
   titleZh   String?
+  bioMn     String?   @db.Text
+  bioEn     String?   @db.Text
+  bioZh     String?   @db.Text
   photoUrl  String?
   articles  Article[]
   createdAt DateTime  @default(now())
