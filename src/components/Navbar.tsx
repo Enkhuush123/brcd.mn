@@ -106,7 +106,11 @@ export default function Navbar({
       name: current.about,
       href: "#",
       activePrefix: "/about",
-      subLinks: [{ name: current.aboutUs, href: "/about" }],
+      subLinks: [
+        { name: current.aboutUs, href: "/about" },
+        { name: current.experts, href: "/experts" },
+        { name: current.partners, href: "/partners" },
+      ],
     },
     {
       name: current.programs,
@@ -150,8 +154,6 @@ export default function Navbar({
         { name: current.newsGlobal, href: "/news/events" },
       ],
     },
-    { name: current.experts, href: "/experts" },
-    { name: current.partners, href: "/partners" },
     { name: current.contact, href: "/contact" },
   ];
 
@@ -191,7 +193,7 @@ export default function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-end items-center overflow-x-auto no-scrollbar">
+          <div className="hidden xl:flex flex-1 justify-end items-center">
             <div className="flex gap-3 xl:gap-4 2xl:gap-6 text-[13px] 2xl:text-sm font-semibold tracking-wide whitespace-nowrap px-2">
               {navLinks.map((link) => {
                 const isActive =
