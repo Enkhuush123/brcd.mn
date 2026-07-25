@@ -130,7 +130,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             <h2 className="text-2xl font-serif font-bold text-[#002b5c] mb-4">
               {current.visionTitle}
             </h2>
-            <p className="text-slate-600 leading-relaxed font-medium">
+            <p className="text-slate-600 leading-relaxed font-medium text-left text-justify">
               {current.visionDesc}
             </p>
           </AnimatedSection>
@@ -142,7 +142,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             <h2 className="text-2xl font-serif font-bold text-[#002b5c] mb-4">
               {current.missionTitle}
             </h2>
-            <p className="text-slate-600 leading-relaxed font-medium">
+            <p className="text-slate-600 leading-relaxed font-medium text-left text-justify">
               {current.missionDesc}
             </p>
           </AnimatedSection>
