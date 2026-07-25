@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HomeClient from "./HomeClient";
+import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +27,13 @@ export default async function Home() {
       <Navbar />
       <HomeClient articles={articles} experts={experts} />
       <Footer />
+      <Link 
+        href="/contact" 
+        className="fixed bottom-8 right-8 z-50 bg-[#115e59] text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-semibold flex items-center gap-2"
+      >
+        <MessageCircle className="w-5 h-5" />
+        Холбоо барих
+      </Link>
     </div>
   );
 }

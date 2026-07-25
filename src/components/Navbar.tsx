@@ -192,8 +192,8 @@ export default function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-end xl:justify-between items-center ml-4 2xl:ml-8">
-            <div className="flex w-full justify-end xl:justify-between items-center gap-2 xl:gap-3 2xl:gap-5 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
+          <div className="hidden xl:flex flex-1 justify-center items-center px-4">
+            <div className="flex justify-center items-center gap-3 xl:gap-5 2xl:gap-8 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive =
                   (link.href !== "#" &&
