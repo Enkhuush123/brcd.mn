@@ -154,7 +154,6 @@ export default function Navbar({
     },
     { name: current.experts, href: "/experts" },
     { name: current.partners, href: "/partners" },
-    { name: current.contact, href: "/contact" },
   ];
 
   return (
@@ -193,7 +192,7 @@ export default function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-end xl:justify-between items-center ml-4 2xl:ml-8 overflow-hidden">
+          <div className="hidden xl:flex flex-1 justify-end xl:justify-between items-center ml-4 2xl:ml-8">
             <div className="flex w-full justify-end xl:justify-between items-center gap-2 xl:gap-3 2xl:gap-5 text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive =
