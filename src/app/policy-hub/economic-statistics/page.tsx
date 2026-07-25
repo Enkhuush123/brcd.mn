@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CategoryFeedClient from "@/components/CategoryFeedClient";
 
+export const dynamic = 'force-dynamic';
+
 export default async function EconomicStatisticsPage() {
   const articles = await prisma.article.findMany({
     where: { category: { slug: "economic-statistics" } },

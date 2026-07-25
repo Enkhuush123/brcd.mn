@@ -4,7 +4,10 @@ import { PrismaClient } from '@prisma/client'
 
 const prismaClientSingleton = () => {
   const connectionString = process.env.DATABASE_URL
-  const pool = new Pool({ connectionString })
+  const pool = new Pool({ 
+    connectionString,
+    max: 1, // Limit connections per instance to avoid Supabase session limit (15) during parallel builds
+  })
   const adapter = new PrismaPg(pool)
   return new PrismaClient({ adapter })
 }

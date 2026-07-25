@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import CategoryFeedClient from "@/components/CategoryFeedClient";
 import ExpertsAndPartners from "@/components/ExpertsAndPartners";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProgramsPage() {
   const articles = await prisma.article.findMany({
     where: { category: { slug: "programs" } },

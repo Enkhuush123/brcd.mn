@@ -6,7 +6,7 @@ import { BookOpen, Calendar, ArrowLeft } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-export default async function ExpertPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ExpertProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const expertId = resolvedParams.id;
 
