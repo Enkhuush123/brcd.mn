@@ -125,8 +125,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
             : "bg-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
+        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
             <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-slate-100 group-hover:shadow-md transition-shadow shrink-0">
               <img
                 src="/logo.jpg"
@@ -136,7 +136,7 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
               />
             </div>
             <span
-              className={`font-serif font-bold text-sm md:text-sm tracking-wide hidden lg:block leading-tight transition-colors duration-500 max-w-[200px] ${
+              className={`font-serif font-bold text-sm tracking-wide hidden lg:block leading-snug transition-colors duration-500 max-w-[250px] xl:max-w-[300px] ${
                 isScrolled ? "text-[#002b5c]" : "text-white drop-shadow-md"
               }`}
             >
@@ -145,8 +145,8 @@ export default function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean 
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-end items-center">
-            <div className="flex gap-4 xl:gap-6 2xl:gap-8 text-[13px] xl:text-sm font-semibold tracking-wide whitespace-nowrap">
+          <div className="hidden xl:flex flex-1 justify-end items-center overflow-x-auto no-scrollbar">
+            <div className="flex gap-3 xl:gap-4 2xl:gap-6 text-[13px] 2xl:text-sm font-semibold tracking-wide whitespace-nowrap px-2">
               {navLinks.map((link) => {
                 const isActive = (link.href !== "#" && (pathname === link.href || pathname.startsWith(link.href + '/'))) || (link.activePrefix && pathname.startsWith(link.activePrefix));
                 return (
