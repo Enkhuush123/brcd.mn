@@ -3,6 +3,8 @@ import AboutClient from "./AboutClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+export const dynamic = "force-dynamic";
+
 export default async function AboutPage() {
   // Fetch experts from the database
   const experts = await prisma.author.findMany({
