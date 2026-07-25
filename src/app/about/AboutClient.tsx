@@ -20,6 +20,21 @@ export default function AboutClient({ experts }: { experts: any[] }) {
       title: "Бидний тухай",
       intro1: "\"Нэг бүс нэг зам\" Хамтын хөгжил судалгааны төв нь Монгол, Хятад болон Евразийн бүс нутгийн хамтын ажиллагааг судалгаа, дата, бодлогын шинжилгээнд тулгуурлан тайлбарлах хараат бус, мэргэжлийн бодлогын судалгааны тинк-танк юм.",
       intro2: "Манай төв нь 2022 онд үүсгэн байгуулагдсан бөгөөд Монгол Улсын урт хугацааны хөгжлийн бодлого \"Алсын хараа 2050\", \"Шинэ сэргэлтийн бодлого\"-ыг бүс нутгийн хамтын ажиллагааны гол хөдөлгүүр болох \"Бүс ба Зам\" санаачилга, \"Монгол-Орос-Хятадын эдийн засгийн коридор\"-ын бодлогын уялдаатай шинжлэх ухааны үндэслэлтэйгээр холбон судлах чиглэлээр идэвхтэй үйл ажиллагаа явуулж байна.",
+      membershipsTitle: "Олон улсын нөлөөлөл ба гишүүнчлэл",
+      memberships: [
+        {
+          title: "\"Бүс ба Зам\" тинк-танкуудын хамтын ажиллагааны холбооны албан ёсны гишүүн",
+          desc: "БНХАУ-ын Намын Төв Хорооны Гадаад харилцааны хэлтэс (IDCPC)-ийн харьяа \"Орчин үеийн дэлхий дахины судалгааны хүрээлэн\" нарийн бичгийн дарга нарын газрыг нь хариуцдаг олон улсын холбоонд 2023 оны 12-р сард албан ёсоор элссэн."
+        },
+        {
+          title: "\"Баруун нутгийн хуурай зам, далайн шинэ коридорын тинк-танкуудын холбоо\"-ны гишүүн",
+          desc: "БНХАУ-ын Чунцин хотын Ардын Засгийн газар болон Хятадын Коммунист Намын Гадаад харилцааны хэлтсийн (IDCPC) \"Орчин үеийн дэлхий дахины судалгааны хүрээлэн\"-ийн ивээл дор үүсгэн байгуулагдсан холбооны албан ёсны гишүүн (Нарийн бичгийн дарга нарын газар: БНХАУ-ын Чунцин хот, Сычуаний Олон Улс Судлалын Их Сургууль)."
+        },
+        {
+          title: "\"Бүс ба Зам\" орон нутгийн хамтын ажиллагааны хороо (BRLC)-ны албан ёсны гишүүн",
+          desc: "Дэлхийн хотууд болон орон нутгийн удирдлагуудын холбоо (UCLG)-ны Ази, Номхон далайн бүсийн салбар, БНХАУ-ын Ханжоу хотын Ардын Засгийн газар болон Гадаад улсуудтай найрамдлаар харилцах Хятадын ардын нийгэмлэг (CPAFFC)-ээс хамтран үүсгэн байгуулсан хорооны 2026 оны албан ёсны гишүүн (Байнгын нарийн бичгийн дарга нарын газар: БНХАУ-ын Ханжоу хот)."
+        }
+      ],
       visionTitle: "Алсын хараа",
       visionDesc: "Монгол-Хятадын харилцаа болон бүс нутгийн хөгжлийн асуудлаарх бие даасан бодлогын судалгааны индэр байх.",
       missionTitle: "Эрхэм зорилго",
@@ -39,6 +54,21 @@ export default function AboutClient({ experts }: { experts: any[] }) {
       title: "About Us",
       intro1: "Mongolian \"Belt and Road\" Co-Development Research Center is an independent, professional policy research think-tank dedicated to analyzing cooperation across Mongolia, China, and the Eurasian region through research, data, and policy analysis.",
       intro2: "Established in 2022, our Center actively operates to study the alignment of Mongolia’s long-term development policies, namely \"Vision 2050\" and the \"New Recovery Policy,\" with the \"Belt and Road\" initiative—the main driver of regional cooperation—and the \"Mongolia-Russia-China Economic Corridor,\" through scientifically grounded methodologies.",
+      membershipsTitle: "International Influence & Memberships",
+      memberships: [
+        {
+          title: "Official Member of the \"Belt and Road\" Think Tank Cooperation Alliance",
+          desc: "Officially joined in December 2023. The international alliance is managed by the \"Institute of Contemporary World Studies\" under the International Department of the Central Committee of the Communist Party of China (IDCPC)."
+        },
+        {
+          title: "Member of the \"New International Land-Sea Trade Corridor Think Tank Alliance\"",
+          desc: "An official member of the alliance established under the auspices of the Chongqing Municipal People's Government and the \"Institute of Contemporary World Studies\" of IDCPC (Secretariat: Sichuan International Studies University, Chongqing, China)."
+        },
+        {
+          title: "Official Member of the \"Belt and Road\" Local Cooperation Committee (BRLC)",
+          desc: "Official member since 2026. The committee was co-founded by the Asia-Pacific section of United Cities and Local Governments (UCLG), the Hangzhou Municipal People's Government, and the Chinese People's Association for Friendship with Foreign Countries (CPAFFC) (Permanent Secretariat: Hangzhou, China)."
+        }
+      ],
       visionTitle: "Vision",
       visionDesc: "To serve as an independent policy research platform on Mongolia-China relations and regional development.",
       missionTitle: "Mission",
@@ -58,6 +88,21 @@ export default function AboutClient({ experts }: { experts: any[] }) {
       title: "关于我们",
       intro1: "蒙古国“一带一路”共同发展研究中心是一家独立、专业的政策研究智库，致力于通过实证研究、数据和政策分析，阐释蒙古国、中国及欧亚地区的区域合作。",
       intro2: "本中心成立于2022年，积极致力于将蒙古国中长期发展政策“远景2050”和“新复兴政策”，与区域合作的核心引擎——“一带一路”倡议以及“中蒙俄经济走廊”进行有机结合，开展具有科学依据的系统性研究。",
+      membershipsTitle: "国际影响力与成员资格",
+      memberships: [
+        {
+          title: "“一带一路”智库合作联盟正式成员",
+          desc: "于2023年12月正式加入该国际联盟。该联盟秘书处由中共中央对外联络部（IDCPC）所属的“当代世界研究中心”负责。"
+        },
+        {
+          title: "“西部陆海新通道智库联盟”成员",
+          desc: "在重庆市人民政府和中共中央对外联络部（IDCPC）“当代世界研究中心”共同倡议下成立的联盟的正式成员（秘书处：中国重庆，四川外国语大学）。"
+        },
+        {
+          title: "“一带一路”地方合作委员会（BRLC）正式成员",
+          desc: "2026年正式成员。该委员会由世界城地组织（UCLG）亚太区、杭州市人民政府和中国人民对外友好协会（CPAFFC）共同发起成立（常设秘书处：中国杭州）。"
+        }
+      ],
       visionTitle: "愿景",
       visionDesc: "致力于成为蒙中关系与区域发展领域的独立政策研究平台。",
       missionTitle: "使命",
@@ -118,6 +163,29 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             {current.intro2}
           </p>
         </AnimatedSection>
+      </section>
+
+      {/* Memberships Section */}
+      <section className="py-16 px-6 max-w-5xl mx-auto border-b border-slate-100">
+        <AnimatedSection className="mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#002b5c] mb-4">
+            {current.membershipsTitle}
+          </h2>
+          <div className="w-16 h-1 bg-gradient-to-r from-[#115e59] to-[#002b5c] mx-auto rounded-full"></div>
+        </AnimatedSection>
+
+        <div className="space-y-6">
+          {current.memberships.map((membership, i) => (
+            <AnimatedSection key={i} delay={0.1 * i} className="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg md:text-xl font-bold text-[#002b5c] mb-3">
+                {membership.title}
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-justify md:text-left">
+                {membership.desc}
+              </p>
+            </AnimatedSection>
+          ))}
+        </div>
       </section>
 
       {/* Vision & Mission Section */}
