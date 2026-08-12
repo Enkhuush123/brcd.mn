@@ -20,6 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Нийтлэлүүд", href: "/admin/articles", icon: FileText },
     { name: "Ангилал", href: "/admin/categories", icon: FolderOpen },
     { name: "Судлаачид", href: "/admin/authors", icon: Users },
+    { name: "Тохиргоо", href: "/admin/settings", icon: Globe2 },
   ];
 
   return (

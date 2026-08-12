@@ -4,9 +4,11 @@ import Link from "next/link";
 import { Mail, Globe2, Users, Send } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function Footer() {
   const { language } = useLanguage();
+  const { settings } = useSettings();
 
   const dict = {
     MN: {
@@ -75,7 +77,7 @@ export default function Footer() {
             {current.desc}
           </p>
           <div className="flex gap-4 text-white">
-            <Link href="mailto:info@bcrd.mn" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
+            <Link href={`mailto:${settings.email}`} className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
               <Mail className="w-4 h-4" />
             </Link>
             <Link href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
@@ -122,11 +124,11 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-[#f59e0b] shrink-0" />
-              <a href="mailto:info@bcrd.mn" className="hover:text-white">info@bcrd.mn</a>
+              <a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a>
             </li>
             <li className="flex items-center gap-3">
               <Users className="w-5 h-5 text-[#f59e0b] shrink-0" />
-              <span>+976 7700-0000</span>
+              <span>{settings.phone}</span>
             </li>
           </ul>
         </div>

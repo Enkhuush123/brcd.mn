@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSettings } from "@/context/SettingsContext";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Send, MapPin, Phone, Mail } from "lucide-react";
 
 export default function ContactClient() {
   const { language } = useLanguage();
+  const { settings } = useSettings();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -102,7 +104,7 @@ export default function ContactClient() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-[#002b5c] mb-2">Утас / Phone</h3>
-              <p className="text-slate-600">{current.phoneText}</p>
+              <p className="text-slate-600">{settings.phone}</p>
             </div>
           </div>
           
@@ -112,7 +114,7 @@ export default function ContactClient() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-[#002b5c] mb-2">Имэйл / Email</h3>
-              <p className="text-slate-600">info@bcrd.mn</p>
+              <p className="text-slate-600">{settings.email}</p>
             </div>
           </div>
         </AnimatedSection>

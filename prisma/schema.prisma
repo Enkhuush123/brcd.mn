@@ -88,3 +88,10 @@ model ContactMessage {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model SiteSettings {
+  id        String   @id @default(uuid())
+  phone     String   @default("+976 7700-0000")
+  email     String   @default("info@bcrd.mn")
+  updatedAt DateTime @updatedAt
+}
