@@ -65,12 +65,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </header>
 
           <div 
-            className="prose prose-slate prose-base md:prose-lg max-w-none w-full text-slate-700 font-light mb-16
+            className="prose prose-slate prose-base md:prose-lg max-w-none w-full break-words text-slate-700 font-light mb-16
                        leading-[1.8] prose-p:leading-[1.8] prose-li:leading-[1.8]
                        prose-headings:font-serif prose-headings:text-[#002b5c] prose-headings:font-bold prose-headings:text-wrap-balance
                        prose-a:text-[#115e59] prose-a:no-underline hover:prose-a:underline
                        prose-img:rounded-xl md:prose-img:rounded-2xl prose-img:shadow-sm prose-img:w-full prose-img:h-auto
-                       prose-table:block prose-table:overflow-x-auto prose-table:w-full prose-table:whitespace-nowrap
+                       prose-table:block prose-table:overflow-x-auto prose-table:w-full
                        prose-td:px-4 prose-td:py-2 prose-th:px-4 prose-th:py-2 prose-td:border prose-th:border
                        prose-video:w-full prose-iframe:w-full"
             dangerouslySetInnerHTML={{ __html: article.contentMn }} 

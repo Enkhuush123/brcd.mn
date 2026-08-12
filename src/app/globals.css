@@ -35,8 +35,9 @@
     color: inherit !important;
   }
   
-  /* Optional: Force background transparent if Word pastes solid white backgrounds */
-  .prose p, .prose span, .prose div {
+  /* Optional: Force background transparent if Word pastes solid white backgrounds, and force text wrapping */
+  .prose p, .prose span, .prose div, .prose td, .prose th {
     background-color: transparent !important;
+    white-space: normal !important;
   }
 }
