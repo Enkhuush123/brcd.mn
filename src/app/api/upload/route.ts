@@ -23,16 +23,13 @@ export async function POST(req: Request) {
     const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
     const filePath = `${folder}/${fileName}`;
 
-    // Read file as ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    // Upload to Supabase Storage
+    // Upload to Supabase Storage using the native File object
+    // Passing a Node Buffer to native fetch can cause the request to hang in Next.js
     const { data, error } = await supabase.storage
       .from("bcrd_bucket")
-      .upload(filePath, buffer, {
+      .upload(filePath, file, {
         contentType: file.type,
-        upsert: false
+        upsert: false,
       });
 
     if (error) {
