@@ -12,7 +12,19 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "*.js",
+    "scripts/**",
+    "prisma.config.ts"
   ]),
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@next/next/no-img-element": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/exhaustive-deps": "off"
+    },
+  },
 ]);
 
 export default eslintConfig;

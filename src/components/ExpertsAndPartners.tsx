@@ -1,10 +1,8 @@
 "use client";
 
-import { Globe, Briefcase, Zap, BookOpen } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { motion } from "framer-motion";
 
 export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
   const { language } = useLanguage();
