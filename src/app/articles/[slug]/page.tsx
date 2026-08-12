@@ -43,7 +43,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </span>
             </div>
 
-            <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-serif font-bold text-[#002b5c] leading-[1.2] md:leading-[1.15] mb-6 md:mb-8 break-words">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] leading-[1.3] md:leading-[1.25] mb-6 md:mb-8 text-wrap-balance">
               {article.titleMn}
             </h1>
 
@@ -52,7 +52,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500 shrink-0">
                   {(article.author?.nameMn || "A").charAt(0)}
                 </div>
-                <span className="break-words">
+                <span>
                   {article.author?.nameMn}
                   {article.author?.titleMn && <span className="text-slate-400 font-normal ml-1">({article.author.titleMn})</span>}
                 </span>
@@ -65,13 +65,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </header>
 
           <div 
-            className="prose prose-slate prose-base md:prose-lg max-w-none w-full break-words text-slate-700 leading-relaxed font-light mb-16
-                       prose-headings:font-serif prose-headings:text-[#002b5c] prose-headings:font-bold prose-headings:break-words
-                       prose-a:text-[#115e59] prose-a:no-underline hover:prose-a:underline prose-a:break-words
+            className="prose prose-slate prose-base md:prose-lg max-w-none w-full text-slate-700 font-light mb-16
+                       leading-[1.8] prose-p:leading-[1.8] prose-li:leading-[1.8]
+                       prose-headings:font-serif prose-headings:text-[#002b5c] prose-headings:font-bold prose-headings:text-wrap-balance
+                       prose-a:text-[#115e59] prose-a:no-underline hover:prose-a:underline
                        prose-img:rounded-xl md:prose-img:rounded-2xl prose-img:shadow-sm prose-img:w-full prose-img:h-auto
                        prose-table:block prose-table:overflow-x-auto prose-table:w-full prose-table:whitespace-nowrap
                        prose-td:px-4 prose-td:py-2 prose-th:px-4 prose-th:py-2 prose-td:border prose-th:border
-                       prose-video:w-full prose-iframe:w-full prose-p:text-justify md:prose-p:text-left"
+                       prose-video:w-full prose-iframe:w-full"
             dangerouslySetInnerHTML={{ __html: article.contentMn }} 
           />
 
