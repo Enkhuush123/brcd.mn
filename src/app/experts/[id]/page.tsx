@@ -85,7 +85,7 @@ export default async function ExpertProfilePage({ params }: { params: Promise<{ 
                   </span>
                   <div className="flex items-center gap-2 text-slate-400 text-sm">
                     <Calendar className="w-4 h-4" />
-                    {new Date(article.publishedAt).toLocaleDateString()}
+                    {new Date(article.publishedAt).toISOString().split('T')[0]}
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-[#002b5c] mb-4 group-hover:text-[#115e59] transition-colors leading-snug">

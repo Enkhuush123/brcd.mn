@@ -8,12 +8,30 @@ import { MessageCircle } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  // Fetch latest 4 articles
+  // Fetch latest 4 featured articles (Insights)
   const articles = await prisma.article.findMany({
     where: { isFeatured: true },
     orderBy: { publishedAt: "desc" },
     take: 4,
     include: { author: true, category: true },
+  });
+
+  // Fetch latest 6 news/articles for the news section
+  const latestNews = await prisma.article.findMany({
+    orderBy: { publishedAt: "desc" },
+    take: 7, // Increased to 7
+    include: { author: true, category: true },
+  });
+
+  // Fetch all categories with their latest 4 articles
+  const categoriesWithArticles = await prisma.category.findMany({
+    include: {
+      articles: {
+        orderBy: { publishedAt: "desc" },
+        take: 4,
+        include: { author: true, category: true }
+      }
+    }
   });
 
   // Fetch experts (authors)
@@ -25,7 +43,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white">
       <Navbar />
-      <HomeClient articles={articles} experts={experts} />
+      <HomeClient articles={articles} latestNews={latestNews} categories={categoriesWithArticles} experts={experts} />
       <Footer />
       <Link 
         href="/contact" 

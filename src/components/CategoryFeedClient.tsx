@@ -54,7 +54,7 @@ export default function CategoryFeedClient({ articles, titleDict }: { articles: 
                       {categoryName}
                     </span>
                     <span className="text-slate-400">
-                      {new Date(article.publishedAt).toLocaleDateString()}
+                      {new Date(article.publishedAt).toISOString().split('T')[0]}
                     </span>
                   </div>
                   <h3 className="text-xl font-serif font-bold text-[#002b5c] mb-4 group-hover:text-[#115e59] transition-colors leading-snug line-clamp-3">

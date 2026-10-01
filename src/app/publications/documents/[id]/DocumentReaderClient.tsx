@@ -39,7 +39,7 @@ export default function DocumentReaderClient({ document }: { document: any }) {
         </h1>
         
         <div className="flex items-center gap-4 text-sm text-slate-500 mb-12 pb-8 border-b border-slate-100">
-          <span>{new Date(document.createdAt).toLocaleDateString()}</span>
+          <span>{new Date(document.createdAt).toISOString().split('T')[0]}</span>
         </div>
 
         {/* Content */}

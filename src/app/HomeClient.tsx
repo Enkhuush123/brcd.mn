@@ -12,17 +12,23 @@ import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 import ExpertsAndPartners from "@/components/ExpertsAndPartners";
 
 export default function HomeClient({
   articles,
+  latestNews,
+  categories,
   experts,
 }: {
   articles: any[];
+  latestNews: any[];
+  categories?: any[];
   experts: any[];
 }) {
   const { language } = useLanguage();
+  const [activeCatId, setActiveCatId] = useState<string | null>(categories?.[0]?.id || null);
 
   const dict = {
     MN: {
@@ -61,6 +67,7 @@ export default function HomeClient({
         "Хөрөнгө оруулагчдад хэрэгтэй эдийн засгийн статистик, дата аналитикууд",
 
       insightTitle: "Онцлох нийтлэл, анализууд",
+      newsTitle: "Шинэ мэдээ, мэдээлэл",
       viewAll: "Бүх хэвлэлийг үзэх",
       noArticles: "Нийтлэл ороогүй байна.",
       researcher: "Судлаач",
@@ -105,6 +112,7 @@ export default function HomeClient({
       hubFeat3Desc: "Economic statistics and data analytics for investors",
 
       insightTitle: "Featured Insights & Analysis",
+      newsTitle: "Latest News & Updates",
       viewAll: "View All Publications",
       noArticles: "No articles available.",
       researcher: "Researcher",
@@ -146,6 +154,7 @@ export default function HomeClient({
       hubFeat3Desc: "为投资者提供的经济统计及数据分析",
 
       insightTitle: "精选洞察与分析",
+      newsTitle: "最新新闻与资讯",
       viewAll: "查看所有出版物",
       noArticles: "暂无文章。",
       researcher: "研究员",
@@ -169,7 +178,7 @@ export default function HomeClient({
         </div>
 
         <AnimatedSection className="z-20 text-center max-w-5xl px-6 mt-20 md:mt-0">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
             {t.heroTitle1} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] to-[#fbbf24]">
               {t.heroTitleHighlight}
@@ -190,11 +199,197 @@ export default function HomeClient({
         </AnimatedSection>
       </section>
 
+      {/* BLOCK 1.5: Latest News */}
+      <section className="py-24 md:py-32 px-6 md:px-16 bg-slate-50 border-t border-slate-100">
+        <AnimatedSection className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-4">
+                {t.newsTitle}
+              </h2>
+              <div className="w-20 h-1.5 bg-[#f59e0b] rounded-full"></div>
+            </div>
+            <Link
+              href="/news"
+              className="flex items-center gap-2 text-[#f59e0b] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95"
+            >
+              {t.viewAll} <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* First large featured news */}
+            {latestNews.length > 0 && (() => {
+              const article = latestNews[0];
+              const title =
+                language === "EN" && article.titleEn
+                  ? article.titleEn
+                  : language === "ZH" && article.titleZh
+                    ? article.titleZh
+                    : article.titleMn;
+              const categoryName =
+                language === "EN" && article.category?.nameEn
+                  ? article.category.nameEn
+                  : language === "ZH" && article.category?.nameZh
+                    ? article.category.nameZh
+                    : article.category?.nameMn;
+
+              return (
+                <div className="lg:col-span-7">
+                  <Link
+                    href={`/articles/${article.slug}`}
+                    className="group block bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100 h-full relative"
+                  >
+                    <div className="h-64 sm:h-80 md:h-[400px] w-full bg-slate-200 overflow-hidden relative">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#001730]/90 via-[#001730]/20 to-transparent z-10"></div>
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        style={{ backgroundImage: `url('${article.imageUrl || 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070'}')` }}
+                      ></div>
+                      
+                      <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
+                        <div className="flex gap-3 items-center mb-4">
+                          <span className="bg-[#f59e0b] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                            {categoryName || "Мэдээ"}
+                          </span>
+                          <span className="text-white/80 text-sm font-medium">
+                            {new Date(article.publishedAt).toISOString().split('T')[0]}
+                          </span>
+                        </div>
+                        <h3 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-white mb-4 leading-tight group-hover:text-[#f59e0b] transition-colors line-clamp-3">
+                          {title}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })()}
+
+            {/* Smaller news grid */}
+            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              {latestNews.slice(1, 4).map((article, i) => {
+                const title =
+                  language === "EN" && article.titleEn
+                    ? article.titleEn
+                    : language === "ZH" && article.titleZh
+                      ? article.titleZh
+                      : article.titleMn;
+                const categoryName =
+                  language === "EN" && article.category?.nameEn
+                    ? article.category.nameEn
+                    : language === "ZH" && article.category?.nameZh
+                      ? article.category.nameZh
+                      : article.category?.nameMn;
+
+                return (
+                  <Link
+                    key={article.id}
+                    href={`/articles/${article.slug}`}
+                    className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex items-center gap-4 p-4 hover:-translate-y-1"
+                  >
+                    <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-xl overflow-hidden relative">
+                      <div className="absolute inset-0 bg-[#002b5c]/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700 ease-out"
+                        style={{ backgroundImage: `url('${article.imageUrl || 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070'}')` }}
+                      ></div>
+                    </div>
+                    <div className="flex-1 min-w-0 py-2">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-bold text-[#f59e0b] uppercase tracking-wider">
+                          {categoryName || "Мэдээ"}
+                        </span>
+                        <span className="text-xs text-slate-400">•</span>
+                        <span className="text-xs text-slate-400">
+                          {new Date(article.publishedAt).toISOString().split('T')[0]}
+                        </span>
+                      </div>
+                      <h3 className="text-base md:text-lg font-serif font-bold text-[#002b5c] group-hover:text-[#115e59] transition-colors leading-snug line-clamp-2">
+                        {title}
+                      </h3>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </AnimatedSection>
+      </section>
+      {/* BLOCK 1.8: Categories */}
+      {categories && categories.length > 0 && (
+        <section className="py-16 md:py-24 px-6 md:px-16 bg-white border-t border-slate-100">
+          <AnimatedSection className="max-w-7xl mx-auto">
+            <div className="mb-10">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-6">
+                {language === "EN" ? "Read by Category" : language === "ZH" ? "按类别阅读" : "Ангиллаар унших"}
+              </h2>
+              <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
+            </div>
+
+            <div className="flex overflow-x-auto gap-3 pb-4 mb-8 scrollbar-hide">
+              {categories.map((cat) => {
+                const catName = language === "EN" && cat.nameEn ? cat.nameEn : language === "ZH" && cat.nameZh ? cat.nameZh : cat.nameMn;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCatId(cat.id)}
+                    className={`shrink-0 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 ${activeCatId === cat.id ? 'bg-[#115e59] text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                  >
+                    {catName}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {categories.find(c => c.id === activeCatId)?.articles?.map((article: any, i: number) => {
+                const title = language === "EN" && article.titleEn ? article.titleEn : language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
+                return (
+                  <Link
+                    key={article.id}
+                    href={`/articles/${article.slug}`}
+                    className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full flex flex-col hover:-translate-y-2"
+                  >
+                    <div className="h-40 bg-slate-200 overflow-hidden relative">
+                      <div className="absolute inset-0 bg-[#002b5c]/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        style={{ backgroundImage: `url('${article.imageUrl || 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070'}')` }}
+                      ></div>
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col">
+                      <div className="flex gap-2 items-center text-xs font-bold text-slate-400 mb-3">
+                        {new Date(article.publishedAt).toISOString().split('T')[0]}
+                      </div>
+                      <h3 className="text-base md:text-lg font-serif font-bold text-[#002b5c] group-hover:text-[#115e59] transition-colors leading-snug line-clamp-3">
+                        {title}
+                      </h3>
+                    </div>
+                  </Link>
+                );
+              })}
+              {categories.find(c => c.id === activeCatId)?.articles?.length === 0 && (
+                <div className="col-span-full text-center py-12 text-slate-500">
+                  {t.noArticles}
+                </div>
+              )}
+            </div>
+            
+            <div className="mt-8 text-center">
+              <Link href="/publications" className="inline-flex items-center gap-2 text-sm font-bold text-[#115e59] hover:text-[#002b5c] transition-colors">
+                {t.viewAll} <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </AnimatedSection>
+        </section>
+      )}
+
       {/* BLOCK 2: Research Programs */}
       <section className="py-24 md:py-32 px-6 md:px-16 bg-white relative">
         <AnimatedSection className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-4">
               {t.progTitle}
             </h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#f59e0b] mx-auto rounded-full"></div>
@@ -259,7 +454,7 @@ export default function HomeClient({
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-bold mb-6 tracking-widest uppercase">
               <span className="text-xl"></span> {t.hubBadge}
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 leading-tight text-white">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold mb-4 leading-tight text-white">
               Mongolia Policy Hub
             </h2>
             <p className="text-white/80 mb-10 leading-relaxed text-lg font-light">
@@ -321,7 +516,7 @@ export default function HomeClient({
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
             <div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-6">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-4">
                 {t.insightTitle}
               </h2>
               <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
@@ -368,7 +563,10 @@ export default function HomeClient({
                     >
                       <div className="h-48 md:h-52 bg-slate-200 overflow-hidden relative">
                         <div className="absolute inset-0 bg-[#002b5c]/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                        <div className="absolute inset-0 bg-gradient-to-tr from-slate-200 to-slate-100 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                          style={{ backgroundImage: `url('${article.imageUrl || 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070'}')` }}
+                        ></div>
                       </div>
                       <div className="p-6 flex-1 flex flex-col">
                         <div className="flex gap-2 items-center text-[10px] md:text-xs font-bold text-[#115e59] uppercase tracking-wider mb-4">
@@ -376,7 +574,7 @@ export default function HomeClient({
                             {categoryName || "Анализ"}
                           </span>
                           <span className="text-slate-400">
-                            {new Date(article.publishedAt).toLocaleDateString()}
+                            {new Date(article.publishedAt).toISOString().split('T')[0]}
                           </span>
                         </div>
                         <h3 className="text-lg md:text-xl font-serif font-bold text-[#002b5c] mb-4 group-hover:text-[#115e59] transition-colors leading-snug line-clamp-3">

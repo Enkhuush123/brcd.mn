@@ -111,7 +111,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
                       {categoryName || current.article}
                     </span>
                     <span className="text-slate-400">
-                      {new Date(article.publishedAt).toLocaleDateString()}
+                      {new Date(article.publishedAt).toISOString().split('T')[0]}
                     </span>
                   </div>
                   <h3 className="text-xl font-serif font-bold text-[#002b5c] mb-4 group-hover:text-[#115e59] transition-colors leading-snug line-clamp-3">
@@ -159,7 +159,7 @@ function DocumentCard({ doc, index, language, dict }: { doc: any, index: number,
               {title}
             </h4>
             <p className="text-sm text-slate-400 font-medium">
-              {new Date(doc.publishedAt || doc.createdAt).toLocaleDateString()}
+              {new Date(doc.publishedAt || doc.createdAt).toISOString().split('T')[0]}
             </p>
           </div>
         </div>
