@@ -7,8 +7,8 @@
   --color-slate-text: #334155;
   --color-light-grey: #f8fafc;
   
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: var(--font-serif-main), var(--font-serif-sc), serif;
+  --font-sans: var(--font-sans), sans-serif;
 }
 
 :root {

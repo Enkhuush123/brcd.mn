@@ -192,7 +192,7 @@ export default function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex flex-1 justify-center items-center px-2">
+          <div className="hidden lg:flex flex-1 justify-center items-center px-2">
             <div className="flex justify-center items-center gap-2 2xl:gap-6 text-[10px] xl:text-[11px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive =
@@ -269,7 +269,7 @@ export default function Navbar({
 
           {/* Desktop Language Switcher */}
           <div
-            className={`hidden xl:flex gap-2 2xl:gap-3 items-center px-2 2xl:px-4 py-1 2xl:py-1.5 rounded-full transition-all duration-300 ${
+            className={`hidden lg:flex gap-2 2xl:gap-3 items-center px-2 2xl:px-4 py-1 2xl:py-1.5 rounded-full transition-all duration-300 ${
               isScrolled
                 ? "bg-slate-100 border border-slate-200"
                 : "bg-white/10 border border-white/20 backdrop-blur-sm"
@@ -303,7 +303,7 @@ export default function Navbar({
 
           {/* Mobile Menu Toggle */}
           <button
-            className="xl:hidden p-2 -mr-2"
+            className="lg:hidden p-2 -mr-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -326,7 +326,7 @@ export default function Navbar({
               animate={{ opacity: 1, height: "100vh" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="xl:hidden bg-white overflow-hidden shadow-lg absolute w-full top-full left-0 z-40 border-t border-slate-100"
+              className="lg:hidden bg-white overflow-hidden shadow-lg absolute w-full top-full left-0 z-40 border-t border-slate-100"
             >
               <div className="flex flex-col px-6 py-8 space-y-6 h-full bg-white overflow-y-auto pb-32">
                 {navLinks.map((link, i) => (
