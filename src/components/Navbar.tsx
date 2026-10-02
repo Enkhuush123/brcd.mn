@@ -193,7 +193,7 @@ export default function Navbar({
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex flex-1 justify-center items-center px-2">
-            <div className="flex justify-center items-center gap-2 2xl:gap-6 text-[10px] xl:text-[11px] 2xl:text-[13px] font-semibold tracking-wide whitespace-nowrap">
+            <div className="flex justify-center items-center gap-2 2xl:gap-6 text-xs lg:text-sm 2xl:text-base font-semibold tracking-wide whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive =
                   (link.href !== "#" &&
@@ -253,7 +253,7 @@ export default function Navbar({
                             <Link
                               key={sub.name}
                               href={sub.href}
-                              className="px-4 py-2 2xl:px-5 2xl:py-3 text-xs 2xl:text-sm font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59] whitespace-normal leading-snug"
+                              className="px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-medium text-slate-600 hover:text-[#115e59] hover:bg-slate-50 transition-colors border-l-2 border-transparent hover:border-[#115e59] whitespace-normal leading-snug"
                             >
                               {sub.name}
                             </Link>
@@ -277,7 +277,7 @@ export default function Navbar({
           >
               <button
                 onClick={() => setLanguage("MN")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
+                className={`font-bold text-sm whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 MN
               </button>
@@ -286,7 +286,7 @@ export default function Navbar({
               ></div>
               <button
                 onClick={() => setLanguage("EN")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
+                className={`font-bold text-sm whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 EN
               </button>
@@ -295,7 +295,7 @@ export default function Navbar({
               ></div>
               <button
                 onClick={() => setLanguage("ZH")}
-                className={`font-bold text-xs whitespace-nowrap transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
+                className={`font-bold text-sm whitespace-nowrap transition-colors ${language === "ZH" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 中文
               </button>

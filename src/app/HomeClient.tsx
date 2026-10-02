@@ -178,7 +178,7 @@ export default function HomeClient({
         </div>
 
         <AnimatedSection className="z-20 text-center max-w-5xl px-6 mt-20 md:mt-0">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
             {t.heroTitle1} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] to-[#fbbf24]">
               {t.heroTitleHighlight}
