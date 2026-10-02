@@ -39,5 +39,7 @@
   .prose p, .prose span, .prose div, .prose td, .prose th {
     background-color: transparent !important;
     white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
   }
 }

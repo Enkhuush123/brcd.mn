@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </header>
 
           <div 
-            className="prose prose-slate prose-base md:prose-lg max-w-none w-full break-words text-slate-700 font-light mb-16
+            className="prose prose-slate prose-base md:prose-lg max-w-none w-full break-normal text-slate-700 font-light mb-16
                        leading-[1.8] prose-p:leading-[1.8] prose-li:leading-[1.8]
                        prose-headings:font-serif prose-headings:text-[#002b5c] prose-headings:font-bold prose-headings:text-wrap-balance
                        prose-a:text-[#115e59] prose-a:no-underline hover:prose-a:underline
