@@ -55,6 +55,7 @@ model Article {
   pdfUrlZh    String?  // Optional PDF attachment (ZH)
   imageUrl    String?  // Optional Cover image
   isFeatured  Boolean  @default(false)
+  isFeaturedNews Boolean @default(false)
   
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])
@@ -95,3 +96,4 @@ model SiteSettings {
   email     String   @default("info@bcrd.mn")
   updatedAt DateTime @updatedAt
 }
+

@@ -18,6 +18,7 @@ export default async function Home() {
 
   // Fetch latest 6 news/articles for the news section
   const latestNews = await prisma.article.findMany({
+    where: { isFeaturedNews: true },
     orderBy: { publishedAt: "desc" },
     take: 7, // Increased to 7
     include: { author: true, category: true },

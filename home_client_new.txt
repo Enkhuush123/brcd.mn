@@ -1,176 +1,4 @@
-"use client";
-
-import {
-  ArrowRight,
-  BookOpen,
-  Download,
-  Globe,
-  Briefcase,
-  Zap,
-} from "lucide-react";
-import AnimatedSection from "@/components/AnimatedSection";
-import Link from "next/link";
-import { useLanguage } from "@/context/LanguageContext";
-import { motion } from "framer-motion";
-import { useState } from "react";
-
-import ExpertsAndPartners from "@/components/ExpertsAndPartners";
-
-export default function HomeClient({
-  articles,
-  latestNews,
-  categories,
-  experts,
-}: {
-  articles: any[];
-  latestNews: any[];
-  categories?: any[];
-  experts: any[];
-}) {
-  const { language } = useLanguage();
-  const [activeCatId, setActiveCatId] = useState<string | null>(categories?.[0]?.id || null);
-
-  const dict = {
-    MN: {
-      heroTitle1: "Евразийн холболт, гео-эдийн засаг болон ",
-      heroTitleHighlight: "Монгол-Хятадын",
-      heroTitle2: " харилцаа",
-      heroDesc:
-        "Бид бол бүс нутгийн хамтын ажиллагааг гүнзгийрүүлэх хараат бус судалгаа, бодлогын зөвлөмжүүдийг боловсруулдаг тинк-танк.",
-      readLatest: "Хамгийн сүүлийн тайлан унших",
-
-      progTitle: "Судалгааны хөтөлбөр",
-      progDesc:
-        "Бид зөвхөн Монгол гэлтгүй Еврази, Дэлхийн өмнөд, Бүс нутгийн макро түвшний гүнзгийрүүлсэн судалгаануудыг хийж гүйцэтгэдэг.",
-      prog1Title: "Евразийн холболт ба Бүс ба Зам",
-      prog1Desc:
-        "Макро геополитик, логистик болон транзит тээврийн коридорын судалгаа шинжилгээ.",
-      prog2Title: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт",
-      prog2Desc:
-        "Хятад-Монгол-Оросын эдийн засгийн коридор, гадаадын шууд хөрөнгө оруулалтын урсгал.",
-      prog3Title: "Ногоон хөгжил ба Технологи",
-      prog3Desc:
-        "Экологийн засаглал, сэргээгдэх эрчим хүч, AI болон дижитал шилжилтийн бодлого.",
-      readMore: "Дэлгэрэнгүй",
-
-      hubBadge: "🇲🇳 Хөрөнгө оруулагчдын хөтөч",
-      hubDesc:
-        "Монгол Улсын хөрөнгө оруулалтын орчин, стратегийн төслүүд, татвар, хууль эрх зүйн мэдээллийн нэгдсэн сан. Гадаадын хөрөнгө оруулагчид болон судлаачдад зориулав.",
-      hubBtn1: "Хөрөнгө оруулалтын гарын авлага",
-      hubBtn2: "Алсын хараа 2050 унших",
-      hubFeat1: "Хууль эрх зүй",
-      hubFeat1Desc: "Гадаадын хөрөнгө оруулалтын хууль, татварын шинэчлэлтүүд",
-      hubFeat2: "Стратегийн төслүүд",
-      hubFeat2Desc: "Шинэ сэргэлтийн бодлого, эрчим хүчний мега төслүүд",
-      hubFeat3: "Макро эдийн засаг",
-      hubFeat3Desc:
-        "Хөрөнгө оруулагчдад хэрэгтэй эдийн засгийн статистик, дата аналитикууд",
-
-      insightTitle: "Онцлох нийтлэл, анализууд",
-      newsTitle: "Шинэ мэдээ, мэдээлэл",
-      viewAll: "Бүх хэвлэлийг үзэх",
-      noArticles: "Нийтлэл ороогүй байна.",
-      researcher: "Судлаач",
-
-      expertTitle: "Бидний экспертүүд",
-      noExperts: "Судлаачдын мэдээлэл ороогүй байна.",
-
-      partners: "Хамтран ажиллагч байгууллагууд",
-    },
-    EN: {
-      heroTitle1: "Eurasian Connectivity, Geo-Economics & ",
-      heroTitleHighlight: "Mongolia-China",
-      heroTitle2: " Relations",
-      heroDesc:
-        "We are an independent think-tank providing deep research and policy recommendations to enhance regional cooperation.",
-      readLatest: "Read Latest Reports",
-
-      progTitle: "Research Programs",
-      progDesc:
-        "We conduct macro-level in-depth research covering Mongolia, Eurasia, the Global South, and the broader region.",
-      prog1Title: "Eurasian Connectivity & BRI",
-      prog1Desc:
-        "Macro geopolitics, logistics, and transit transport corridor analysis.",
-      prog2Title: "Regional Geo-Economics & FDI",
-      prog2Desc:
-        "China-Mongolia-Russia economic corridor and foreign direct investment flows.",
-      prog3Title: "Green Development & Tech",
-      prog3Desc:
-        "Ecological governance, renewable energy, AI, and digital transition policies.",
-      readMore: "Read More",
-
-      hubBadge: "🇲🇳 Investor's Guide",
-      hubDesc:
-        "A comprehensive database of Mongolia's investment environment, strategic projects, tax, and legal information. Tailored for foreign investors and researchers.",
-      hubBtn1: "Investment Guide",
-      hubBtn2: "Read Vision 2050",
-      hubFeat1: "Legal Framework",
-      hubFeat1Desc: "FDI laws and taxation updates",
-      hubFeat2: "Strategic Projects",
-      hubFeat2Desc: "New Recovery Policy and energy mega projects",
-      hubFeat3: "Macro Economics",
-      hubFeat3Desc: "Economic statistics and data analytics for investors",
-
-      insightTitle: "Featured Insights & Analysis",
-      newsTitle: "Latest News & Updates",
-      viewAll: "View All Publications",
-      noArticles: "No articles available.",
-      researcher: "Researcher",
-
-      expertTitle: "Our Experts",
-      noExperts: "No expert information available.",
-
-      partners: "Partner Organizations",
-    },
-    ZH: {
-      heroTitle1: "欧亚互联互通，地缘经济与 ",
-      heroTitleHighlight: "中蒙",
-      heroTitle2: " 关系",
-      heroDesc:
-        "我们是一家独立的智库，致力于提供深入的研究和政策建议，以加强区域合作。",
-      readLatest: "阅读最新报告",
-
-      progTitle: "研究项目",
-      progDesc:
-        "我们进行涵盖蒙古、欧亚大陆、全球南方及更广泛区域的宏观层面深入研究。",
-      prog1Title: "欧亚互联互通与“一带一路”",
-      prog1Desc: "宏观地缘政治、物流及过境运输走廊分析。",
-      prog2Title: "区域地缘经济与外商直接投资",
-      prog2Desc: "中蒙俄经济走廊与外国直接投资流动。",
-      prog3Title: "绿色发展与科技",
-      prog3Desc: "生态治理、可再生能源、人工智能及数字化转型政策。",
-      readMore: "了解更多",
-
-      hubBadge: "🇲🇳 投资者指南",
-      hubDesc:
-        "蒙古投资环境、战略项目、税务及法律信息的综合数据库。专为外国投资者及研究人员量身定制。",
-      hubBtn1: "投资指南",
-      hubBtn2: "阅读2050愿景",
-      hubFeat1: "法律框架",
-      hubFeat1Desc: "外商直接投资法及税务更新",
-      hubFeat2: "战略项目",
-      hubFeat2Desc: "新复苏政策及能源大型项目",
-      hubFeat3: "宏观经济",
-      hubFeat3Desc: "为投资者提供的经济统计及数据分析",
-
-      insightTitle: "精选洞察与分析",
-      newsTitle: "最新新闻与资讯",
-      viewAll: "查看所有出版物",
-      noArticles: "暂无文章。",
-      researcher: "研究员",
-
-      expertTitle: "我们的专家",
-      noExperts: "暂无专家信息。",
-
-      partners: "合作伙伴",
-    },
-  };
-
-  const t = dict[language];
-
-  return (
-    <>
-      {/* BLOCK 1: Hero Section */}
+{/* BLOCK 1: Hero Section */}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-[#001730]">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-[#001730] via-[#002b5c] to-[#001730] z-10 opacity-90" />
@@ -254,7 +82,7 @@ export default function HomeClient({
                       <div className="p-6 flex-1 flex flex-col">
                         <div className="flex gap-2 items-center text-[10px] md:text-xs font-bold text-[#115e59] uppercase tracking-wider mb-4">
                           <span className="bg-[#115e59]/10 px-2 py-1 rounded text-[#115e59]">
-                            {categoryName || "Анализ"}
+                            {categoryName || "ÐÐ½Ð°Ð»Ð¸Ð·"}
                           </span>
                           <span className="text-slate-400">
                             {new Date(article.publishedAt).toISOString().split('T')[0]}
@@ -266,7 +94,7 @@ export default function HomeClient({
                         <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-[#002b5c]">
-                              {(authorName || "С").charAt(0)}
+                              {(authorName || "Ð¡").charAt(0)}
                             </div>
                             <p className="text-sm text-slate-600 font-medium">
                               {authorName || t.researcher}
@@ -290,7 +118,11 @@ export default function HomeClient({
         </AnimatedSection>
       </section>
 
-      
+      <ExpertsAndPartners experts={experts} />
+    </>
+  );
+}
+
       {/* BLOCK 2: Research Programs */}
       <section className="py-24 md:py-32 px-6 md:px-16 bg-white relative">
         <AnimatedSection className="max-w-7xl mx-auto">
@@ -420,6 +252,7 @@ export default function HomeClient({
 
       
       {/* BLOCK 5: Center News */}
+
       <section className="py-24 md:py-32 px-6 md:px-16 bg-slate-50 border-t border-slate-100">
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
@@ -466,7 +299,7 @@ export default function HomeClient({
                       <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
                         <div className="flex gap-3 items-center mb-4">
                           <span className="bg-[#f59e0b] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                            {categoryName || "Мэдээ"}
+                            {categoryName || "ÐœÑÐ´ÑÑ"}
                           </span>
                           <span className="text-white/80 text-sm font-medium">
                             {new Date(article.publishedAt).toISOString().split('T')[0]}
@@ -510,9 +343,9 @@ export default function HomeClient({
                     <div className="flex-1 min-w-0 py-2">
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-xs font-bold text-[#f59e0b] uppercase tracking-wider">
-                          {categoryName || "Мэдээ"}
+                          {categoryName || "ÐœÑÐ´ÑÑ"}
                         </span>
-                        <span className="text-xs text-slate-400">•</span>
+                        <span className="text-xs text-slate-400">â€¢</span>
                         <span className="text-xs text-slate-400">
                           {new Date(article.publishedAt).toISOString().split('T')[0]}
                         </span>
@@ -529,7 +362,4 @@ export default function HomeClient({
         </AnimatedSection>
       </section>
       
-      <ExpertsAndPartners experts={experts} />
-    </>
-  );
-}
+      

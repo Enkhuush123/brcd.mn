@@ -36,6 +36,7 @@ export default function ArticleForm({
     authorId:
       initialData?.authorId || (authors.length > 0 ? authors[0].id : ""),
     isFeatured: initialData?.isFeatured || false,
+      isFeaturedNews: initialData?.isFeaturedNews || false,
     pdfUrl: initialData?.pdfUrl || "",
     pdfUrlEn: initialData?.pdfUrlEn || "",
     pdfUrlZh: initialData?.pdfUrlZh || "",

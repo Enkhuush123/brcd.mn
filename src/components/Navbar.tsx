@@ -34,7 +34,7 @@ export default function Navbar({
       policyHub: "Бодлогын тойм",
       newsAndPubs: "Мэдээ, Нийтлэл",
       contact: "Холбоо барих",
-      logoTitle: <>Нэг бүс нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
+      logoTitle: <>Нэг бүс нэг зам<br/>Хамтын хөгжил судалгааны төв</>,
       aboutUs: "Бидний тухай",
       experts: "Бидний экспертүүд",
       cooperation: "Хамтын ажиллагаа",
