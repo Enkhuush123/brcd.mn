@@ -9,8 +9,8 @@ async function getOrCreateSettings() {
   if (!settings) {
     settings = await prisma.siteSettings.create({
       data: {
-        phone: "+976 7700-0000",
-        email: "info@bcrd.mn",
+        phone: "976-88087744",
+        email: "info@brcd-mongolia.org",
       }
     });
   }

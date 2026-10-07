@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type Language = "MN" | "EN" | "ZH";
+type Language = "MN" | "ZH";
 
 interface LanguageContextType {
   language: Language;
@@ -21,7 +21,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   useEffect(() => {
     setMounted(true);
     const savedLang = localStorage.getItem("bcrd-lang") as Language;
-    if (savedLang && ["MN", "EN", "ZH"].includes(savedLang)) {
+    if (savedLang && ["MN", "ZH"].includes(savedLang)) {
       setLanguageState(savedLang);
     }
   }, []);

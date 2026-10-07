@@ -12,41 +12,28 @@ export default function Footer() {
 
   const dict = {
     MN: {
-      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
+      logoTitle: <>Нэг бүс нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
       desc: "Евразийн холболт, гео-эдийн засаг болон Монгол-Хятадын харилцааны гүнзгийрүүлсэн судалгааг гүйцэтгэх хараат бус тинк-танк.",
       linksTitle: "Холбоосууд",
-      about: "Бидний тухай", programs: "Судалгааны хөтөлбөр", policyHub: "Монголын бодлогын тойм", 
-      publications: "Хэвлэл нийтлэл", news: "Мэдээ & Арга хэмжээ", login: "Системд нэвтрэх",
+      about: "Бидний тухай", programs: "Судалгааны чиглэл", policyHub: "Бодлогын тойм", 
+      publications: "Мэдээ, Нийтлэл", news: "Арга хэмжээ", login: "Системд нэвтрэх",
       newsletterTitle: "Имэйлээр мэдээлэл авах",
       newsletterDesc: "Судалгааны тайлан, бодлогын зөвлөмж болон арга хэмжээний мэдээллийг тогтмол хүлээн авах.",
       emailPlaceholder: "Таны имэйл хаяг",
-      address: "Улаанбаатар хот, Сүхбаатар дүүрэг, 1-р хороо",
+      address: "Хан-Уул дүүрэг, 7-р хороо, Маршалл таун, Кинг Тауер.",
       rights: "Бүх эрх хуулиар хамгаалагдсан.",
       terms: "Үйлчилгээний нөхцөл", privacy: "Нууцлалын бодлого"
-    },
-    EN: {
-      logoTitle: <>Belt & Road<br/>Co-Development<br/>Research Center</>,
-      desc: "An independent think-tank dedicated to in-depth research on Eurasian connectivity, geo-economics, and Mongolia-China relations.",
-      linksTitle: "Quick Links",
-      about: "About Us", programs: "Research Programs", policyHub: "Mongolia Policy Hub", 
-      publications: "Publications", news: "News & Events", login: "Admin Login",
-      newsletterTitle: "Subscribe to Newsletter",
-      newsletterDesc: "Receive regular updates on research reports, policy briefs, and upcoming events.",
-      emailPlaceholder: "Your email address",
-      address: "Sukhbaatar District, 1st Khoroo, Ulaanbaatar",
-      rights: "All rights reserved.",
-      terms: "Terms of Service", privacy: "Privacy Policy"
     },
     ZH: {
       logoTitle: "一带一路共同发展研究中心",
       desc: "一家致力于欧亚互联互通、地缘经济以及蒙中关系深度研究的独立智库。",
       linksTitle: "快速链接",
-      about: "关于我们", programs: "研究项目", policyHub: "蒙古政策中心", 
-      publications: "出版物", news: "新闻与活动", login: "管理员登录",
+      about: "关于我们", programs: "研究方向", policyHub: "政策述评", 
+      publications: "资讯与文章", news: "活动", login: "管理员登录",
       newsletterTitle: "订阅新闻通讯",
       newsletterDesc: "定期接收研究报告、政策简报及即将举行的活动信息。",
       emailPlaceholder: "您的电子邮箱",
-      address: "乌兰巴托市苏赫巴托尔区第1区",
+      address: "乌兰巴托市汉乌拉区第7区，Marshall Town, King Tower",
       rights: "版权所有。",
       terms: "服务条款", privacy: "隐私政策"
     }

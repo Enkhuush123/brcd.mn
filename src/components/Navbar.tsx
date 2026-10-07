@@ -30,72 +30,43 @@ export default function Navbar({
   const dict = {
     MN: {
       about: "Бидний тухай",
-      programs: "Судалгааны хөтөлбөр",
-      policyHub: "Монголын бодлогын тойм",
-      publications: "Нийтлэл",
-      news: "Мэдээ",
+      programs: "Судалгааны чиглэл",
+      policyHub: "Бодлогын тойм",
+      newsAndPubs: "Мэдээ, Нийтлэл",
       contact: "Холбоо барих",
-      econ: "Эдийн засгийн статистик, дата",
-      vision: "Алсын хараа 2050 ба Стратегийн төслүүд",
-      invest: "Хөрөнгө оруулалтын орчин ба Эрх зүйн зохицуулалт",
-      logoTitle: <>Нэг бүс, нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
-      newsLocal: "Төвийн мэдээ",
-      newsGlobal: "Хурал хэлэлцүүлэг",
-      pub1: "Бодлогын зөвлөмж",
-      pub2: "Судалгааны тайлан",
-      pub3: "Аналитик нийтлэл",
+      logoTitle: <>Нэг бүс нэг зам<br/>Хамтын хөгжил<br/>судалгааны төв</>,
       aboutUs: "Бидний тухай",
       experts: "Бидний экспертүүд",
-      partners: "Түншүүд",
+      cooperation: "Хамтын ажиллагаа",
       prog1: "Евразийн холболт ба Бүс ба Зам",
       prog2: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт",
-      prog3: "Ногоон хөгжил ба Технологийн засаглал",
-    },
-    EN: {
-      about: "About Us",
-      programs: "Research Programs",
-      policyHub: "Mongolia Policy Hub",
-      publications: "Articles",
-      news: "News",
-      contact: "Contact",
-      econ: "Economic Statistics & Data",
-      vision: "Vision 2050 & Strategic Projects",
-      invest: "Investment Environment & Legal Regulation",
-      logoTitle: <>Belt & Road<br/>Co-Development<br/>Research Center</>,
-      newsLocal: "Center News",
-      newsGlobal: "Meetings & Discussions",
-      pub1: "Policy Brief",
-      pub2: "Research Report",
-      pub3: "Analytical Article",
-      aboutUs: "About BCRD",
-      experts: "Our Experts",
-      partners: "Partners",
-      prog1: "Eurasian Connectivity & BRI",
-      prog2: "Regional Geo-Economics & FDI",
-      prog3: "Green Development & Tech Governance",
+      prog3: "Ногоон эдийн засаг ба Дижитал шилжилт",
+      ph1: "Монголын эдийн засаг, хөрөнгө оруулалт",
+      ph2: "Хятадын макро эдийн засаг, бодлого",
+      ph3: "Хоёр талт болон Бүс нутгийн интеграци",
+      np1: "Аналитик нийтлэл",
+      np2: "Онцлох мэдээ, тойм",
+      np3: "Орчуулга, эх сурвалж",
     },
     ZH: {
       about: "关于我们",
-      programs: "研究项目",
-      policyHub: "蒙古政策中心",
-      publications: "文章",
-      news: "新闻",
+      programs: "研究方向",
+      policyHub: "政策述评",
+      newsAndPubs: "资讯与文章",
       contact: "联系我们",
-      econ: "经济统计与数据",
-      vision: "2050愿景与战略项目",
-      invest: "投资环境与法律法规",
       logoTitle: "一带一路共同发展研究中心",
-      newsLocal: "中心新闻",
-      newsGlobal: "会议与讨论",
-      pub1: "政策简报",
-      pub2: "研究报告",
-      pub3: "分析文章",
       aboutUs: "关于我们",
       experts: "我们的专家",
-      partners: "合作伙伴",
+      cooperation: "合作交流",
       prog1: "欧亚互联互通与一带一路",
       prog2: "区域地缘经济与外商直接投资",
-      prog3: "绿色发展与科技治理",
+      prog3: "绿色经济与数字化转型",
+      ph1: "蒙古经济与投资",
+      ph2: "中国宏观经济与政策",
+      ph3: "双边与区域一体化",
+      np1: "分析文章",
+      np2: "重点资讯与综述",
+      np3: "翻译与文献资料",
     },
   };
 
@@ -125,35 +96,23 @@ export default function Navbar({
       href: "#",
       activePrefix: "/policy-hub",
       subLinks: [
-        { name: current.econ, href: "/policy-hub/economic-statistics" },
-        {
-          name: current.vision,
-          href: "/policy-hub/vision-2050-and-strategic-projects",
-        },
-        { name: current.invest, href: "/policy-hub/investment-environment" },
+        { name: current.ph1, href: "/policy-hub/mongolia-economy-investment" },
+        { name: current.ph2, href: "/policy-hub/china-macro-policy" },
+        { name: current.ph3, href: "/policy-hub/bilateral-regional-integration" },
       ],
     },
     {
-      name: current.publications,
+      name: current.newsAndPubs,
       href: "#",
       activePrefix: "/publications",
       subLinks: [
-        { name: current.pub1, href: "/publications/policy-brief" },
-        { name: current.pub2, href: "/publications/research-report" },
-        { name: current.pub3, href: "/publications/analysis" },
-      ],
-    },
-    {
-      name: current.news,
-      href: "#",
-      activePrefix: "/news",
-      subLinks: [
-        { name: current.newsLocal, href: "/news/news" },
-        { name: current.newsGlobal, href: "/news/events" },
+        { name: current.np1, href: "/publications/analysis" },
+        { name: current.np2, href: "/publications/featured-news" },
+        { name: current.np3, href: "/publications/translations-sources" },
       ],
     },
     { name: current.experts, href: "/experts" },
-    { name: current.partners, href: "/partners" },
+    { name: current.cooperation, href: "/partners" },
   ];
 
   return (
@@ -268,27 +227,18 @@ export default function Navbar({
           </div>
 
           {/* Desktop Language Switcher */}
-          <div
-            className={`hidden lg:flex gap-2 2xl:gap-3 items-center px-2 2xl:px-4 py-1 2xl:py-1.5 rounded-full transition-all duration-300 ${
-              isScrolled
-                ? "bg-slate-100 border border-slate-200"
-                : "bg-white/10 border border-white/20 backdrop-blur-sm"
-            }`}
-          >
+            <div
+              className={`hidden lg:flex gap-2 2xl:gap-3 items-center px-2 2xl:px-4 py-1 2xl:py-1.5 rounded-full transition-all duration-300 ${
+                isScrolled
+                  ? "bg-slate-100 border border-slate-200"
+                  : "bg-white/10 border border-white/20 backdrop-blur-sm"
+              }`}
+            >
               <button
                 onClick={() => setLanguage("MN")}
                 className={`font-bold text-sm whitespace-nowrap transition-colors ${language === "MN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
               >
                 MN
-              </button>
-              <div
-                className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}
-              ></div>
-              <button
-                onClick={() => setLanguage("EN")}
-                className={`font-bold text-sm whitespace-nowrap transition-colors ${language === "EN" ? (isScrolled ? "text-[#002b5c]" : "text-white") : isScrolled ? "text-slate-400 hover:text-[#002b5c]" : "text-white/70 hover:text-white"}`}
-              >
-                EN
               </button>
               <div
                 className={`w-px h-3 ${isScrolled ? "bg-slate-300" : "bg-white/50"}`}
@@ -380,13 +330,6 @@ export default function Navbar({
                     className={`font-bold text-lg ${language === "MN" ? "text-[#002b5c]" : "text-slate-500"}`}
                   >
                     MN
-                  </button>
-                  <div className="w-px h-6 bg-slate-200"></div>
-                  <button
-                    onClick={() => setLanguage("EN")}
-                    className={`font-bold text-lg ${language === "EN" ? "text-[#002b5c]" : "text-slate-500"}`}
-                  >
-                    EN
                   </button>
                   <div className="w-px h-6 bg-slate-200"></div>
                   <button

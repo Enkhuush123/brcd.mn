@@ -13,8 +13,8 @@ interface SettingsContextType {
 }
 
 const defaultSettings = {
-  phone: "+976 7700-0000",
-  email: "info@bcrd.mn",
+  phone: "976-88087744",
+  email: "info@brcd-mongolia.org",
 };
 
 const SettingsContext = createContext<SettingsContextType>({
