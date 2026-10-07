@@ -222,15 +222,11 @@ export default function HomeClient({
             {latestNews.length > 0 && (() => {
               const article = latestNews[0];
               const title =
-                language === "EN" && article.titleEn
-                  ? article.titleEn
-                  : language === "ZH" && article.titleZh
+                 language === "ZH" && article.titleZh
                     ? article.titleZh
                     : article.titleMn;
               const categoryName =
-                language === "EN" && article.category?.nameEn
-                  ? article.category.nameEn
-                  : language === "ZH" && article.category?.nameZh
+                 language === "ZH" && article.category?.nameZh
                     ? article.category.nameZh
                     : article.category?.nameMn;
 
@@ -270,15 +266,11 @@ export default function HomeClient({
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
               {latestNews.slice(1, 4).map((article, i) => {
                 const title =
-                  language === "EN" && article.titleEn
-                    ? article.titleEn
-                    : language === "ZH" && article.titleZh
+                   language === "ZH" && article.titleZh
                       ? article.titleZh
                       : article.titleMn;
                 const categoryName =
-                  language === "EN" && article.category?.nameEn
-                    ? article.category.nameEn
-                    : language === "ZH" && article.category?.nameZh
+                   language === "ZH" && article.category?.nameZh
                       ? article.category.nameZh
                       : article.category?.nameMn;
 
@@ -322,14 +314,14 @@ export default function HomeClient({
           <AnimatedSection className="max-w-7xl mx-auto">
             <div className="mb-10">
               <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-6">
-                {language === "EN" ? "Read by Category" : language === "ZH" ? "按类别阅读" : "Ангиллаар унших"}
+                {language === "ZH" ? "按类别阅读" : "Ангиллаар унших"}
               </h2>
               <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
             </div>
 
             <div className="flex overflow-x-auto gap-3 pb-4 mb-8 scrollbar-hide">
               {categories.map((cat) => {
-                const catName = language === "EN" && cat.nameEn ? cat.nameEn : language === "ZH" && cat.nameZh ? cat.nameZh : cat.nameMn;
+                const catName =  language === "ZH" && cat.nameZh ? cat.nameZh : cat.nameMn;
                 return (
                   <button
                     key={cat.id}
@@ -344,7 +336,7 @@ export default function HomeClient({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.find(c => c.id === activeCatId)?.articles?.map((article: any, i: number) => {
-                const title = language === "EN" && article.titleEn ? article.titleEn : language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
+                const title =  language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
                 return (
                   <Link
                     key={article.id}
@@ -533,21 +525,15 @@ export default function HomeClient({
             {articles.length > 0 ? (
               articles.map((article, i) => {
                 const title =
-                  language === "EN" && article.titleEn
-                    ? article.titleEn
-                    : language === "ZH" && article.titleZh
+                   language === "ZH" && article.titleZh
                       ? article.titleZh
                       : article.titleMn;
                 const authorName =
-                  language === "EN" && article.author?.nameEn
-                    ? article.author.nameEn
-                    : language === "ZH" && article.author?.nameZh
+                   language === "ZH" && article.author?.nameZh
                       ? article.author.nameZh
                       : article.author?.nameMn;
                 const categoryName =
-                  language === "EN" && article.category?.nameEn
-                    ? article.category.nameEn
-                    : language === "ZH" && article.category?.nameZh
+                   language === "ZH" && article.category?.nameZh
                       ? article.category.nameZh
                       : article.category?.nameMn;
 

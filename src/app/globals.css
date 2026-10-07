@@ -43,3 +43,11 @@
     overflow-wrap: break-word !important;
   }
 }
+
+  /* Article content text formatting */
+  .prose p {
+    text-align: justify !important;
+    line-height: 1.8 !important;
+    max-width: 100% !important;
+  }
+

@@ -17,7 +17,10 @@ export default function TiptapEditor({ content, onChange }: { content: string, o
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
-    editorProps: {
+        editorProps: {
+      transformPastedHTML(html) {
+        return html.replace(/style="[^"]*"/gi, '').replace(/class="[^"]*"/gi, '');
+      },
       attributes: {
         class: 'prose prose-slate max-w-none focus:outline-none min-h-[300px] p-4',
       },

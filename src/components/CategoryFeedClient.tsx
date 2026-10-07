@@ -28,9 +28,9 @@ export default function CategoryFeedClient({ articles, titleDict }: { articles: 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {articles.map((article, i) => {
-          const title = language === "EN" && article.titleEn ? article.titleEn : language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
-          const authorName = language === "EN" && article.author?.nameEn ? article.author.nameEn : language === "ZH" && article.author?.nameZh ? article.author.nameZh : article.author?.nameMn;
-          const categoryName = language === "EN" && article.category?.nameEn ? article.category.nameEn : language === "ZH" && article.category?.nameZh ? article.category.nameZh : article.category?.nameMn;
+          const title =  language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
+          const authorName =  language === "ZH" && article.author?.nameZh ? article.author.nameZh : article.author?.nameMn;
+          const categoryName =  language === "ZH" && article.category?.nameZh ? article.category.nameZh : article.category?.nameMn;
 
           return (
             <Link

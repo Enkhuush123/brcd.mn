@@ -142,12 +142,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             >
               Монгол
             </button>
-            <button 
-              onClick={() => setLang("EN")}
-              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${lang === "EN" ? "bg-white text-[#002b5c] shadow-sm" : "text-slate-500 hover:text-[#002b5c]"}`}
-            >
-              English
-            </button>
+            
             <button 
               onClick={() => setLang("ZH")}
               className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${lang === "ZH" ? "bg-white text-[#002b5c] shadow-sm" : "text-slate-500 hover:text-[#002b5c]"}`}
@@ -266,9 +261,9 @@ export default function AboutClient({ experts }: { experts: any[] }) {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {experts.length > 0 ? experts.map((expert, i) => {
-              const expertName = lang === "EN" && expert.nameEn ? expert.nameEn : (lang === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn);
-              const expertTitle = lang === "EN" && expert.titleEn ? expert.titleEn : (lang === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn);
-              const expertBio = lang === "EN" && expert.bioEn ? expert.bioEn : (lang === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn);
+              const expertName =  (lang === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn);
+              const expertTitle =  (lang === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn);
+              const expertBio =  (lang === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn);
               
               return (
                 <AnimatedSection key={expert.id} delay={i * 0.1} className="group">
@@ -306,20 +301,18 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             <Handshake className="w-8 h-8 text-[#115e59]" />
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
-            {lang === "MN" ? "Түншлэл хамтын ажиллагаа" : lang === "EN" ? "Partnership & Cooperation" : "伙伴关系与合作"}
+            {lang === "MN" ? "Түншлэл хамтын ажиллагаа" : "伙伴关系与合作"}
           </h2>
           <p className="text-slate-600 leading-relaxed font-medium mb-10 max-w-2xl mx-auto">
             {lang === "MN" 
               ? '"Нэг бүс нэг зам" Хамтын хөгжил судалгааны төв нь Монгол Улсын урт хугацааны хөгжлийн бодлого болон "Бүс ба Зам" санаачилгын хүрээнд хил дамнасан судалгаа, төсөл хөтөлбөр хэрэгжүүлэх зорилгоор дотоод, гадаадын түнш байгууллагуудтай нягт хамтран ажилладаг.' 
-              : lang === "EN" 
-              ? 'The Center works closely with domestic and foreign partner organizations to implement cross-border research and projects.'
               : '本中心与国内外合作机构密切配合，积极开展跨国研究及项目合作。'}
           </p>
           <a 
             href="/partners" 
             className="inline-flex items-center gap-2 bg-[#002b5c] text-white px-8 py-3 rounded-full font-bold hover:bg-[#115e59] transition-colors duration-300 shadow-md hover:shadow-lg"
           >
-            {lang === "MN" ? "Бүх түншүүдийг харах" : lang === "EN" ? "View All Partners" : "查看所有合作伙伴"}
+            {lang === "MN" ? "Бүх түншүүдийг харах" : "查看所有合作伙伴"}
           </a>
         </AnimatedSection>
       </section>
@@ -327,3 +320,4 @@ export default function AboutClient({ experts }: { experts: any[] }) {
     </main>
   );
 }
+

@@ -85,9 +85,9 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
 
         {activeTab === "ARTICLE" && articles.map((article, i) => {
           const isTranslation = article.category?.nameMn.includes("Орчуулга") || article.titleMn.includes("Орчуулга");
-          const title = language === "EN" && article.titleEn ? article.titleEn : language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
-          const authorName = language === "EN" && article.author?.nameEn ? article.author.nameEn : language === "ZH" && article.author?.nameZh ? article.author.nameZh : article.author?.nameMn;
-          const categoryName = language === "EN" && article.category?.nameEn ? article.category.nameEn : language === "ZH" && article.category?.nameZh ? article.category.nameZh : article.category?.nameMn;
+          const title =  language === "ZH" && article.titleZh ? article.titleZh : article.titleMn;
+          const authorName =  language === "ZH" && article.author?.nameZh ? article.author.nameZh : article.author?.nameMn;
+          const categoryName =  language === "ZH" && article.category?.nameZh ? article.category.nameZh : article.category?.nameMn;
 
           return (
             <Link
@@ -145,7 +145,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
 }
 
 function DocumentCard({ doc, index, language, dict }: { doc: any, index: number, language: string, dict: any }) {
-  const title = language === "EN" && doc.titleEn ? doc.titleEn : language === "ZH" && doc.titleZh ? doc.titleZh : doc.titleMn;
+  const title =  language === "ZH" && doc.titleZh ? doc.titleZh : doc.titleMn;
   
   return (
     <AnimatedSection delay={index * 0.1}>

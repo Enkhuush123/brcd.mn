@@ -12,14 +12,13 @@ const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 export default function DocumentReaderClient({ document }: { document: any }) {
   const { language } = useLanguage();
 
-  const title = language === "EN" && document.titleEn ? document.titleEn : 
+  const title =  
                 language === "ZH" && document.titleZh ? document.titleZh : document.titleMn;
                 
-  const content = language === "EN" && document.contentEn ? document.contentEn : 
+  const content =  
                   language === "ZH" && document.contentZh ? document.contentZh : document.contentMn;
 
-  const backText = language === "EN" ? "Back to Publications" : 
-                   language === "ZH" ? "返回出版物" : "Буцах";
+  const backText = language === "ZH" ? "返回出版物" : "Буцах";
 
   return (
     <div className="max-w-4xl mx-auto px-6">

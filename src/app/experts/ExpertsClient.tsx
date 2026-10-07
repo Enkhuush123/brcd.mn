@@ -27,9 +27,9 @@ export default function ExpertsClient({ experts }: { experts: any[] }) {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {experts.length > 0 ? experts.map((expert, i) => {
-            const name = language === "EN" && expert.nameEn ? expert.nameEn : language === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn;
-            const title = language === "EN" && expert.titleEn ? expert.titleEn : language === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn;
-            const bio = language === "EN" && expert.bioEn ? expert.bioEn : language === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn;
+            const name =  language === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn;
+            const title =  language === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn;
+            const bio =  language === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn;
             return (
             <AnimatedSection key={expert.id} delay={i * 0.1} className="group cursor-pointer">
               <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
