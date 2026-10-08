@@ -26,7 +26,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <div className="min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white flex flex-col">
       <Navbar alwaysSolid={true} />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 md:px-6 py-24 md:py-40 overflow-hidden">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 md:px-6 py-24 md:py-40 overflow-hidden">
         <Link 
           href="/" 
           className="inline-flex items-center gap-2 text-slate-500 hover:text-[#002b5c] transition-colors font-medium mb-8 md:mb-10 group text-sm md:text-base"

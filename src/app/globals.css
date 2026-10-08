@@ -39,14 +39,17 @@
   .prose p, .prose span, .prose div, .prose td, .prose th {
     background-color: transparent !important;
     white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
+    
+    
   }
 }
 
   /* Article content text formatting */
   .prose p {
-    text-align: justify !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    text-align: left !important;
     line-height: 1.8 !important;
     max-width: 100% !important;
   }

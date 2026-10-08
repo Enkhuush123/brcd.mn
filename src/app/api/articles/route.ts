@@ -37,6 +37,7 @@ export async function POST(req: Request) {
         categoryId: body.categoryId,
         authorId: body.authorId,
         isFeatured: body.isFeatured,
+        isFeaturedNews: body.isFeaturedNews,
         pdfUrl: body.pdfUrl || null,
         pdfUrlEn: body.pdfUrlEn || null,
         pdfUrlZh: body.pdfUrlZh || null,
