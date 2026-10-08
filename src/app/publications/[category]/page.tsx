@@ -27,9 +27,9 @@ export default async function PublicationsCategoryPage({ params, searchParams }:
   });
 
   const titleMap: Record<string, { MN: string, EN: string, ZH: string }> = {
-    "policy-brief": { MN: "Бодлогын зөвлөмж", EN: "Policy Briefs", ZH: "政策简报" },
-    "research-report": { MN: "Судалгааны тайлан", EN: "Research Reports", ZH: "研究报告" },
-    "analysis": { MN: "Аналитик нийтлэл", EN: "Analytical Articles", ZH: "分析文章" }
+    "analysis": { MN: "Аналитик нийтлэл", EN: "Analysis", ZH: "分析文章" },
+    "news": { MN: "Онцлох мэдээ, тойм", EN: "Featured News", ZH: "重点资讯与综述" },
+    "translation": { MN: "Орчуулга, эх сурвалж", EN: "Translations & Sources", ZH: "翻译与文献资料" }
   };
   
   const titleDict = titleMap[categorySlug] || { MN: "Нийтлэл", EN: "Publications", ZH: "出版物" };

@@ -107,8 +107,8 @@ export default function Navbar({
       activePrefix: "/publications",
       subLinks: [
         { name: current.np1, href: "/publications/analysis" },
-        { name: current.np2, href: "/publications/featured-news" },
-        { name: current.np3, href: "/publications/translations-sources" },
+        { name: current.np2, href: "/publications/news" },
+        { name: current.np3, href: "/publications/translation" },
       ],
     },
     { name: current.experts, href: "/experts" },

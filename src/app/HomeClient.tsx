@@ -212,7 +212,7 @@ export default function HomeClient({
               <div className="w-20 h-1.5 bg-[#f59e0b] rounded-full"></div>
             </div>
             <Link
-              href="/publications"
+              href="/publications/news"
               className="flex items-center gap-2 text-[#f59e0b] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95"
             >
               {t.viewAll} <ArrowRight className="w-5 h-5" />
@@ -449,12 +449,12 @@ export default function HomeClient({
             <div>
               <h2 className="text-xl md:text-2xl lg:text-3xl font-serif font-bold text-[#002b5c] mb-4">
                 {t.insightTitle}
-              </h2>
-              <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
-            </div>
-            <Link
-              href="/publications"
-              className="flex items-center gap-2 text-[#115e59] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95"
+                </h2>
+                <div className="w-20 h-1.5 bg-[#002b5c] rounded-full"></div>
+              </div>
+              <Link
+                href="/publications/analysis"
+                className="flex items-center gap-2 text-[#115e59] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95"
             >
               {t.viewAll} <ArrowRight className="w-5 h-5" />
             </Link>

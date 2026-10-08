@@ -12,7 +12,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 
     const body = await req.json();
-    const { titleMn, titleEn, titleZh, contentMn, contentEn, contentZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl } = body;
+    let { titleMn, titleEn, titleZh, contentMn, contentEn, contentZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl } = body;
 
     if (!titleMn || !categoryId || !authorId || !contentMn) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -22,7 +22,8 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     // We will just keep the old slug, or generate a new one if you prefer.
     // Usually it's better to NOT change the slug on edit, but we'll leave it as is unless specifically requested.
     
-    const article = await prisma.article.update({
+    if (contentMn) contentMn = contentMn.replace(/[\u200B\u00AD]/g, '');
+      const article = await prisma.article.update({
       where: { id: (await params).id },
       data: {
         titleMn,

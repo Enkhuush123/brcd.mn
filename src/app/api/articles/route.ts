@@ -25,7 +25,8 @@ export async function POST(req: Request) {
       counter++;
     }
 
-    const article = await prisma.article.create({
+    if (body.contentMn) body.contentMn = body.contentMn.replace(/[\u200B\u00AD]/g, '');
+      const article = await prisma.article.create({
       data: {
         slug,
         titleMn: body.titleMn,

@@ -1,15 +1,9 @@
-const fs = require('fs');
-const file = 'src/components/TiptapEditor.tsx';
-let content = fs.readFileSync(file, 'utf8');
+﻿const fs = require('fs');
+let file = fs.readFileSync('src/components/TiptapEditor.tsx', 'utf8');
 
-const replacement = `    editorProps: {
-      transformPastedHTML(html) {
-        return html.replace(/style="[^"]*"/gi, '').replace(/class="[^"]*"/gi, '');
-      },
-      attributes: {
-        class: 'prose prose-slate max-w-none focus:outline-none min-h-[300px] p-4',
-      },
-    },`;
+file = file.replace(
+  "return html.replace(/style=\"[^\"]*\"/gi, '').replace(/class=\"[^\"]*\"/gi, '');",
+  "return html.replace(/style=\"[^\"]*\"/gi, '').replace(/class=\"[^\"]*\"/gi, '').replace(/[\\u200B\\u00AD]/g, '');"
+);
 
-content = content.replace(/editorProps:\s*\{[\s\S]*?attributes:\s*\{[\s\S]*?class:\s*'prose[^']*',[\s\S]*?\},[\s\S]*?\},/, replacement);
-fs.writeFileSync(file, content, 'utf8');
+fs.writeFileSync('src/components/TiptapEditor.tsx', file, 'utf8');

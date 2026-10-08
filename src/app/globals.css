@@ -33,6 +33,10 @@
   /* Override inline colors from WYSIWYG editors to prevent invisible text */
   .prose * {
     color: inherit !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    color: inherit !important;
   }
   
   /* Optional: Force background transparent if Word pastes solid white backgrounds, and force text wrapping */

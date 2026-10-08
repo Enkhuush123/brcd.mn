@@ -19,7 +19,7 @@ export default function TiptapEditor({ content, onChange }: { content: string, o
     },
         editorProps: {
       transformPastedHTML(html) {
-        return html.replace(/style="[^"]*"/gi, '').replace(/class="[^"]*"/gi, '');
+        return html.replace(/style="[^"]*"/gi, '').replace(/class="[^"]*"/gi, '').replace(/[\u200B\u00AD]/g, '');
       },
       attributes: {
         class: 'prose prose-slate max-w-none focus:outline-none min-h-[300px] p-4',
