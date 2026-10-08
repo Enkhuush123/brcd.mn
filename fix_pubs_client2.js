@@ -1,51 +1,11 @@
-"use client";
+﻿const fs = require('fs');
 
-import { useState } from "react";
-import Link from "next/link";
-import { Download, BookOpen, FileText, ArrowRight } from "lucide-react";
-import AnimatedSection from "@/components/AnimatedSection";
-import { useLanguage } from "@/context/LanguageContext";
+let client = fs.readFileSync('src/app/publications/PublicationsClient.tsx', 'utf8');
 
-export default function PublicationsClient({ articles }: { articles: any[] }) {
-  const [activeTab, setActiveTab] = useState<"POLICY" | "REPORT" | "ARTICLE">("POLICY");
-  const { language } = useLanguage();
-
-  const policyBriefs = articles.filter(a => a.category?.slug === "policy-brief");
-  const reports = articles.filter(a => a.category?.slug === "research-report");
-  const generalArticles = articles.filter(a => ["analysis", "translation"].includes(a.category?.slug || ""));
-  
-  const dict = {
-    MN: {
-      title: "Хэвлэл, нийтлэл",
-      policy: "Бодлогын зөвлөмж", report: "Судалгааны тайлан", article: "Анализ ба Нийтлэл",
-      translation: "Орчуулга", empty: "Мэдээлэл одоогоор ороогүй байна.",
-      researcher: "Судлаач", readPdf: "PDF үзэх", readOnline: "Унших"
-    },
-    EN: {
-      title: "News & Publications",
-      policy: "Policy Briefs", report: "Research Reports", article: "Analysis & Articles",
-      translation: "Translation", empty: "No information available.",
-      researcher: "Researcher", readPdf: "View PDF", readOnline: "Read"
-    },
-    ZH: {
-      title: "出版物",
-      policy: "政策简报", report: "研究报告", article: "分析与文章",
-      translation: "翻译", empty: "暂无信息",
-      researcher: "研究员", readPdf: "查看PDF", readOnline: "阅读"
-    }
-  };
-  const current = dict[language];
-
-  return (
-    <div>
-      <AnimatedSection className="text-center mb-16">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
-          {current.title}
-        </h1>
-        <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#002b5c] mx-auto rounded-full"></div>
-      </AnimatedSection>
-
-      {/* Content */}
+// Replace the entire Content section
+const contentStart = client.indexOf('{/* Content */}');
+if (contentStart !== -1) {
+  client = client.substring(0, contentStart) + `{/* Content */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {articles.map((article, i) => {
           const isTranslation = article.category?.nameMn.includes("Орчуулга") || article.titleMn.includes("Орчуулга");
@@ -56,7 +16,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
           return (
             <Link
               key={article.id}
-              href={`/articles/${article.slug}`}
+              href={\`/articles/\${article.slug}\`}
               className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 border border-slate-100 h-full flex flex-col relative"
             >
               {isTranslation && (
@@ -69,7 +29,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
                   <div className="absolute inset-0 bg-[#002b5c]/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
                   <div 
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                    style={{ backgroundImage: `url('${article.imageUrl || 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070'}')` }}
+                    style={{ backgroundImage: \`url('\${article.imageUrl || 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070'}')\` }}
                   ></div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
@@ -108,3 +68,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
     </div>
   );
 }
+`;
+}
+
+fs.writeFileSync('src/app/publications/PublicationsClient.tsx', client, 'utf8');

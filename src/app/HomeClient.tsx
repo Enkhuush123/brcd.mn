@@ -212,7 +212,7 @@ export default function HomeClient({
               <div className="w-20 h-1.5 bg-[#f59e0b] rounded-full"></div>
             </div>
             <Link
-              href="/news"
+              href="/publications"
               className="flex items-center gap-2 text-[#f59e0b] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95"
             >
               {t.viewAll} <ArrowRight className="w-5 h-5" />
