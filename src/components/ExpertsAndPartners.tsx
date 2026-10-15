@@ -9,7 +9,6 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
 
   const dict = {
     MN: { expertTitle: "Бидний экспертүүд", noExperts: "Судлаачдын мэдээлэл ороогүй байна.", partners: "Хамтран ажиллагч байгууллагууд" },
-    EN: { expertTitle: "Our Experts", noExperts: "No expert information available.", partners: "Partner Organizations" },
     ZH: { expertTitle: "我们的专家", noExperts: "暂无专家信息。", partners: "合作伙伴" }
   };
 
@@ -17,7 +16,7 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
 
   return (
     <>
-      {/* BLOCK 5: Our Experts */}
+      {/* Our Experts */}
       <section id="experts" className="py-24 md:py-32 px-6 md:px-16 bg-white border-t border-slate-100">
         <AnimatedSection className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -31,7 +30,6 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
             {experts.length > 0 ? experts.map((expert, i) => {
               const name =  language === "ZH" && expert.nameZh ? expert.nameZh : expert.nameMn;
               const title =  language === "ZH" && expert.titleZh ? expert.titleZh : expert.titleMn;
-              const bio =  language === "ZH" && expert.bioZh ? expert.bioZh : expert.bioMn;
               return (
               <AnimatedSection key={expert.id} delay={i * 0.1} className="group cursor-pointer">
                 <div className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
@@ -57,11 +55,11 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
         </AnimatedSection>
       </section>
 
-      {/* BLOCK 6: Partners */}
+      {/* Partners */}
       <section id="partners" className="py-24 px-6 bg-slate-50 border-t border-slate-100 overflow-hidden">
         <AnimatedSection className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#002b5c] mb-6">
-            {language === "MN" ? "Түншлэл хамтын ажиллагаа" : "伙伴关系与合作"}
+            {language === "MN" ? "Хамтын ажиллагаа" : "合作交流"}
           </h2>
           <p className="text-slate-600 leading-relaxed font-medium mb-10 max-w-2xl mx-auto">
             {language === "MN" 
@@ -72,11 +70,10 @@ export default function ExpertsAndPartners({ experts }: { experts: any[] }) {
             href="/partners" 
             className="inline-flex items-center gap-2 bg-[#002b5c] text-white px-8 py-3 rounded-full font-bold hover:bg-[#115e59] transition-colors duration-300 shadow-md hover:shadow-lg"
           >
-            {language === "MN" ? "Бүх түншүүдийг харах" : "查看所有合作伙伴"}
+            {language === "MN" ? "Бүх хамтрагчдыг харах" : "查看所有合作机构"}
           </Link>
         </AnimatedSection>
       </section>
     </>
   );
 }
-

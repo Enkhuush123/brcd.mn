@@ -8,31 +8,53 @@ import { MessageCircle } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  // Fetch latest 4 featured articles (Insights)
-  const articles = await prisma.article.findMany({
-    where: { isFeatured: true },
-    orderBy: { publishedAt: "desc" },
-    take: 4,
+  // Fetch 1-3 featured analytic articles for Block 1 (Онцлох анализ)
+  let articles = await prisma.article.findMany({
+    where: {
+      OR: [
+        { isFeatured: true },
+        { category: { slug: "analysis" } }
+      ]
+    },
+    orderBy: [
+      { isFeatured: "desc" },
+      { publishedAt: "desc" }
+    ],
+    take: 3,
     include: { author: true, category: true },
   });
 
-  // Fetch latest 6 news/articles for the news section
-  const latestNews = await prisma.article.findMany({
-    orderBy: { publishedAt: "desc" },
-    take: 7, // Increased to 7
+  if (articles.length === 0) {
+    articles = await prisma.article.findMany({
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+      include: { author: true, category: true },
+    });
+  }
+
+  // Fetch news & updates for Block 4 (Төвийн мэдээ)
+  let latestNews = await prisma.article.findMany({
+    where: {
+      OR: [
+        { isFeaturedNews: true },
+        { category: { slug: { in: ["news", "events"] } } }
+      ]
+    },
+    orderBy: [
+      { isFeaturedNews: "desc" },
+      { publishedAt: "desc" }
+    ],
+    take: 7,
     include: { author: true, category: true },
   });
 
-  // Fetch all categories with their latest 4 articles
-  const categoriesWithArticles = await prisma.category.findMany({
-    include: {
-      articles: {
-        orderBy: { publishedAt: "desc" },
-        take: 4,
-        include: { author: true, category: true }
-      }
-    }
-  });
+  if (latestNews.length === 0) {
+    latestNews = await prisma.article.findMany({
+      orderBy: { publishedAt: "desc" },
+      take: 7,
+      include: { author: true, category: true },
+    });
+  }
 
   // Fetch experts (authors)
   const experts = await prisma.author.findMany({
@@ -43,7 +65,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white">
       <Navbar />
-      <HomeClient articles={articles} latestNews={latestNews} categories={categoriesWithArticles} experts={experts} />
+      <HomeClient articles={articles} latestNews={latestNews} experts={experts} />
       <Footer />
       <Link 
         href="/contact" 

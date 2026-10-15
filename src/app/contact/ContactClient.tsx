@@ -23,20 +23,11 @@ export default function ContactClient() {
       send: "Илгээх",
       sending: "Илгээж байна...",
       success: "Таны санал хүсэлтийг хүлээн авлаа. Баярлалаа!",
-      addressText: "Монгол улс, Улаанбаатар хот",
-      phoneText: "+976 7711-XXXX"
-    },
-    EN: {
-      title: "Contact Us",
-      desc: "Please reach out to us for any inquiries or feedback using the form below.",
-      name: "Your Name",
-      email: "Email Address",
-      message: "Your Message",
-      send: "Send Message",
-      sending: "Sending...",
-      success: "Your message has been received. Thank you!",
-      addressText: "Ulaanbaatar, Mongolia",
-      phoneText: "+976 7711-XXXX"
+      addressTitle: "Хаяг байршил",
+      addressText: "Хан-Уул дүүрэг, 7-р хороо, Маршалл таун, Кинг Тауер.",
+      emailTitle: "Цахим шуудан",
+      phoneTitle: "Холбогдох утас",
+      phoneText: "976-88087744"
     },
     ZH: {
       title: "联系我们",
@@ -47,8 +38,11 @@ export default function ContactClient() {
       send: "发送信息",
       sending: "发送中...",
       success: "您的留言已收到。谢谢！",
-      addressText: "蒙古国，乌兰巴托",
-      phoneText: "+976 7711-XXXX"
+      addressTitle: "机构地址",
+      addressText: "乌兰巴托市汉乌拉区第7区，Marshall Town, King Tower",
+      emailTitle: "电子邮箱",
+      phoneTitle: "联系电话",
+      phoneText: "+976 88087744"
     }
   };
   const current = dict[language];
@@ -93,87 +87,76 @@ export default function ContactClient() {
               <MapPin className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-[#002b5c] mb-2">Хаяг / Address</h3>
-              <p className="text-slate-600">{current.addressText}</p>
+              <h3 className="text-xl font-bold text-[#002b5c] mb-2">{current.addressTitle}</h3>
+              <p className="text-slate-600 leading-relaxed">{current.addressText}</p>
             </div>
           </div>
-          
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-4">
-            <div className="bg-teal-50 p-4 rounded-xl text-[#115e59]">
-              <Phone className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-[#002b5c] mb-2">Утас / Phone</h3>
-              <p className="text-slate-600">{settings.phone}</p>
-            </div>
-          </div>
-          
+
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-4">
             <div className="bg-teal-50 p-4 rounded-xl text-[#115e59]">
               <Mail className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-[#002b5c] mb-2">Имэйл / Email</h3>
-              <p className="text-slate-600">{settings.email}</p>
+              <h3 className="text-xl font-bold text-[#002b5c] mb-2">{current.emailTitle}</h3>
+              <p className="text-slate-600">{settings.email || "info@brcd-mongolia.org"}</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-4">
+            <div className="bg-teal-50 p-4 rounded-xl text-[#115e59]">
+              <Phone className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-[#002b5c] mb-2">{current.phoneTitle}</h3>
+              <p className="text-slate-600">{settings.phone || current.phoneText}</p>
             </div>
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.2} className="bg-white p-8 md:p-10 rounded-2xl shadow-lg border border-slate-100 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#115e59]/10 to-transparent rounded-bl-full"></div>
-          
-          {success ? (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
-              <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-2">
-                <Send className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-[#002b5c]">{current.success}</h3>
+        <AnimatedSection delay={0.2}>
+          <form onSubmit={handleSubmit} className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">{current.name}</label>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#115e59]"
+              />
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">{current.name}</label>
-                <input 
-                  required 
-                  type="text" 
-                  value={formData.name} 
-                  onChange={e => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#115e59] outline-none transition-all"
-                  placeholder={current.name}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">{current.email}</label>
-                <input 
-                  required 
-                  type="email" 
-                  value={formData.email} 
-                  onChange={e => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#115e59] outline-none transition-all"
-                  placeholder="contact@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">{current.message}</label>
-                <textarea 
-                  required 
-                  rows={5}
-                  value={formData.message} 
-                  onChange={e => setFormData({...formData, message: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#115e59] outline-none transition-all resize-none"
-                  placeholder="..."
-                ></textarea>
-              </div>
-              <button 
-                type="submit" 
-                disabled={loading}
-                className="w-full py-4 bg-gradient-to-r from-[#002b5c] to-[#115e59] text-white rounded-xl font-bold hover:shadow-lg hover:-translate-y-1 transition-all flex justify-center items-center gap-2"
-              >
-                {loading ? current.sending : current.send}
-                {!loading && <Send className="w-5 h-5" />}
-              </button>
-            </form>
-          )}
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">{current.email}</label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={e => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#115e59]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">{current.message}</label>
+              <textarea
+                required
+                rows={4}
+                value={formData.message}
+                onChange={e => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#115e59]"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#115e59] hover:bg-[#0f4d4a] text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg shadow-[#115e59]/20"
+            >
+              <Send className="w-5 h-5" />
+              {loading ? current.sending : current.send}
+            </button>
+            {success && (
+              <p className="text-teal-600 font-bold text-center mt-4">{current.success}</p>
+            )}
+          </form>
         </AnimatedSection>
       </div>
     </div>

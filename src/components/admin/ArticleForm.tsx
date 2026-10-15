@@ -15,6 +15,14 @@ type ArticleFormProps = {
   authors: any[];
 };
 
+function cleanPastedText(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/&nbsp;/gi, " ")
+    .replace(/[\u00A0]/g, " ")
+    .replace(/[\u200B\u00AD\uFEFF]/g, "");
+}
+
 export default function ArticleForm({
   initialData,
   categories,
@@ -36,7 +44,7 @@ export default function ArticleForm({
     authorId:
       initialData?.authorId || (authors.length > 0 ? authors[0].id : ""),
     isFeatured: initialData?.isFeatured || false,
-      isFeaturedNews: initialData?.isFeaturedNews || false,
+    isFeaturedNews: initialData?.isFeaturedNews || false,
     pdfUrl: initialData?.pdfUrl || "",
     pdfUrlEn: initialData?.pdfUrlEn || "",
     pdfUrlZh: initialData?.pdfUrlZh || "",
@@ -66,7 +74,7 @@ export default function ArticleForm({
 
   const handlePdfUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: "pdfUrl" | "pdfUrlEn" | "pdfUrlZh",
+    field: "pdfUrl" | "pdfUrlZh",
   ) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
@@ -116,7 +124,7 @@ export default function ArticleForm({
       });
       const result = await res.json();
       if (res.ok) {
-        setFormData({ ...formData, imageUrl: result.url });
+        setFormData((prev) => ({ ...prev, imageUrl: result.url }));
       } else {
         showAlert("Хуулахад алдаа гарлаа: " + result.error);
       }
@@ -150,8 +158,6 @@ export default function ArticleForm({
       if (res.ok) {
         setFormData((prev) => ({
           ...prev,
-          titleEn: data.titleEn || prev.titleEn,
-          contentEn: data.contentEn || prev.contentEn,
           titleZh: data.titleZh || prev.titleZh,
           contentZh: data.contentZh || prev.contentZh,
         }));
@@ -174,11 +180,17 @@ export default function ArticleForm({
       : "/api/articles";
     const method = initialData ? "PUT" : "POST";
 
+    const payload = {
+      ...formData,
+      contentMn: cleanPastedText(formData.contentMn),
+      contentZh: cleanPastedText(formData.contentZh),
+    };
+
     try {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
@@ -212,10 +224,9 @@ export default function ArticleForm({
       >
         <div className="flex justify-between items-center bg-blue-50 p-4 rounded-lg border border-blue-100">
           <div>
-            <h3 className="font-bold text-[#002b5c]">AI Автомат орчуулга</h3>
+            <h3 className="font-bold text-[#002b5c]">AI Автомат орчуулга (Монгол ➔ Хятад)</h3>
             <p className="text-sm text-slate-600">
-              Монголоор бичсэн мэдээллээ автоматаар Англи, Хятад хэл рүү
-              орчуулах
+              Монголоор бичсэн мэдээллээ автоматаар Хятад хэл рүү орчуулах
             </p>
           </div>
           <button
@@ -225,14 +236,14 @@ export default function ArticleForm({
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
             <Bot className="w-5 h-5" />
-            {translating ? "Орчуулж байна..." : "Орчуулах"}
+            {translating ? "Орчуулж байна..." : "Хятад хэл рүү орчуулах"}
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Ангилал
+              Ангилал (Цэсэнд гарах үндсэн категори)
             </label>
             <select
               value={formData.categoryId}
@@ -276,13 +287,64 @@ export default function ArticleForm({
           </div>
         </div>
 
+        {/* Нүүр хуудасны харагдацын тохиргоо (Multi-Category Checkboxes) */}
+        <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+          <h4 className="font-bold text-[#002b5c] text-sm uppercase tracking-wider">
+            Нүүр хуудсанд байршуулах тохиргоо (Олон ангилал руу зэрэг харуулах)
+          </h4>
+          <p className="text-xs text-slate-500">
+            Нийтлэл үндсэн ангилалдаа орохоос гадна нүүр хуудасны дараах блокуудад зэрэг харагдах эсэхийг чагтална уу.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <label className="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-[#115e59] cursor-pointer transition-colors">
+              <input
+                type="checkbox"
+                checked={formData.isFeatured}
+                onChange={(e) =>
+                  setFormData({ ...formData, isFeatured: e.target.checked })
+                }
+                className="w-5 h-5 text-[#115e59] rounded mt-0.5"
+              />
+              <div>
+                <span className="font-bold text-sm text-[#002b5c] block">
+                  Онцлох анализ (Блок 1)
+                </span>
+                <span className="text-xs text-slate-500">
+                  Нүүр хуудасны дээд талд "Онцлох анализ" хэсэгт томоор онцолж харуулах
+                </span>
+              </div>
+            </label>
+
+            <label className="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-[#f59e0b] cursor-pointer transition-colors">
+              <input
+                type="checkbox"
+                checked={formData.isFeaturedNews}
+                onChange={(e) =>
+                  setFormData({ ...formData, isFeaturedNews: e.target.checked })
+                }
+                className="w-5 h-5 text-[#f59e0b] rounded mt-0.5"
+              />
+              <div>
+                <span className="font-bold text-sm text-[#002b5c] block">
+                  Төвийн онцлох мэдээ (Блок 4)
+                </span>
+                <span className="text-xs text-slate-500">
+                  Нүүр хуудасны "Төвийн мэдээ" блокт онцлон харуулах
+                </span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        {/* Монгол хэлээр */}
         <div className="space-y-6">
-          <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">
-            Монгол хэлээр
+          <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#115e59]"></span>
+            Монгол хэлээр (Үндсэн)
           </h3>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Гарчиг (MN)
+              Гарчиг (Монгол)
             </label>
             <input
               type="text"
@@ -291,14 +353,14 @@ export default function ArticleForm({
               onChange={(e) =>
                 setFormData({ ...formData, titleMn: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#115e59]"
             />
           </div>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Агуулга (MN)
+              Агуулга (Монгол)
             </label>
-            <div className="h-64 mb-12">
+            <div className="h-72 mb-12">
               <ReactQuill
                 theme="snow"
                 value={formData.contentMn}
@@ -309,45 +371,15 @@ export default function ArticleForm({
           </div>
         </div>
 
+        {/* Хятад хэлээр */}
         <div className="space-y-6 pt-4 border-t">
-          <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">
-            Англи хэлээр (EN)
-          </h3>
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">
-              Гарчиг (EN)
-            </label>
-            <input
-              type="text"
-              value={formData.titleEn}
-              onChange={(e) =>
-                setFormData({ ...formData, titleEn: e.target.value })
-              }
-              className="w-full px-4 py-2 border rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">
-              Агуулга (EN)
-            </label>
-            <div className="h-64 mb-12">
-              <ReactQuill
-                theme="snow"
-                value={formData.contentEn}
-                onChange={(val) => setFormData({ ...formData, contentEn: val })}
-                className="h-full"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6 pt-4 border-t">
-          <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">
+          <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
             Хятад хэлээр (ZH)
           </h3>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Гарчиг (ZH)
+              Гарчиг (Хятад)
             </label>
             <input
               type="text"
@@ -355,14 +387,14 @@ export default function ArticleForm({
               onChange={(e) =>
                 setFormData({ ...formData, titleZh: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#115e59]"
             />
           </div>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Агуулга (ZH)
+              Агуулга (Хятад)
             </label>
-            <div className="h-64 mb-12">
+            <div className="h-72 mb-12">
               <ReactQuill
                 theme="snow"
                 value={formData.contentZh}
@@ -373,22 +405,23 @@ export default function ArticleForm({
           </div>
         </div>
 
+        {/* PDF Файлууд */}
         <div className="space-y-6 pt-4 border-t">
           <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">
-            PDF Файлууд (Хэл тус бүрээр)
+            PDF Хавсралт (Цахимаар унших)
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* MN PDF */}
             <div className="border p-4 rounded-lg bg-slate-50">
-              <p className="font-bold mb-2 text-sm">Монгол PDF</p>
+              <p className="font-bold mb-2 text-sm">Монгол хэл дээрх PDF</p>
               {formData.pdfUrl ? (
                 <div className="flex items-center gap-2">
                   <a
                     href={formData.pdfUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-blue-600 hover:underline truncate w-32"
+                    className="text-xs text-blue-600 hover:underline truncate w-48"
                   >
                     {formData.pdfUrl.split("/").pop()}
                   </a>
@@ -410,47 +443,16 @@ export default function ArticleForm({
               )}
             </div>
 
-            {/* EN PDF */}
-            <div className="border p-4 rounded-lg bg-slate-50">
-              <p className="font-bold mb-2 text-sm">Англи PDF</p>
-              {formData.pdfUrlEn ? (
-                <div className="flex items-center gap-2">
-                  <a
-                    href={formData.pdfUrlEn}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-blue-600 hover:underline truncate w-32"
-                  >
-                    {formData.pdfUrlEn.split("/").pop()}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, pdfUrlEn: "" })}
-                    className="text-red-500"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              ) : (
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  className="text-xs"
-                  onChange={(e) => handlePdfUpload(e, "pdfUrlEn")}
-                />
-              )}
-            </div>
-
             {/* ZH PDF */}
             <div className="border p-4 rounded-lg bg-slate-50">
-              <p className="font-bold mb-2 text-sm">Хятад PDF</p>
+              <p className="font-bold mb-2 text-sm">Хятад хэл дээрх PDF</p>
               {formData.pdfUrlZh ? (
                 <div className="flex items-center gap-2">
                   <a
                     href={formData.pdfUrlZh}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-blue-600 hover:underline truncate w-32"
+                    className="text-xs text-blue-600 hover:underline truncate w-48"
                   >
                     {formData.pdfUrlZh.split("/").pop()}
                   </a>
@@ -474,6 +476,7 @@ export default function ArticleForm({
           </div>
         </div>
 
+        {/* Нүүр зураг */}
         <div className="space-y-6 pt-4 border-t">
           <h3 className="text-lg font-bold text-[#002b5c] border-b pb-2">
             Зураг оруулах (Нүүр зураг)
@@ -522,25 +525,7 @@ export default function ArticleForm({
           )}
         </div>
 
-        <div className="flex items-center gap-3 pt-6 border-t">
-          <input
-            type="checkbox"
-            id="featured"
-            checked={formData.isFeatured}
-            onChange={(e) =>
-              setFormData({ ...formData, isFeatured: e.target.checked })
-            }
-            className="w-5 h-5"
-          />
-          <label
-            htmlFor="featured"
-            className="text-sm font-bold text-slate-700"
-          >
-            Онцлох нийтлэл мөн эсэх (Нүүр хуудсанд гарах)
-          </label>
-        </div>
-
-        <div className="pt-6 flex justify-end gap-4">
+        <div className="pt-6 flex justify-end gap-4 border-t">
           <button
             type="button"
             onClick={() => router.back()}

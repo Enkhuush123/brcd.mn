@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Globe2, Users, Send } from "lucide-react";
+import { Mail, Globe2, Users, Send, Phone } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSettings } from "@/context/SettingsContext";
@@ -15,27 +15,39 @@ export default function Footer() {
       logoTitle: <>Нэг бүс нэг зам<br/>Хамтын хөгжил судалгааны төв</>,
       desc: "Евразийн холболт, гео-эдийн засаг болон Монгол-Хятадын харилцааны гүнзгийрүүлсэн судалгааг гүйцэтгэх хараат бус тинк-танк.",
       linksTitle: "Холбоосууд",
-      about: "Бидний тухай", programs: "Судалгааны чиглэл", policyHub: "Бодлогын тойм", 
-      publications: "Мэдээ, Нийтлэл", news: "Арга хэмжээ", login: "Системд нэвтрэх",
+      about: "Бидний тухай", 
+      programs: "Судалгааны чиглэл", 
+      policyHub: "Бодлогын тойм", 
+      publications: "Мэдээ, Нийтлэл", 
+      experts: "Бидний экспертүүд",
+      cooperation: "Хамтын ажиллагаа",
+      login: "Системд нэвтрэх",
       newsletterTitle: "Имэйлээр мэдээлэл авах",
-      newsletterDesc: "Судалгааны тайлан, бодлогын зөвлөмж болон арга хэмжээний мэдээллийг тогтмол хүлээн авах.",
+      newsletterDesc: "Судалгааны тайлан, бодлогын зөвлөмж болон шинэ мэдээллийг тогтмол хүлээн авах.",
       emailPlaceholder: "Таны имэйл хаяг",
       address: "Хан-Уул дүүрэг, 7-р хороо, Маршалл таун, Кинг Тауер.",
       rights: "Бүх эрх хуулиар хамгаалагдсан.",
-      terms: "Үйлчилгээний нөхцөл", privacy: "Нууцлалын бодлого"
+      terms: "Үйлчилгээний нөхцөл", 
+      privacy: "Нууцлалын бодлого"
     },
     ZH: {
       logoTitle: "一带一路共同发展研究中心",
       desc: "一家致力于欧亚互联互通、地缘经济以及蒙中关系深度研究的独立智库。",
       linksTitle: "快速链接",
-      about: "关于我们", programs: "研究方向", policyHub: "政策述评", 
-      publications: "资讯与文章", news: "活动", login: "管理员登录",
+      about: "关于我们", 
+      programs: "研究方向", 
+      policyHub: "政策述评", 
+      publications: "资讯与文章", 
+      experts: "我们的专家",
+      cooperation: "合作交流",
+      login: "管理员登录",
       newsletterTitle: "订阅新闻通讯",
-      newsletterDesc: "定期接收研究报告、政策简报及即将举行的活动信息。",
+      newsletterDesc: "定期接收研究报告、政策简报及最新动态信息。",
       emailPlaceholder: "您的电子邮箱",
       address: "乌兰巴托市汉乌拉区第7区，Marshall Town, King Tower",
       rights: "版权所有。",
-      terms: "服务条款", privacy: "隐私政策"
+      terms: "服务条款", 
+      privacy: "隐私政策"
     }
   };
 
@@ -64,7 +76,7 @@ export default function Footer() {
             {current.desc}
           </p>
           <div className="flex gap-4 text-white">
-            <Link href={`mailto:${settings.email}`} className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
+            <Link href={`mailto:${settings.email || "info@brcd-mongolia.org"}`} className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
               <Mail className="w-4 h-4" />
             </Link>
             <Link href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-[#115e59] hover:text-white transition-all">
@@ -74,25 +86,26 @@ export default function Footer() {
         </div>
 
         {/* Sitemap */}
-        <div className="col-span-1 md:col-span-2 md:col-start-6">
+        <div className="col-span-1 md:col-span-3 md:col-start-5">
           <h4 className="text-white font-bold mb-6 tracking-wide">{current.linksTitle}</h4>
           <ul className="space-y-4 font-medium text-sm text-white/80">
             <li><Link href="/about" className="hover:text-[#f59e0b] transition-colors">{current.about}</Link></li>
             <li><Link href="/programs" className="hover:text-[#f59e0b] transition-colors">{current.programs}</Link></li>
             <li><Link href="/policy-hub" className="hover:text-[#f59e0b] transition-colors">{current.policyHub}</Link></li>
-            <li><Link href="/publications" className="hover:text-[#f59e0b] transition-colors">{current.publications}</Link></li>
-            <li><Link href="/news" className="hover:text-[#f59e0b] transition-colors">{current.news}</Link></li>
-            <li className="pt-4"><Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-2 opacity-50"><div className="w-1 h-1 bg-white rounded-full"></div> {current.login}</Link></li>
+            <li><Link href="/publications/analysis" className="hover:text-[#f59e0b] transition-colors">{current.publications}</Link></li>
+            <li><Link href="/experts" className="hover:text-[#f59e0b] transition-colors">{current.experts}</Link></li>
+            <li><Link href="/partners" className="hover:text-[#f59e0b] transition-colors">{current.cooperation}</Link></li>
+            <li className="pt-2"><Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-2 opacity-50"><div className="w-1 h-1 bg-white rounded-full"></div> {current.login}</Link></li>
           </ul>
         </div>
 
         {/* Newsletter & Contact */}
-        <div className="col-span-1 md:col-span-4 lg:col-span-4">
+        <div className="col-span-1 md:col-span-5">
           <h4 className="text-white font-bold mb-6 tracking-wide">{current.newsletterTitle}</h4>
           <p className="text-sm text-white/70 mb-4 leading-relaxed">
             {current.newsletterDesc}
           </p>
-          <form className="flex mb-10" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex mb-8" onSubmit={(e) => e.preventDefault()}>
             <input 
               type="email" 
               placeholder={current.emailPlaceholder}
@@ -104,18 +117,18 @@ export default function Footer() {
             </button>
           </form>
 
-          <ul className="space-y-4 font-medium text-sm text-white/80">
+          <ul className="space-y-3 font-medium text-sm text-white/80">
             <li className="flex items-start gap-3">
-              <Globe2 className="w-5 h-5 text-[#f59e0b] shrink-0" />
+              <Globe2 className="w-5 h-5 text-[#f59e0b] shrink-0 mt-0.5" />
               <span>{current.address}</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-[#f59e0b] shrink-0" />
-              <a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a>
+              <a href={`mailto:${settings.email || "info@brcd-mongolia.org"}`} className="hover:text-white">{settings.email || "info@brcd-mongolia.org"}</a>
             </li>
             <li className="flex items-center gap-3">
-              <Users className="w-5 h-5 text-[#f59e0b] shrink-0" />
-              <span>{settings.phone}</span>
+              <Phone className="w-5 h-5 text-[#f59e0b] shrink-0" />
+              <span>{settings.phone || "976-88087744"}</span>
             </li>
           </ul>
         </div>

@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import slugify from "slugify";
+
+function cleanText(str?: string | null): string {
+  if (!str) return "";
+  return str
+    .replace(/&nbsp;/gi, " ")
+    .replace(/[\u00A0]/g, " ")
+    .replace(/[\u200B\u00AD\uFEFF]/g, "");
+}
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -12,40 +19,40 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 
     const body = await req.json();
-    let { titleMn, titleEn, titleZh, contentMn, contentEn, contentZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl } = body;
+    const { titleMn, titleEn, titleZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl } = body;
 
-    if (!titleMn || !categoryId || !authorId || !contentMn) {
+    if (!titleMn || !categoryId || !authorId || !body.contentMn) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Generate new slug if titleMn changed (this is simplistic, in reality you might keep the old slug to avoid breaking links)
-    // We will just keep the old slug, or generate a new one if you prefer.
-    // Usually it's better to NOT change the slug on edit, but we'll leave it as is unless specifically requested.
-    
-    if (contentMn) contentMn = contentMn.replace(/[\u200B\u00AD]/g, '');
-      const article = await prisma.article.update({
+    const contentMn = cleanText(body.contentMn);
+    const contentZh = cleanText(body.contentZh);
+    const contentEn = cleanText(body.contentEn);
+
+    const article = await prisma.article.update({
       where: { id: (await params).id },
       data: {
-        titleMn,
-        titleEn,
-        titleZh,
+        titleMn: titleMn.trim(),
+        titleEn: titleEn ? titleEn.trim() : "",
+        titleZh: titleZh ? titleZh.trim() : "",
         contentMn,
-        contentEn,
-        contentZh,
+        contentEn: contentEn || "",
+        contentZh: contentZh || "",
         categoryId,
         authorId,
-        isFeatured,
-        pdfUrl,
-        pdfUrlEn,
-        pdfUrlZh,
-        imageUrl
+        isFeatured: Boolean(isFeatured),
+        isFeaturedNews: Boolean(isFeaturedNews),
+        pdfUrl: pdfUrl || null,
+        pdfUrlEn: pdfUrlEn || null,
+        pdfUrlZh: pdfUrlZh || null,
+        imageUrl: imageUrl || null
       }
     });
 
     return NextResponse.json(article);
   } catch (error: any) {
     console.error("Failed to update article", error);
-    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Internal Error" }, { status: 500 });
   }
 }
 

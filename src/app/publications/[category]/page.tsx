@@ -26,13 +26,13 @@ export default async function PublicationsCategoryPage({ params, searchParams }:
     include: { author: true, category: true }
   });
 
-  const titleMap: Record<string, { MN: string, EN: string, ZH: string }> = {
-    "analysis": { MN: "Аналитик нийтлэл", EN: "Analysis", ZH: "分析文章" },
-    "news": { MN: "Онцлох мэдээ, тойм", EN: "Featured News", ZH: "重点资讯与综述" },
-    "translation": { MN: "Орчуулга, эх сурвалж", EN: "Translations & Sources", ZH: "翻译与文献资料" }
+  const titleMap: Record<string, { MN: string, ZH: string }> = {
+    "analysis": { MN: "Аналитик нийтлэл", ZH: "分析文章" },
+    "news": { MN: "Онцлох мэдээ, тойм", ZH: "重点资讯与综述" },
+    "translation": { MN: "Орчуулга, эх сурвалж", ZH: "翻译与文献资料" }
   };
   
-  const titleDict = titleMap[categorySlug] || { MN: "Нийтлэл", EN: "Publications", ZH: "出版物" };
+  const titleDict = titleMap[categorySlug] || { MN: "Нийтлэл", ZH: "资讯与文章" };
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">

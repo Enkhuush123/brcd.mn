@@ -18,9 +18,8 @@ export default async function ProgramsPage() {
   });
 
   const titleDict = {
-    MN: "Судалгааны Хөтөлбөр",
-    EN: "Research Programs",
-    ZH: "研究项目"
+    MN: "Судалгааны чиглэл",
+    ZH: "研究方向"
   };
 
   return (

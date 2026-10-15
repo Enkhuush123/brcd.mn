@@ -5,14 +5,13 @@ import { BookOpen, User } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function CategoryFeedClient({ articles, titleDict }: { articles: any[], titleDict: { MN: string, EN: string, ZH: string } }) {
+export default function CategoryFeedClient({ articles, titleDict }: { articles: any[], titleDict: { MN: string, ZH: string } }) {
   const { language } = useLanguage();
   
   const currentTitle = titleDict[language];
 
   const dict = {
     MN: { empty: "Мэдээлэл одоогоор ороогүй байна.", researcher: "Судлаач" },
-    EN: { empty: "No content available yet.", researcher: "Researcher" },
     ZH: { empty: "暂无内容。", researcher: "研究员" }
   };
   const current = dict[language];

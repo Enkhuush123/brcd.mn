@@ -4,6 +4,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import slugify from "slugify";
 
+function cleanText(str?: string | null): string {
+  if (!str) return "";
+  return str
+    .replace(/&nbsp;/gi, " ")
+    .replace(/[\u00A0]/g, " ")
+    .replace(/[\u200B\u00AD\uFEFF]/g, "");
+}
+
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -14,7 +22,7 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     // Generate a slug based on titleMn
-    let baseSlug = slugify(body.titleMn, { lower: true, strict: true });
+    let baseSlug = slugify(body.titleMn || "article", { lower: true, strict: true });
     if (!baseSlug) baseSlug = `article-${Date.now()}`;
 
     // Ensure slug uniqueness
@@ -25,20 +33,23 @@ export async function POST(req: Request) {
       counter++;
     }
 
-    if (body.contentMn) body.contentMn = body.contentMn.replace(/[\u200B\u00AD]/g, '');
-      const article = await prisma.article.create({
+    const contentMn = cleanText(body.contentMn);
+    const contentZh = cleanText(body.contentZh);
+    const contentEn = cleanText(body.contentEn);
+
+    const article = await prisma.article.create({
       data: {
         slug,
-        titleMn: body.titleMn,
-        titleEn: body.titleEn,
-        titleZh: body.titleZh,
-        contentMn: body.contentMn,
-        contentEn: body.contentEn,
-        contentZh: body.contentZh,
+        titleMn: body.titleMn?.trim() || "",
+        titleEn: body.titleEn?.trim() || "",
+        titleZh: body.titleZh?.trim() || "",
+        contentMn,
+        contentEn: contentEn || "",
+        contentZh: contentZh || "",
         categoryId: body.categoryId,
         authorId: body.authorId,
-        isFeatured: body.isFeatured,
-        isFeaturedNews: body.isFeaturedNews,
+        isFeatured: Boolean(body.isFeatured),
+        isFeaturedNews: Boolean(body.isFeaturedNews),
         pdfUrl: body.pdfUrl || null,
         pdfUrlEn: body.pdfUrlEn || null,
         pdfUrlZh: body.pdfUrlZh || null,
