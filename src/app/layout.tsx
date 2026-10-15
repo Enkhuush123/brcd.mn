@@ -9,8 +9,24 @@ const lora = Lora({ subsets: ["latin", "cyrillic"], variable: "--font-serif-main
 const notoSerifSC = Noto_Serif_SC({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-serif-sc" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://brcd-mongolia.org"),
   title: "BCRD | Хамтын Хөгжил Судалгааны Төв",
   description: "Евразийн холболт, гео-эдийн засаг болон Монгол-Хятадын харилцааны гүнзгийрүүлсэн судалгаа",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png" },
+    ],
+    shortcut: ["/favicon.ico"],
+  },
+  openGraph: {
+    title: "BCRD | Хамтын Хөгжил Судалгааны Төв",
+    description: "Евразийн холболт, гео-эдийн засаг болон Монгол-Хятадын харилцааны гүнзгийрүүлсэн судалгаа",
+    images: [{ url: "/logo.png" }],
+  },
 };
 
 export default function RootLayout({
