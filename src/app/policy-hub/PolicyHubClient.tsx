@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, TrendingUp, Globe2, ShieldCheck, BookOpen, User, Calendar } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { useLanguage } from "@/context/LanguageContext";
+import { getShortCategoryName } from "@/lib/formatCategory";
 
 export default function PolicyHubClient({ articles }: { articles: any[] }) {
   const { language } = useLanguage();
@@ -141,11 +142,11 @@ export default function PolicyHubClient({ articles }: { articles: any[] }) {
                   </div>
 
                   <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex gap-2 items-center text-xs font-bold text-[#115e59] uppercase tracking-wider mb-4">
-                      <span className="bg-[#115e59]/10 px-2 py-1 rounded text-[#115e59]">
-                        {categoryName || current.title}
+                    <div className="flex gap-2 items-center text-xs font-bold text-[#115e59] mb-4">
+                      <span className="bg-[#115e59]/10 px-2.5 py-1 rounded-md text-[#115e59] whitespace-nowrap truncate max-w-[200px]">
+                        {getShortCategoryName(categoryName) || current.title}
                       </span>
-                      <span className="text-slate-400">
+                      <span className="text-slate-400 font-medium">
                         {new Date(article.publishedAt).toISOString().split("T")[0]}
                       </span>
                     </div>

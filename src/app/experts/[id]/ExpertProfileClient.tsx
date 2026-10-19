@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BookOpen, Calendar, ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { getShortCategoryName } from "@/lib/formatCategory";
 
 export default function ExpertProfileClient({
   expert,
@@ -107,9 +108,9 @@ export default function ExpertProfileClient({
                   href={`/articles/${article.slug}`}
                   className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#115e59] bg-[#115e59]/10 px-3 py-1 rounded-full">
-                      {artCategory || t.defaultCategory}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="text-xs font-bold text-[#115e59] bg-[#115e59]/10 px-2.5 py-1 rounded-md whitespace-nowrap truncate max-w-[200px]">
+                      {getShortCategoryName(artCategory) || t.defaultCategory}
                     </span>
                     <div className="flex items-center gap-2 text-slate-400 text-sm">
                       <Calendar className="w-4 h-4" />

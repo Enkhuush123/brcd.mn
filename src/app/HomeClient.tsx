@@ -13,6 +13,7 @@ import {
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { getShortCategoryName } from "@/lib/formatCategory";
 
 export default function HomeClient({
   articles,
@@ -207,9 +208,9 @@ export default function HomeClient({
                             }')`,
                           }}
                         ></div>
-                        <div className="absolute top-4 left-4 z-20">
-                          <span className="bg-[#115e59] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                            {categoryName || "Анализ"}
+                        <div className="absolute top-4 left-4 z-20 max-w-[calc(100%-2rem)]">
+                          <span className="inline-block bg-[#115e59] text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wide shadow-md whitespace-nowrap truncate max-w-full">
+                            {getShortCategoryName(categoryName) || "Анализ"}
                           </span>
                         </div>
                       </div>
@@ -371,9 +372,9 @@ export default function HomeClient({
                               }')`,
                             }}
                           ></div>
-                          <div className="absolute top-4 left-4 z-20">
-                            <span className="bg-[#002b5c] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                              {categoryName || "Судалгаа"}
+                          <div className="absolute top-4 left-4 z-20 max-w-[calc(100%-2rem)]">
+                            <span className="inline-block bg-[#002b5c] text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wide shadow-md whitespace-nowrap truncate max-w-full">
+                              {getShortCategoryName(categoryName) || "Судалгаа"}
                             </span>
                           </div>
                         </div>
@@ -533,8 +534,8 @@ export default function HomeClient({
 
                       <div className="absolute bottom-0 left-0 p-6 md:p-8 z-20 w-full">
                         <div className="flex gap-3 items-center mb-3">
-                          <span className="bg-[#f59e0b] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                            {categoryName || "Мэдээ"}
+                          <span className="inline-block bg-[#f59e0b] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm tracking-wide whitespace-nowrap truncate max-w-[200px]">
+                            {getShortCategoryName(categoryName) || "Мэдээ"}
                           </span>
                           <span className="text-white/80 text-sm font-medium">
                             {new Date(article.publishedAt)
@@ -584,8 +585,8 @@ export default function HomeClient({
                     </div>
                     <div className="flex-1 min-w-0 py-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-bold text-[#f59e0b] uppercase tracking-wider">
-                          {categoryName || "Мэдээ"}
+                        <span className="inline-block text-xs font-bold text-[#f59e0b] tracking-wide whitespace-nowrap truncate max-w-[160px]">
+                          {getShortCategoryName(categoryName) || "Мэдээ"}
                         </span>
                         <span className="text-xs text-slate-400">•</span>
                         <span className="text-xs text-slate-400">
