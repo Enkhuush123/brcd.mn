@@ -19,7 +19,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 
     const body = await req.json();
-    const { titleMn, titleEn, titleZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl } = body;
+    const { titleMn, titleEn, titleZh, categoryId, authorId, isFeatured, isFeaturedNews, pdfUrl, pdfUrlEn, pdfUrlZh, imageUrl, categorySlugs } = body;
 
     if (!titleMn || !categoryId || !authorId || !body.contentMn) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -39,6 +39,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
         contentEn: contentEn || "",
         contentZh: contentZh || "",
         categoryId,
+        categorySlugs: Array.isArray(categorySlugs) ? categorySlugs : [],
         authorId,
         isFeatured: Boolean(isFeatured),
         isFeaturedNews: Boolean(isFeaturedNews),

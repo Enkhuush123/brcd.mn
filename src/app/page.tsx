@@ -13,7 +13,8 @@ export default async function Home() {
     where: {
       OR: [
         { isFeatured: true },
-        { category: { slug: "analysis" } }
+        { category: { slug: "analysis" } },
+        { categorySlugs: { has: "analysis" } }
       ]
     },
     orderBy: [
@@ -37,7 +38,8 @@ export default async function Home() {
     where: {
       OR: [
         { isFeaturedNews: true },
-        { category: { slug: { in: ["news", "events"] } } }
+        { category: { slug: { in: ["news", "events"] } } },
+        { categorySlugs: { hasSome: ["news", "events"] } }
       ]
     },
     orderBy: [
@@ -56,16 +58,10 @@ export default async function Home() {
     });
   }
 
-  // Fetch experts (authors)
-  const experts = await prisma.author.findMany({
-    take: 4,
-    orderBy: { nameMn: "asc" }
-  });
-
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white">
       <Navbar />
-      <HomeClient articles={articles} latestNews={latestNews} experts={experts} />
+      <HomeClient articles={articles} latestNews={latestNews} />
       <Footer />
       <Link 
         href="/contact" 

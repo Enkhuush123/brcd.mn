@@ -9,11 +9,7 @@ export default async function PublicationsPage({ searchParams }: { searchParams:
   const resolvedSearch = await searchParams;
   const authorId = resolvedSearch.author;
 
-  const whereClause: any = {
-    category: {
-      slug: { in: ["policy-brief", "research-report", "analysis"] }
-    }
-  };
+  const whereClause: any = {};
   
   if (authorId) {
     whereClause.authorId = authorId;

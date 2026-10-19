@@ -56,6 +56,7 @@ model Article {
   imageUrl    String?  // Optional Cover image
   isFeatured  Boolean  @default(false)
   isFeaturedNews Boolean @default(false)
+  categorySlugs String[] @default([])
   
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])

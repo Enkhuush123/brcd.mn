@@ -59,8 +59,8 @@ export default function Footer() {
         
         {/* About & Social */}
         <div className="col-span-1 md:col-span-4">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0.5 shrink-0">
+          <Link href="/" className="inline-flex items-center gap-3 mb-8 group cursor-pointer">
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0.5 shrink-0 group-hover:scale-105 transition-transform">
               <img
                 src="/logo.jpg"
                 alt="BCRD Logo"
@@ -68,10 +68,10 @@ export default function Footer() {
                 className="w-full h-full object-contain p-1 rounded-full"
               />
             </div>
-            <h3 className="text-xl font-serif font-bold text-white leading-tight">
+            <h3 className="text-xl font-serif font-bold text-white leading-tight group-hover:text-[#f59e0b] transition-colors">
               {current.logoTitle}
             </h3>
-          </div>
+          </Link>
           <p className="mb-8 max-w-sm leading-relaxed font-light text-white/80">
             {current.desc}
           </p>

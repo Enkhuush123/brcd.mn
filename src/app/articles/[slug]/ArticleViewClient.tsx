@@ -80,8 +80,8 @@ export default function ArticleViewClient({ article }: { article: any }) {
 
         {/* Content with clean formatting */}
         <div
-          className="prose prose-slate prose-base md:prose-lg max-w-none w-full text-slate-700 font-light mb-16
-                     leading-[1.8] prose-p:leading-[1.8] prose-li:leading-[1.8]
+          className="prose prose-slate prose-base max-w-none w-full text-slate-700 font-normal mb-16
+                     leading-[1.8] text-justify prose-p:text-justify prose-p:leading-[1.8] prose-li:leading-[1.8]
                      prose-headings:font-serif prose-headings:text-[#002b5c] prose-headings:font-bold
                      prose-a:text-[#115e59] prose-a:no-underline hover:prose-a:underline
                      prose-img:rounded-2xl prose-img:shadow-sm prose-img:w-full prose-img:h-auto

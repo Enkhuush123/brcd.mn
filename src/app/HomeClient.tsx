@@ -12,7 +12,6 @@ import {
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import ExpertsAndPartners from "@/components/ExpertsAndPartners";
 
 export default function HomeClient({
   articles,
@@ -21,7 +20,7 @@ export default function HomeClient({
 }: {
   articles: any[];
   latestNews: any[];
-  experts: any[];
+  experts?: any[];
 }) {
   const { language } = useLanguage();
 
@@ -157,7 +156,7 @@ export default function HomeClient({
               <div className="w-20 h-1.5 bg-[#115e59] rounded-full"></div>
             </div>
             <Link
-              href="/publications/analysis"
+              href="/publications"
               className="flex items-center gap-2 text-[#115e59] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95 shrink-0"
             >
               {t.viewAllInsights} <ArrowRight className="w-5 h-5" />
@@ -508,9 +507,6 @@ export default function HomeClient({
           </div>
         </AnimatedSection>
       </section>
-
-      {/* СЕКЦ 6: Экспертүүд болон Түншүүд */}
-      <ExpertsAndPartners experts={experts} />
     </>
   );
 }

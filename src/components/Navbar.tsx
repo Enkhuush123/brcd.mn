@@ -130,7 +130,7 @@ export default function Navbar({
         }`}
       >
         <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2 2xl:gap-3 group shrink-0">
+          <Link href="/" className="flex items-center gap-2 2xl:gap-3 group shrink-0 relative z-50 cursor-pointer pointer-events-auto">
             <div className="w-10 h-10 md:w-12 md:h-12 2xl:w-14 2xl:h-14 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-slate-100 group-hover:shadow-md transition-shadow shrink-0">
               <img
                 src="/logo.jpg"

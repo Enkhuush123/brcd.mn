@@ -42,11 +42,11 @@ export default async function PolicyHubCategoryPage({
     ZH: "政策述评",
   };
 
-  // We find articles either matching this exact category slug, or fallback to policy-brief / general
+  // We find articles either matching this exact category slug, or tagged via categorySlugs
   const whereClause: any = {
     OR: [
       { category: { slug: categorySlug } },
-      { category: { slug: "policy-brief" } },
+      { categorySlugs: { has: categorySlug } },
     ],
   };
 

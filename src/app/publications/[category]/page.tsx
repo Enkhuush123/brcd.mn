@@ -13,7 +13,10 @@ export default async function PublicationsCategoryPage({ params, searchParams }:
   const authorId = resolvedSearch.author;
 
   const whereClause: any = {
-    category: { slug: categorySlug }
+    OR: [
+      { category: { slug: categorySlug } },
+      { categorySlugs: { has: categorySlug } },
+    ]
   };
   
   if (authorId) {

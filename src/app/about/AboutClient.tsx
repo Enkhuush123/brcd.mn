@@ -151,12 +151,14 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             </button>
           </div>
 
-          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light mb-6 text-left">
-            {current.intro1}
-          </p>
-          <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-light text-left">
-            {current.intro2}
-          </p>
+          <div className="space-y-4 max-w-3xl mx-auto text-justify">
+            <p className="text-base text-slate-700 leading-[1.8] font-normal">
+              {current.intro1}
+            </p>
+            <p className="text-base text-slate-700 leading-[1.8] font-normal">
+              {current.intro2}
+            </p>
+          </div>
         </AnimatedSection>
       </section>
 
@@ -175,7 +177,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
               <h3 className="text-lg md:text-xl font-bold text-[#002b5c] mb-3">
                 {membership.title}
               </h3>
-              <p className="text-slate-600 leading-relaxed text-justify md:text-left">
+              <p className="text-slate-600 leading-relaxed text-justify text-base">
                 {membership.desc}
               </p>
             </AnimatedSection>
@@ -193,7 +195,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             <h2 className="text-2xl font-serif font-bold text-[#002b5c] mb-4">
               {current.visionTitle}
             </h2>
-            <p className="text-slate-600 leading-relaxed font-medium text-left text-justify">
+            <p className="text-slate-600 leading-relaxed font-normal text-justify text-base">
               {current.visionDesc}
             </p>
           </AnimatedSection>
@@ -205,7 +207,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
             <h2 className="text-2xl font-serif font-bold text-[#002b5c] mb-4">
               {current.missionTitle}
             </h2>
-            <p className="text-slate-600 leading-relaxed font-medium text-left text-justify">
+            <p className="text-slate-600 leading-relaxed font-normal text-justify text-base">
               {current.missionDesc}
             </p>
           </AnimatedSection>
@@ -236,7 +238,7 @@ export default function AboutClient({ experts }: { experts: any[] }) {
                   {val.title}
                 </h3>
               </div>
-              <p className="text-slate-500 text-sm leading-relaxed">
+              <p className="text-slate-500 text-sm leading-relaxed text-justify">
                 {val.desc}
               </p>
             </AnimatedSection>

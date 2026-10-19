@@ -37,6 +37,8 @@ export async function POST(req: Request) {
     const contentZh = cleanText(body.contentZh);
     const contentEn = cleanText(body.contentEn);
 
+    const categorySlugs = Array.isArray(body.categorySlugs) ? body.categorySlugs : [];
+
     const article = await prisma.article.create({
       data: {
         slug,
@@ -47,6 +49,7 @@ export async function POST(req: Request) {
         contentEn: contentEn || "",
         contentZh: contentZh || "",
         categoryId: body.categoryId,
+        categorySlugs,
         authorId: body.authorId,
         isFeatured: Boolean(body.isFeatured),
         isFeaturedNews: Boolean(body.isFeaturedNews),

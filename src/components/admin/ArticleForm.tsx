@@ -31,6 +31,19 @@ export default function ArticleForm({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [translating, setTranslating] = useState(false);
+  const initialCategorySlugs: string[] = (() => {
+    if (Array.isArray(initialData?.categorySlugs) && initialData.categorySlugs.length > 0) {
+      return initialData.categorySlugs;
+    }
+    if (initialData?.categoryId) {
+      const match = categories.find((c) => c.id === initialData.categoryId);
+      if (match?.slug) return [match.slug];
+    }
+    return [];
+  })();
+
+  const [categorySlugs, setCategorySlugs] = useState<string[]>(initialCategorySlugs);
+
   const [formData, setFormData] = useState({
     titleMn: initialData?.titleMn || "",
     titleEn: initialData?.titleEn || "",
@@ -51,6 +64,22 @@ export default function ArticleForm({
     imageUrl: initialData?.imageUrl || "",
   });
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  const toggleCategorySlug = (slug: string) => {
+    setCategorySlugs((prev) => {
+      const exists = prev.includes(slug);
+      const next = exists ? prev.filter((s) => s !== slug) : [...prev, slug];
+
+      // If we added a category and formData.categoryId is not set or not matching
+      if (!exists && (!formData.categoryId || !next.some(s => categories.find(c => c.id === formData.categoryId)?.slug === s))) {
+        const cat = categories.find((c) => c.slug === slug);
+        if (cat) {
+          setFormData((f) => ({ ...f, categoryId: cat.id }));
+        }
+      }
+      return next;
+    });
+  };
 
   // Dialog State
   const [dialogConfig, setDialogConfig] = useState<{
@@ -173,6 +202,26 @@ export default function ArticleForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    let primaryId = formData.categoryId;
+    if (!primaryId && categorySlugs.length > 0) {
+      const match = categories.find((c) => c.slug === categorySlugs[0]);
+      if (match) primaryId = match.id;
+    }
+    if (!primaryId && categories.length > 0) {
+      primaryId = categories[0].id;
+    }
+
+    if (!primaryId) {
+      showAlert("Ангилал сонгоно уу.");
+      return;
+    }
+
+    const finalSlugs = Array.from(new Set([
+      ...categorySlugs,
+      ...(primaryId ? [categories.find(c => c.id === primaryId)?.slug].filter(Boolean) as string[] : [])
+    ]));
+
     setLoading(true);
 
     const url = initialData
@@ -182,6 +231,8 @@ export default function ArticleForm({
 
     const payload = {
       ...formData,
+      categoryId: primaryId,
+      categorySlugs: finalSlugs,
       contentMn: cleanPastedText(formData.contentMn),
       contentZh: cleanPastedText(formData.contentZh),
     };
@@ -240,16 +291,22 @@ export default function ArticleForm({
           </button>
         </div>
 
+        {/* Зохиогч ба Үндсэн ангилал */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Ангилал (Цэсэнд гарах үндсэн категори)
+              Үндсэн ангилал (Primary Category)
             </label>
             <select
               value={formData.categoryId}
-              onChange={(e) =>
-                setFormData({ ...formData, categoryId: e.target.value })
-              }
+              onChange={(e) => {
+                const newCatId = e.target.value;
+                setFormData({ ...formData, categoryId: newCatId });
+                const matched = categories.find(c => c.id === newCatId);
+                if (matched?.slug && !categorySlugs.includes(matched.slug)) {
+                  setCategorySlugs(prev => [...prev, matched.slug]);
+                }
+              }}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#115e59]"
               required
             >
@@ -258,10 +315,13 @@ export default function ArticleForm({
               </option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.nameMn}
+                  {c.nameMn} ({c.nameZh})
                 </option>
               ))}
             </select>
+            <p className="text-xs text-slate-500 mt-1">
+              Нийтлэлийн үндсэн харъяалагдах ангилал
+            </p>
           </div>
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
@@ -284,56 +344,267 @@ export default function ArticleForm({
                 </option>
               ))}
             </select>
+            <p className="text-xs text-slate-500 mt-1">
+              Нийтлэлийг бичсэн шинжээч эсвэл судлаач
+            </p>
           </div>
         </div>
 
-        {/* Нүүр хуудасны харагдацын тохиргоо (Multi-Category Checkboxes) */}
-        <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-          <h4 className="font-bold text-[#002b5c] text-sm uppercase tracking-wider">
-            Нүүр хуудсанд байршуулах тохиргоо (Олон ангилал руу зэрэг харуулах)
-          </h4>
-          <p className="text-xs text-slate-500">
-            Нийтлэл үндсэн ангилалдаа орохоос гадна нүүр хуудасны дараах блокуудад зэрэг харагдах эсэхийг чагтална уу.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <label className="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-[#115e59] cursor-pointer transition-colors">
-              <input
-                type="checkbox"
-                checked={formData.isFeatured}
-                onChange={(e) =>
-                  setFormData({ ...formData, isFeatured: e.target.checked })
-                }
-                className="w-5 h-5 text-[#115e59] rounded mt-0.5"
-              />
-              <div>
-                <span className="font-bold text-sm text-[#002b5c] block">
-                  Онцлох анализ (Блок 1)
-                </span>
-                <span className="text-xs text-slate-500">
-                  Нүүр хуудасны дээд талд "Онцлох анализ" хэсэгт томоор онцолж харуулах
-                </span>
-              </div>
-            </label>
-
-            <label className="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-[#f59e0b] cursor-pointer transition-colors">
-              <input
-                type="checkbox"
-                checked={formData.isFeaturedNews}
-                onChange={(e) =>
-                  setFormData({ ...formData, isFeaturedNews: e.target.checked })
-                }
-                className="w-5 h-5 text-[#f59e0b] rounded mt-0.5"
-              />
-              <div>
-                <span className="font-bold text-sm text-[#002b5c] block">
-                  Төвийн онцлох мэдээ (Блок 4)
-                </span>
-                <span className="text-xs text-slate-500">
-                  Нүүр хуудасны "Төвийн мэдээ" блокт онцлон харуулах
-                </span>
-              </div>
-            </label>
+        {/* Олон ангилал ба Нүүр хуудсанд харуулах тохиргоо (Multi-Taxonomy Selection) */}
+        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-6">
+          <div className="border-b border-slate-200 pb-3">
+            <h3 className="font-bold text-[#002b5c] text-base uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#115e59]"></span>
+              Ангилал ба Байршил сонгох (Олон сонголт хийх боломжтой)
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              Энэхүү нийтлэл сайт дээр аль аль дэд бүлэг, цэс болон нүүр хуудасны блокуудад зэрэг харагдахыг чагтална уу.
+            </p>
           </div>
+
+          {/* 1. Бодлогын тойм (3 дэд хэсэг) */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+            <span className="text-xs font-bold text-[#115e59] uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#115e59]"></span>
+              1. Бодлогын тойм (3 дэд бүлэг)
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { slug: "mongolia-economy-investment", nameMn: "Монголын эдийн засаг, хөрөнгө оруулалт", nameZh: "蒙古经济与投资" },
+                { slug: "china-macro-policy", nameMn: "Хятадын макро эдийн засаг, бодлого", nameZh: "中国宏观经济与政策" },
+                { slug: "bilateral-regional-integration", nameMn: "Хоёр талт болон Бүс нутгийн интеграци", nameZh: "双边与区域经济一体化" },
+              ].map((item) => {
+                const isChecked = categorySlugs.includes(item.slug);
+                return (
+                  <label
+                    key={item.slug}
+                    onClick={() => toggleCategorySlug(item.slug)}
+                    className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      isChecked
+                        ? "bg-[#115e59]/10 border-[#115e59] text-[#115e59]"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => {}}
+                      className="w-4 h-4 text-[#115e59] rounded mt-0.5 pointer-events-none"
+                    />
+                    <div className="text-xs">
+                      <span className="font-bold block leading-snug">{item.nameMn}</span>
+                      <span className="text-slate-400 block text-[11px] mt-0.5">{item.nameZh}</span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 2. Мэдээ, Нийтлэл (3 дэд хэсэг) */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+            <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+              2. Мэдээ, Нийтлэл (3 дэд бүлэг)
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { slug: "analysis", nameMn: "Аналитик нийтлэл", nameZh: "深度分析" },
+                { slug: "news", nameMn: "Онцлох мэдээ, тойм", nameZh: "热点快讯" },
+                { slug: "translation", nameMn: "Орчуулга, эх сурвалж", nameZh: "编译专栏" },
+              ].map((item) => {
+                const isChecked = categorySlugs.includes(item.slug);
+                return (
+                  <label
+                    key={item.slug}
+                    onClick={() => toggleCategorySlug(item.slug)}
+                    className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      isChecked
+                        ? "bg-blue-50 border-blue-600 text-blue-900"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => {}}
+                      className="w-4 h-4 text-blue-600 rounded mt-0.5 pointer-events-none"
+                    />
+                    <div className="text-xs">
+                      <span className="font-bold block leading-snug">{item.nameMn}</span>
+                      <span className="text-slate-400 block text-[11px] mt-0.5">{item.nameZh}</span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 3. Судалгааны чиглэл (3 дэд хэсэг) */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+            <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+              3. Судалгааны чиглэл (3 дэд бүлэг)
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { slug: "eurasian-connectivity", nameMn: "Евразийн холболт ба Бүс ба Зам", nameZh: "欧亚联通与一带一路" },
+                { slug: "regional-geo-economics", nameMn: "Бүс нутгийн гео-эдийн засаг ба Хөрөнгө оруулалт", nameZh: "区域地缘经济与投资合作" },
+                { slug: "green-digital-transition", nameMn: "Ногоон эдийн засаг ба Дижитал шилжилт", nameZh: "绿色转型与数字经济" },
+              ].map((item) => {
+                const isChecked = categorySlugs.includes(item.slug);
+                return (
+                  <label
+                    key={item.slug}
+                    onClick={() => toggleCategorySlug(item.slug)}
+                    className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      isChecked
+                        ? "bg-emerald-50 border-emerald-600 text-emerald-900"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => {}}
+                      className="w-4 h-4 text-emerald-600 rounded mt-0.5 pointer-events-none"
+                    />
+                    <div className="text-xs">
+                      <span className="font-bold block leading-snug">{item.nameMn}</span>
+                      <span className="text-slate-400 block text-[11px] mt-0.5">{item.nameZh}</span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 4. Төвийн мэдээ / Үйл ажиллагаа */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+            <span className="text-xs font-bold text-purple-700 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-purple-600"></span>
+              4. Төвийн үйл ажиллагаа / Арга хэмжээ
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { slug: "events", nameMn: "Төвийн мэдээ / Арга хэмжээ", nameZh: "中心动态 / 活动" },
+              ].map((item) => {
+                const isChecked = categorySlugs.includes(item.slug);
+                return (
+                  <label
+                    key={item.slug}
+                    onClick={() => toggleCategorySlug(item.slug)}
+                    className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      isChecked
+                        ? "bg-purple-50 border-purple-600 text-purple-900"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => {}}
+                      className="w-4 h-4 text-purple-600 rounded mt-0.5 pointer-events-none"
+                    />
+                    <div className="text-xs">
+                      <span className="font-bold block leading-snug">{item.nameMn}</span>
+                      <span className="text-slate-400 block text-[11px] mt-0.5">{item.nameZh}</span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 5. Нүүр хуудасны онцлох байршил */}
+          <div className="bg-amber-50/60 p-4 rounded-xl border border-amber-200 shadow-xs">
+            <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+              5. Нүүр хуудсанд онцгойлон харуулах (Highlights)
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="flex items-start gap-3 p-3.5 bg-white rounded-lg border border-amber-200 hover:border-[#115e59] cursor-pointer transition-colors shadow-xs">
+                <input
+                  type="checkbox"
+                  checked={formData.isFeatured}
+                  onChange={(e) =>
+                    setFormData({ ...formData, isFeatured: e.target.checked })
+                  }
+                  className="w-5 h-5 text-[#115e59] rounded mt-0.5"
+                />
+                <div>
+                  <span className="font-bold text-sm text-[#002b5c] block">
+                    Онцлох анализ (Блок 1)
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    Нүүр хуудасны дээд талд "Онцлох анализ" хэсэгт томоор онцлон харуулах
+                  </span>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-3 p-3.5 bg-white rounded-lg border border-amber-200 hover:border-[#f59e0b] cursor-pointer transition-colors shadow-xs">
+                <input
+                  type="checkbox"
+                  checked={formData.isFeaturedNews}
+                  onChange={(e) =>
+                    setFormData({ ...formData, isFeaturedNews: e.target.checked })
+                  }
+                  className="w-5 h-5 text-[#f59e0b] rounded mt-0.5"
+                />
+                <div>
+                  <span className="font-bold text-sm text-[#002b5c] block">
+                    Төвийн онцлох мэдээ (Блок 4)
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    Нүүр хуудасны "Төвийн мэдээ" блокт онцлон харуулах
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* 6. Бусад нэмэлт ангилал (DB дээрх бусад ангиллууд) */}
+          {categories.filter(c => ![
+            "mongolia-economy-investment", "china-macro-policy", "bilateral-regional-integration",
+            "analysis", "news", "translation",
+            "eurasian-connectivity", "regional-geo-economics", "green-digital-transition",
+            "events"
+          ].includes(c.slug)).length > 0 && (
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-3">
+                6. Бусад нэмэлт ангилал
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {categories.filter(c => ![
+                  "mongolia-economy-investment", "china-macro-policy", "bilateral-regional-integration",
+                  "analysis", "news", "translation",
+                  "eurasian-connectivity", "regional-geo-economics", "green-digital-transition",
+                  "events"
+                ].includes(c.slug)).map((item) => {
+                  const isChecked = categorySlugs.includes(item.slug);
+                  return (
+                    <label
+                      key={item.slug}
+                      onClick={() => toggleCategorySlug(item.slug)}
+                      className={`flex items-start gap-3 p-2.5 rounded-lg border cursor-pointer transition-all ${
+                        isChecked
+                          ? "bg-slate-100 border-[#115e59] text-[#002b5c]"
+                          : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-600"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {}}
+                        className="w-4 h-4 text-[#115e59] rounded mt-0.5 pointer-events-none"
+                      />
+                      <span className="text-xs font-medium">{item.nameMn}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Монгол хэлээр */}
