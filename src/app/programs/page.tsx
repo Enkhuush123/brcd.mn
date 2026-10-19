@@ -2,19 +2,26 @@ import prisma from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CategoryFeedClient from "@/components/CategoryFeedClient";
-import ExpertsAndPartners from "@/components/ExpertsAndPartners";
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProgramsPage() {
+  const researchSlugs = [
+    "programs",
+    "eurasian-connectivity",
+    "regional-geo-economics",
+    "green-digital-transition"
+  ];
+
   const articles = await prisma.article.findMany({
-    where: { category: { slug: "programs" } },
+    where: {
+      OR: [
+        { category: { slug: { in: researchSlugs } } },
+        { categorySlugs: { hasSome: researchSlugs } }
+      ]
+    },
     include: { author: true, category: true },
     orderBy: { publishedAt: "desc" }
-  });
-
-  const experts = await prisma.author.findMany({
-    orderBy: { createdAt: "desc" }
   });
 
   const titleDict = {
@@ -28,7 +35,6 @@ export default async function ProgramsPage() {
         <Navbar alwaysSolid={true} />
       </div>
       <CategoryFeedClient articles={articles} titleDict={titleDict} />
-      <ExpertsAndPartners experts={experts} />
       <Footer />
     </div>
   );

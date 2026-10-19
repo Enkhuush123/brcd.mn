@@ -92,7 +92,7 @@ export default function Footer() {
             <li><Link href="/about" className="hover:text-[#f59e0b] transition-colors">{current.about}</Link></li>
             <li><Link href="/programs" className="hover:text-[#f59e0b] transition-colors">{current.programs}</Link></li>
             <li><Link href="/policy-hub" className="hover:text-[#f59e0b] transition-colors">{current.policyHub}</Link></li>
-            <li><Link href="/publications/analysis" className="hover:text-[#f59e0b] transition-colors">{current.publications}</Link></li>
+            <li><Link href="/publications" className="hover:text-[#f59e0b] transition-colors">{current.publications}</Link></li>
             <li><Link href="/experts" className="hover:text-[#f59e0b] transition-colors">{current.experts}</Link></li>
             <li><Link href="/partners" className="hover:text-[#f59e0b] transition-colors">{current.cooperation}</Link></li>
             <li className="pt-2"><Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-2 opacity-50"><div className="w-1 h-1 bg-white rounded-full"></div> {current.login}</Link></li>

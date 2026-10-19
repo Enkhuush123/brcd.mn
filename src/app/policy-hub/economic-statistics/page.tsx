@@ -7,7 +7,12 @@ export const dynamic = 'force-dynamic';
 
 export default async function EconomicStatisticsPage() {
   const articles = await prisma.article.findMany({
-    where: { category: { slug: "economic-statistics" } },
+    where: {
+      OR: [
+        { category: { slug: "economic-statistics" } },
+        { categorySlugs: { has: "economic-statistics" } }
+      ]
+    },
     include: { author: true, category: true },
     orderBy: { publishedAt: "desc" }
   });

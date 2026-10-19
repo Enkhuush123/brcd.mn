@@ -16,7 +16,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
   
   const dict = {
     MN: {
-      title: "Хэвлэл, нийтлэл",
+      title: "Мэдээ, Нийтлэл",
       policy: "Бодлогын зөвлөмж", report: "Судалгааны тайлан", article: "Анализ ба Нийтлэл",
       translation: "Орчуулга", empty: "Мэдээлэл одоогоор ороогүй байна.",
       researcher: "Судлаач", readPdf: "PDF үзэх", readOnline: "Унших"
@@ -28,7 +28,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
       researcher: "Researcher", readPdf: "View PDF", readOnline: "Read"
     },
     ZH: {
-      title: "出版物",
+      title: "资讯与文章",
       policy: "政策简报", report: "研究报告", article: "分析与文章",
       translation: "翻译", empty: "暂无信息",
       researcher: "研究员", readPdf: "查看PDF", readOnline: "阅读"
@@ -75,7 +75,7 @@ export default function PublicationsClient({ articles }: { articles: any[] }) {
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex gap-2 items-center text-xs font-bold text-[#115e59] uppercase tracking-wider mb-4">
                     <span className="bg-[#115e59]/10 px-2 py-1 rounded text-[#115e59]">
-                      {categoryName || "Нийтлэл"}
+                      {categoryName || current.article}
                     </span>
                     <span className="text-slate-400">
                       {new Date(article.publishedAt).toISOString().split('T')[0]}

@@ -18,12 +18,14 @@ export default function ArticleViewClient({ article }: { article: any }) {
     MN: {
       back: "Нүүр хуудас руу буцах",
       authorDefault: "Судлаач",
+      defaultCategory: "Нийтлэл",
       pdfTitle: "PDF Хавсралт",
       pdfNotice: "Энэхүү баримт бичгийг зөвхөн онлайнаар унших зориулалттай.",
     },
     ZH: {
       back: "返回首页",
       authorDefault: "研究员",
+      defaultCategory: "文章",
       pdfTitle: "PDF 附件",
       pdfNotice: "本文档仅供在线阅读。",
     },
@@ -46,7 +48,7 @@ export default function ArticleViewClient({ article }: { article: any }) {
         <header className="mb-8 md:mb-12">
           <div className="flex gap-3 items-center text-xs font-bold text-[#115e59] uppercase tracking-widest mb-4 md:mb-6">
             <span className="bg-[#115e59]/10 px-3.5 py-1.5 rounded-full">
-              {categoryName || "Нийтлэл"}
+              {categoryName || current.defaultCategory}
             </span>
           </div>
 

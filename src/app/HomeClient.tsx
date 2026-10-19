@@ -8,6 +8,7 @@ import {
   Briefcase,
   Zap,
   Calendar,
+  MessageCircle,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
@@ -15,10 +16,12 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function HomeClient({
   articles,
+  researchArticles = [],
   latestNews,
   experts,
 }: {
   articles: any[];
+  researchArticles?: any[];
   latestNews: any[];
   experts?: any[];
 }) {
@@ -37,6 +40,8 @@ export default function HomeClient({
       viewAllInsights: "Бүх нийтлэлийг үзэх",
 
       progTitle: "Судалгааны чиглэл",
+      viewAllResearch: "Бүх судалгааг үзэх",
+      latestResearchTitle: "Судалгааны чиглэлийн шинэ бүтээл, анализууд",
       progDesc:
         "Бид бүс нутгийн болон олон улсын макро түвшний гүнзгийрүүлсэн суурь болон хавсарга судалгаануудыг дараах үндсэн чиглэлээр хийж гүйцэтгэдэг.",
       prog1Title: "Евразийн холболт ба Бүс ба Зам",
@@ -68,6 +73,7 @@ export default function HomeClient({
       noArticles: "Одоогоор нийтлэл ороогүй байна.",
       noNews: "Одоогоор мэдээ ороогүй байна.",
       researcher: "Судлаач",
+      contactBtn: "Холбоо барих",
     },
     ZH: {
       heroTitle1: "欧亚互联、地缘经济与",
@@ -81,6 +87,8 @@ export default function HomeClient({
       viewAllInsights: "查看所有文章",
 
       progTitle: "研究方向",
+      viewAllResearch: "查看所有研究",
+      latestResearchTitle: "重点研究方向最新成果与分析",
       progDesc:
         "我们围绕以下重点方向开展区域与国际宏观层面的深度研究。",
       prog1Title: "欧亚互联互通与“一带一路”",
@@ -108,6 +116,7 @@ export default function HomeClient({
       noArticles: "暂无文章。",
       noNews: "暂无资讯。",
       researcher: "研究员",
+      contactBtn: "联系我们",
     },
   };
 
@@ -250,38 +259,48 @@ export default function HomeClient({
       {/* СЕКЦ 3: БЛОК 2 — "Судалгааны чиглэл" (Research Priorities) */}
       <section className="py-20 md:py-28 px-6 md:px-16 bg-slate-50 relative">
         <AnimatedSection className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-4">
-              {t.progTitle}
-            </h2>
-            <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#f59e0b] mx-auto rounded-full"></div>
-            <p className="mt-6 text-slate-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-              {t.progDesc}
-            </p>
+          {/* Header with button in top-right corner */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 md:mb-16 gap-6">
+            <div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[#002b5c] mb-3">
+                {t.progTitle}
+              </h2>
+              <div className="w-20 h-1.5 bg-gradient-to-r from-[#115e59] to-[#f59e0b] rounded-full"></div>
+              <p className="mt-4 text-slate-500 max-w-2xl text-base md:text-lg leading-relaxed">
+                {t.progDesc}
+              </p>
+            </div>
+            <Link
+              href="/programs"
+              className="flex items-center gap-2 text-[#115e59] font-bold hover:text-[#002b5c] transition-colors bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 hover:shadow-md active:scale-95 shrink-0"
+            >
+              {t.viewAllResearch} <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+          {/* 3 Research Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 mb-14">
             {[
               {
                 icon: Globe,
                 title: t.prog1Title,
                 desc: t.prog1Desc,
                 color: "bg-[#002b5c]",
-                href: "/programs#eurasian-connectivity",
+                href: "/programs/eurasian-connectivity",
               },
               {
                 icon: Briefcase,
                 title: t.prog2Title,
                 desc: t.prog2Desc,
                 color: "bg-[#115e59]",
-                href: "/programs#geo-economics",
+                href: "/programs/regional-geo-economics",
               },
               {
                 icon: Zap,
                 title: t.prog3Title,
                 desc: t.prog3Desc,
                 color: "bg-[#f59e0b]",
-                href: "/programs#green-development",
+                href: "/programs/green-digital-transition",
               },
             ].map((prog, i) => (
               <Link href={prog.href} key={i}>
@@ -308,6 +327,92 @@ export default function HomeClient({
               </Link>
             ))}
           </div>
+
+          {/* Research Articles Grid */}
+          {researchArticles && researchArticles.length > 0 && (
+            <div className="pt-10 border-t border-slate-200">
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-xl md:text-2xl font-serif font-bold text-[#002b5c] flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#115e59]"></span>
+                  {t.latestResearchTitle}
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {researchArticles.slice(0, 3).map((article, i) => {
+                  const title =
+                    language === "ZH" && article.titleZh
+                      ? article.titleZh
+                      : article.titleMn;
+                  const authorName =
+                    language === "ZH" && article.author?.nameZh
+                      ? article.author.nameZh
+                      : article.author?.nameMn;
+                  const categoryName =
+                    language === "ZH" && article.category?.nameZh
+                      ? article.category.nameZh
+                      : article.category?.nameMn;
+
+                  return (
+                    <Link
+                      key={article.id}
+                      href={`/articles/${article.slug}`}
+                      className="group block bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100 h-full flex flex-col"
+                    >
+                      <AnimatedSection delay={i * 0.1} className="flex flex-col h-full">
+                        <div className="h-52 w-full bg-slate-200 overflow-hidden relative shrink-0">
+                          <div className="absolute inset-0 bg-[#002b5c]/15 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                          <div
+                            className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                            style={{
+                              backgroundImage: `url('${
+                                article.imageUrl ||
+                                "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070"
+                              }')`,
+                            }}
+                          ></div>
+                          <div className="absolute top-4 left-4 z-20">
+                            <span className="bg-[#002b5c] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+                              {categoryName || "Судалгаа"}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="p-6 md:p-8 flex-1 flex flex-col">
+                          <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-3">
+                            <Calendar className="w-3.5 h-3.5 text-[#115e59]" />
+                            <span>
+                              {new Date(article.publishedAt)
+                                .toISOString()
+                                .split("T")[0]}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-serif font-bold text-[#002b5c] mb-4 group-hover:text-[#115e59] transition-colors leading-snug line-clamp-3">
+                            {title}
+                          </h3>
+
+                          <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-[#002b5c]">
+                                {(authorName || "С").charAt(0)}
+                              </div>
+                              <p className="text-sm text-slate-600 font-medium">
+                                {authorName || t.researcher}
+                              </p>
+                            </div>
+                            <span className="text-xs font-bold text-[#115e59] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                              {t.readMore} <ArrowRight className="w-3.5 h-3.5" />
+                            </span>
+                          </div>
+                        </div>
+                      </AnimatedSection>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </AnimatedSection>
       </section>
 
@@ -507,6 +612,14 @@ export default function HomeClient({
           </div>
         </AnimatedSection>
       </section>
+
+      <Link
+        href="/contact"
+        className="fixed bottom-8 right-8 z-50 bg-[#115e59] text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-semibold flex items-center gap-2"
+      >
+        <MessageCircle className="w-5 h-5" />
+        {t.contactBtn}
+      </Link>
     </>
   );
 }

@@ -2,9 +2,6 @@ import prisma from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HomeClient from "./HomeClient";
-import Link from "next/link";
-import { MessageCircle } from "lucide-react";
-
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
@@ -32,6 +29,25 @@ export default async function Home() {
       include: { author: true, category: true },
     });
   }
+
+  // Fetch research articles for Block 2 (Судалгааны чиглэл)
+  const researchSlugs = [
+    "programs",
+    "eurasian-connectivity",
+    "regional-geo-economics",
+    "green-digital-transition",
+  ];
+  let researchArticles = await prisma.article.findMany({
+    where: {
+      OR: [
+        { category: { slug: { in: researchSlugs } } },
+        { categorySlugs: { hasSome: researchSlugs } },
+      ],
+    },
+    orderBy: { publishedAt: "desc" },
+    take: 6,
+    include: { author: true, category: true },
+  });
 
   // Fetch news & updates for Block 4 (Төвийн мэдээ)
   let latestNews = await prisma.article.findMany({
@@ -61,15 +77,12 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 selection:bg-[#115e59] selection:text-white">
       <Navbar />
-      <HomeClient articles={articles} latestNews={latestNews} />
+      <HomeClient
+        articles={articles}
+        researchArticles={researchArticles}
+        latestNews={latestNews}
+      />
       <Footer />
-      <Link 
-        href="/contact" 
-        className="fixed bottom-8 right-8 z-50 bg-[#115e59] text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-semibold flex items-center gap-2"
-      >
-        <MessageCircle className="w-5 h-5" />
-        Холбоо барих
-      </Link>
     </div>
   );
 }

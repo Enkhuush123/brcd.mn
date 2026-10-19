@@ -86,9 +86,9 @@ export default function Navbar({
       href: "#",
       activePrefix: "/programs",
       subLinks: [
-        { name: current.prog1, href: "/programs#eurasian-connectivity" },
-        { name: current.prog2, href: "/programs#geo-economics" },
-        { name: current.prog3, href: "/programs#green-development" },
+        { name: current.prog1, href: "/programs/eurasian-connectivity" },
+        { name: current.prog2, href: "/programs/regional-geo-economics" },
+        { name: current.prog3, href: "/programs/green-digital-transition" },
       ],
     },
     {

@@ -290,7 +290,9 @@ export default function AboutClient({ experts }: { experts: any[] }) {
                 </AnimatedSection>
               );
             }) : (
-               <div className="col-span-4 text-center text-slate-500 py-10">Судлаачдын мэдээлэл ороогүй байна.</div>
+              <div className="col-span-4 text-center text-slate-500 py-10">
+                {lang === "ZH" ? "暂无专家信息。" : "Судлаачдын мэдээлэл ороогүй байна."}
+              </div>
             )}
           </div>
         </AnimatedSection>

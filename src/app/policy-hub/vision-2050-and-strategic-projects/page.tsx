@@ -7,7 +7,12 @@ export const dynamic = 'force-dynamic';
 
 export default async function Vision2050Page() {
   const articles = await prisma.article.findMany({
-    where: { category: { slug: "vision-2050" } },
+    where: {
+      OR: [
+        { category: { slug: "vision-2050" } },
+        { categorySlugs: { has: "vision-2050" } }
+      ]
+    },
     include: { author: true, category: true },
     orderBy: { publishedAt: "desc" }
   });

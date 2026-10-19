@@ -7,7 +7,12 @@ export const dynamic = 'force-dynamic';
 
 export default async function InvestmentEnvironmentPage() {
   const articles = await prisma.article.findMany({
-    where: { category: { slug: "investment-environment" } },
+    where: {
+      OR: [
+        { category: { slug: "investment-environment" } },
+        { categorySlugs: { has: "investment-environment" } }
+      ]
+    },
     include: { author: true, category: true },
     orderBy: { publishedAt: "desc" }
   });

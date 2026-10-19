@@ -11,7 +11,10 @@ export default async function NewsCategoryPage({ params }: { params: Promise<{ c
 
   const articles = await prisma.article.findMany({
     where: {
-      category: { slug: categorySlug }
+      OR: [
+        { category: { slug: categorySlug } },
+        { categorySlugs: { has: categorySlug } }
+      ]
     },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }

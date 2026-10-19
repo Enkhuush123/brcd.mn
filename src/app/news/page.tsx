@@ -8,9 +8,10 @@ export const dynamic = "force-dynamic";
 export default async function NewsPage() {
   const articles = await prisma.article.findMany({
     where: {
-      category: {
-        slug: { in: ["news", "events"] }
-      }
+      OR: [
+        { category: { slug: { in: ["news", "events"] } } },
+        { categorySlugs: { hasSome: ["news", "events"] } }
+      ]
     },
     orderBy: { publishedAt: "desc" },
     include: { author: true, category: true }

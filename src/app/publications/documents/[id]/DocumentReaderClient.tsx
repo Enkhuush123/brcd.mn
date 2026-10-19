@@ -30,7 +30,11 @@ export default function DocumentReaderClient({ document }: { document: any }) {
       <AnimatedSection className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100">
         <div className="flex gap-2 items-center text-sm font-bold text-[#f59e0b] uppercase tracking-wider mb-6">
           <BookOpen className="w-4 h-4" />
-          <span>{document.type === "POLICY" ? "Бодлогын зөвлөмж" : document.type === "REPORT" ? "Судалгааны тайлан" : document.type}</span>
+          <span>
+            {language === "ZH"
+              ? (document.type === "POLICY" ? "政策简报" : document.type === "REPORT" ? "研究报告" : document.type)
+              : (document.type === "POLICY" ? "Бодлогын зөвлөмж" : document.type === "REPORT" ? "Судалгааны тайлан" : document.type)}
+          </span>
         </div>
         
         <h1 className="text-2xl md:text-4xl font-serif font-bold text-[#002b5c] mb-8 leading-tight">

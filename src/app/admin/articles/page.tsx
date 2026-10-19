@@ -48,9 +48,27 @@ export default async function AdminArticlesPage() {
                   <tr key={article.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="font-medium text-slate-800">{article.titleMn}</div>
-                      {article.isFeatured && <span className="inline-block mt-1 text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Онцлох</span>}
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {article.isFeatured && (
+                          <span className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+                            Онцлох анализ
+                          </span>
+                        )}
+                        {article.isFeaturedNews && (
+                          <span className="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                            Төвийн онцлох
+                          </span>
+                        )}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{article.category.nameMn}</td>
+                    <td className="px-6 py-4 text-sm text-slate-600">
+                      <div className="font-medium text-slate-800">{article.category.nameMn}</div>
+                      {article.categorySlugs && article.categorySlugs.length > 1 && (
+                        <span className="text-[11px] text-slate-400 block mt-0.5">
+                          +{article.categorySlugs.length - 1} дэд бүлэг
+                        </span>
+                      )}
+                    </td>
                     <td className="px-6 py-4 text-sm text-slate-600">{article.author.nameMn}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{new Date(article.createdAt).toLocaleDateString("mn-MN")}</td>
                     <td className="px-6 py-4 text-right">

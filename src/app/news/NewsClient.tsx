@@ -41,11 +41,11 @@ export default function NewsClient({ articles }: { articles: any[] }) {
   };
   const current = dict[language];
 
-  // A basic heuristic: if category slug is "events" -> EVENTS, else -> NEWS
-  const events = articles.filter(a => a.category?.slug === "events");
-  const news = articles.filter(a => a.category?.slug === "news");
+  // Check both primary category and categorySlugs array
+  const events = articles.filter(a => a.category?.slug === "events" || (Array.isArray(a.categorySlugs) && a.categorySlugs.includes("events")));
+  const news = articles.filter(a => a.category?.slug === "news" || (Array.isArray(a.categorySlugs) && a.categorySlugs.includes("news")));
 
-  const displayedArticles = activeTab === "NEWS" ? news : events;
+  const displayedArticles = activeTab === "NEWS" ? (news.length > 0 ? news : articles) : events;
 
   return (
     <div>
@@ -91,8 +91,12 @@ export default function NewsClient({ articles }: { articles: any[] }) {
             >
               <AnimatedSection delay={i * 0.1} className="flex flex-col h-full">
                 <div className="h-48 bg-slate-200 overflow-hidden relative">
+                  {article.imageUrl ? (
+                    <img src={article.imageUrl} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-tr from-slate-200 to-slate-100 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+                  )}
                   <div className="absolute inset-0 bg-[#002b5c]/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-slate-200 to-slate-100 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex gap-2 items-center text-xs font-bold text-[#115e59] uppercase tracking-wider mb-4">
